@@ -1,437 +1,556 @@
 // data/practiceProblems.ts
 
-export type PracticeProblem = {
-  id: string;      // e.g. "DP-1"
-  module: string;  // must match a lessons key, e.g. "direct-proofs"
-  title: string;
-  statement: string;
-  solution?: string; // optional model solution
-};
-
-
-export const practiceProblems: PracticeProblem[] = [
-  // ─────────────────────────────
-  // MODULE: WHAT IS A PROOF?
-  // slug: "what-is-a-proof"
-  // ─────────────────────────────
+export const practiceProblems = [
+  // ------------------------------------
+  // MODULE 1 — What is a Proof?
+  // ------------------------------------
   {
-    id: "WP-1",
-    module: "what-is-a-proof",
-    title: "Examples vs. Proof",
-    statement:
-      "You suspect that the sum of two even integers is always even.\n\n" +
-      "a) Explain the difference between giving a few numerical examples and giving a full proof.\n" +
-      "b) Write a clear paragraph in your own words describing what a mathematical proof is trying to guarantee.",
-  },
-  {
-    id: "WP-2",
-    module: "what-is-a-proof",
-    title: "Why 'Checked a Bunch of Cases' Isn’t a Proof",
-    statement:
-      "A student claims: \"I checked n = 1, 2, 3, 4, 5 and in each case n^2 + n is even, so it must always be even.\" \n\n" +
-      "a) Explain why this is not a valid proof that n^2 + n is always even.\n" +
-      "b) Give a short outline of how a legitimate proof of this statement could be structured.",
-  },
-  {
-    id: "WP-3",
-    module: "what-is-a-proof",
-    title: "Turning Intuition into a Proof Outline",
-    statement:
-      "You believe the statement: \"If n is odd, then n^2 is odd.\" is true because odd numbers look like 1, 3, 5, 7, and their squares look odd.\n\n" +
-      "Write a proof **outline** (not a full polished proof) that explains how you might prove this formally, using the algebraic definition of an odd integer.",
-  },
-  {
-    id: "WP-4",
-    module: "what-is-a-proof",
-    title: "Identifying Hidden Assumptions",
-    statement:
-      "A friend says: \"The function f(x) = 1/x is continuous everywhere because small changes in x cause small changes in 1/x.\" \n\n" +
-      "a) Explain why this argument is not a complete proof.\n" +
-      "b) Identify at least one hidden assumption or missing detail that would need to be addressed in a rigorous proof.",
-  },
+    id: "what-is-a-proof",
+    title: "Module 1 — What is a Proof?",
+    description:
+      "Foundations of what proofs are actually doing, beyond checking examples.",
+    problems: [
+      {
+        id: "wip-1",
+        title: "Examples vs. Proof",
+        difficulty: "warmup",
+        topic: "Proof intuition",
+        prompt: `
+Explain, using your own words, why checking 100 or even 1,000,000 examples
+does not count as a proof of a statement like:
 
-  // ─────────────────────────────
-  // MODULE: LOGIC & QUANTIFIERS
-  // slug: "logic"
-  // ─────────────────────────────
-  {
-  id: "LOG-1",
-  module: "logic",
-  title: "Implication as ¬P ∨ Q",
-  statement:
-    "Prove using truth tables or logical equivalences that (P → Q) is logically equivalent to (¬P ∨ Q).",
-  solution: `
-One way is with a truth table.
+"For all integers n, n^2 + n is even."
 
-List all possibilities for the truth values of P and Q and compare the columns for (P → Q) and (¬P ∨ Q):
+Then, describe what extra ingredient a *proof* must have that a big pile
+of examples does not.
+        `,
+        hint: `
+Focus on the difference between "for all integers n" (infinitely many cases)
+and "for these particular n that I tried". What does a proof let you conclude
+about *every* integer, even ones you never see?
+        `,
+        outline: `
+1. Restate the statement in clear language.
+2. Explain what it means to "check examples" and why that only touches finitely many cases.
+3. Contrast that with what a proof does: it gives a *general argument* that works for an arbitrary integer n.
+4. Conclude with a sentence about why examples are suggestive but not enough.
+        `,
+        solution: `
+A correct solution will say that examples can suggest a pattern and show that
+a statement is at least sometimes true, but they can never rule out the existence
+of a counterexample. A proof explains why *no* counterexample can exist, by
+reasoning about an arbitrary integer n rather than specific values.
+        `,
+        modelProof: `
+Sample writeup:
 
-P   Q   P → Q   ¬P   ¬P ∨ Q
-T   T     T     F       T
-T   F     F     F       F
-F   T     T     T       T
-F   F     T     T       T
+Checking examples like n = 1, 2, 3, ..., 100 only shows that the statement holds
+for those particular integers. There are infinitely many integers, so there could
+still be some n beyond the ones we tested where n^2 + n is odd instead of even.
 
-The column for (P → Q) and the column for (¬P ∨ Q) match in every row. Therefore, the two statements are logically equivalent.
+A proof is different. To prove "for all integers n, n^2 + n is even", we would
+start with an arbitrary integer n and show algebraically that n^2 + n is always
+divisible by 2. For example:
 
-Alternatively: by definition, P → Q is false only when P is true and Q is false. The disjunction ¬P ∨ Q is false exactly in that same case: ¬P is false and Q is false, so ¬P ∨ Q is false; in all other cases at least one of ¬P or Q is true. Thus P → Q and ¬P ∨ Q have identical truth conditions and are equivalent.
-`,
-},
+  n^2 + n = n(n + 1).
 
- {
-  id: "LOG-2",
-  module: "logic",
-  title: "Negating a Quantified Statement",
-  statement:
-    "Write the formal negation of the statement \"For all real numbers x, x^2 ≥ 0\" and then explain the negation in plain English.",
-  solution: `
-The original statement is:
+One of n or n + 1 is even, so their product is even. Therefore n^2 + n is even
+for every integer n. This argument does not depend on any particular value of n,
+so it rules out *all* possible counterexamples at once.
 
-∀x ∈ ℝ, x² ≥ 0.
+Thus, examples give us evidence, but a proof gives us a general argument that
+works in every case.
+        `,
+      },
+      {
+        id: "wip-2",
+        title: "Proof vs. Explanation",
+        difficulty: "core",
+        topic: "Mathematical communication",
+        prompt: `
+Take a simple statement you already know how to prove, such as:
 
-The general rule is:
-¬(∀x, P(x)) is equivalent to ∃x such that ¬P(x).
+"If n is even, then n^2 is even."
 
-So the negation is:
+Write two versions of an explanation:
 
-∃x ∈ ℝ such that x² < 0.
+(1) A very informal, intuitive explanation you would give to a friend
+    who is not taking a proof course.
 
-In plain English:
-"There exists a real number x whose square is negative."
+(2) A fully formal proof that could appear in a textbook.
 
-So to negate "every real number has nonnegative square", we say "there is at least one real number whose square is negative."
-`,
-},
-  {
-    id: "LOG-3",
-    module: "logic",
-    title: "Contrapositive Equivalence",
-    statement:
-      "Prove that the statement (P → Q) is logically equivalent to its contrapositive (¬Q → ¬P), using either truth tables or step-by-step logical equivalences.",
-  },
-  {
-    id: "LOG-4",
-    module: "logic",
-    title: "De Morgan’s Laws",
-    statement:
-      "Prove one of De Morgan’s laws:\n" +
-      "a) ¬(P ∧ Q) is logically equivalent to (¬P ∨ ¬Q), or\n" +
-      "b) ¬(P ∨ Q) is logically equivalent to (¬P ∧ ¬Q).\n\n" +
-      "Use either truth tables or symbolic manipulation.",
-  },
-  {
-    id: "LOG-5",
-    module: "logic",
-    title: "Order of Quantifiers",
-    statement:
-      "Consider the two statements:\n" +
-      "(1) For every real number x, there exists a real number y such that x + y = 0.\n" +
-      "(2) There exists a real number y such that for every real number x, x + y = 0.\n\n" +
-      "a) Decide whether each statement is true or false.\n" +
-      "b) Explain in detail why the order of quantifiers makes these two statements different.",
-  },
+Then reflect on the differences between (1) and (2) in 2–3 sentences.
+        `,
+        hint: `
+For the informal version, you might talk about "multiplying by itself" in words.
+For the formal proof, you should explicitly use the definition of even:
+n = 2k for some integer k.
+        `,
+        outline: `
+1. Choose your statement (e.g. "if n is even then n^2 is even").
+2. Write an informal explanation using everyday language and intuition.
+3. Write a formal proof starting from the exact definition and reasoning step by step.
+4. Compare: which details did you have to add or tighten in the formal version?
+        `,
+        solution: `
+A correct solution will produce both an informal explanation and a formal proof,
+then explicitly compare them. The key idea is that the formal proof uses precise
+definitions and logical steps, while the informal version relies more on intuition.
+        `,
+        modelProof: `
+Example of a formal proof:
 
-  // ─────────────────────────────
-  // MODULE: DIRECT PROOFS
-  // slug: "direct-proofs"
-  // ─────────────────────────────
-  {
-  id: "DP-1",
-  module: "direct-proofs",
-  title: "Even Squares Plus 6",
-  statement:
-    "Prove: If n is an even integer, then n^2 + 6 is even.",
-  solution: `
-Let n be an even integer. By definition of even, there exists an integer k such that n = 2k.
+Claim: If n is even, then n^2 is even.
 
-Then:
-n² + 6 = (2k)² + 6
-         = 4k² + 6
-         = 2(2k² + 3).
+Proof. Suppose n is an even integer. By definition, there exists an integer k
+such that n = 2k. Then
 
-Since k is an integer, 2k² + 3 is an integer, so n² + 6 is 2 times an integer. Therefore n² + 6 is even.
-`,
-},
+  n^2 = (2k)^2 = 4k^2 = 2(2k^2),
 
-{
-  id: "DP-2",
-  module: "direct-proofs",
-  title: "Sum of Odd Squares",
-  statement:
-    "Prove: If a and b are odd integers, then a^2 + b^2 is even.",
-  solution: `
-Let a and b be odd integers. Then there exist integers m and n such that:
+which is 2 times an integer. Therefore n^2 is even. ∎
+        `,
+      },
+      {
+        id: "wip-3",
+        title: "Universal vs. Existential Claim",
+        difficulty: "core",
+        topic: "Types of statements",
+        prompt: `
+Identify whether each statement is universal or existential, and then write
+in one sentence what a proof of the statement would need to accomplish.
 
-a = 2m + 1 and b = 2n + 1.
+(a) For every real number x, x^2 ≥ 0.
+(b) There exists an integer n such that n^2 = 25.
+(c) For all integers n, if n is odd then n^2 is odd.
+(d) There exists a rational number r such that r^2 = 2.
+        `,
+        hint: `
+Universal = "for all ..."; existential = "there exists ...".
+For universal statements, proofs must handle an arbitrary element.
+For existential statements, proofs must exhibit or logically guarantee at least one example.
+        `,
+        outline: `
+1. Classify each statement as universal or existential.
+2. For each universal statement, describe what you would assume and what you must show.
+3. For each existential statement, describe what kind of evidence counts as a proof
+   (explicit example vs. a nonconstructive argument).
+        `,
+        solution: `
+(a) Universal. A proof must take an arbitrary real x and show x^2 ≥ 0.
+(b) Existential. A proof can show that n = 5 (or n = -5) works.
+(c) Universal. A proof must assume n is an arbitrary odd integer and show n^2 is odd.
+(d) Existential. A proof would need to show there is some rational r with r^2 = 2
+    (in fact, this particular statement is false, which is a separate interesting fact).
+        `,
+        modelProof: `
+You don't need full formal proofs here; the key is correct classification and
+a clear description for each statement of what a proof would *have to do*.
+        `,
+      },
+      {
+        id: "wip-4",
+        title: "Spot the Fake Proof",
+        difficulty: "challenge",
+        topic: "Logical flaws",
+        prompt: `
+Consider the (fake) "proof" below that claims to show: "All integers are equal."
 
-Compute a² and b²:
+1. Let a and b be any integers with a ≠ b.
+2. Consider the function f(x) = (x - a)(x - b).
+3. Then f(a) = 0 and f(b) = 0.
+4. Suppose we have a magical rule: if f(a) = f(b), then a = b.
+5. Since f(a) = f(b) = 0, we conclude a = b.
+6. Therefore all integers are equal.
 
-a² = (2m + 1)² = 4m² + 4m + 1,
-b² = (2n + 1)² = 4n² + 4n + 1.
+Explain precisely what is wrong with this "proof".
+        `,
+        hint: `
+Focus on step 4. Is that rule actually valid? If not, explain why it's an incorrect logical principle.
+        `,
+        outline: `
+1. Identify the claimed general rule in step 4.
+2. Show (with a counterexample) that this rule is not valid in general.
+3. Conclude that the argument relies on an incorrect logical implication.
+        `,
+        solution: `
+The flaw is assuming that "if f(a) = f(b) then a = b" holds for arbitrary functions.
+This is not true in general: many different inputs can map to the same output.
+For example, the constant function g(x) = 0 satisfies g(a) = g(b) for *any* a, b,
+but that does not mean a = b. The argument sneaks in a false logical rule at step 4.
+        `,
+        modelProof: `
+Step 4 asserts a bogus implication: from f(a) = f(b) we can conclude a = b.
+This is false for most functions. In particular, consider f(x) = 0 for all x.
+Then f(a) = f(b) = 0 for any a, b, but that certainly doesn't force a = b.
 
-Add them:
-
-a² + b² = (4m² + 4m + 1) + (4n² + 4n + 1)
-        = 4m² + 4m + 4n² + 4n + 2
-        = 2(2m² + 2m + 2n² + 2n + 1).
-
-Since m and n are integers, 2m² + 2m + 2n² + 2n + 1 is an integer, so a² + b² is 2 times an integer. Therefore a² + b² is even.
-`,
-},
-
-  {
-    id: "DP-3",
-    module: "direct-proofs",
-    title: "Divisible by 12",
-    statement:
-      "Prove: If n is divisible by 12, then n is divisible by both 3 and 4.",
-  },
-  {
-    id: "DP-4",
-    module: "direct-proofs",
-    title: "Sum of Multiples of 5",
-    statement:
-      "Prove: If m and n are integers that are both divisible by 5, then m + n is divisible by 5.",
-  },
-  {
-    id: "DP-5",
-    module: "direct-proofs",
-    title: "Product of Even Integers",
-    statement:
-      "Prove: If m and n are even integers, then the product mn is divisible by 4.",
+Thus the "proof" depends on an invalid logical principle. Once we reject that
+principle, the argument collapses and does not show that all integers are equal.
+        `,
+      },
+    ],
   },
 
-  // ─────────────────────────────
-  // MODULE: COUNTEREXAMPLES
-  // slug: "counterexamples"
-  // ─────────────────────────────
+  // ------------------------------------
+  // MODULE 2 — Logic & Quantifiers
+  // ------------------------------------
   {
-  id: "CE-1",
-  module: "counterexamples",
-  title: "Counterexample to 'All Primes Are Odd'",
-  statement:
-    "Give a clear counterexample to the statement \"All prime numbers are odd\" and explain why it works.",
-  solution: `
-The proposed statement is: "All prime numbers are odd."
+    id: "logic",
+    title: "Module 2 — Logic & Quantifiers",
+    description:
+      "Propositions, implications, truth tables, quantifiers, and their negations.",
+    problems: [
+      {
+        id: "log-1",
+        title: "Implication as Or",
+        difficulty: "core",
+        topic: "Implications",
+        prompt: `
+Prove using a truth-table *or* case analysis that the implication
 
-Consider the number 2. It is a prime number because its only positive divisors are 1 and 2. However, 2 is not odd; it is even.
+  P → Q
 
-Thus 2 is a counterexample: it is prime but not odd. This shows the universal statement "all prime numbers are odd" is false.
-`,
-},
+is logically equivalent to
 
-  {
-    id: "CE-2",
-    module: "counterexamples",
-    title: "False Prime Pattern",
-    statement:
-      "Consider the conjecture: \"Every number of the form n^2 + n + 17 is prime.\" \n" +
-      "Find a specific integer n that makes this false and explain why your choice is a counterexample.",
+  ¬P ∨ Q.
+
+Explain in words what this equivalence means.
+        `,
+        hint: `
+Make a truth table with columns for P, Q, P → Q, and ¬P ∨ Q.
+Compare the last two columns row by row. Or, do a case split on P being true or false.
+        `,
+        outline: `
+1. List all possibilities for (P, Q): (T, T), (T, F), (F, T), (F, F).
+2. Compute the truth values of P → Q and ¬P ∨ Q in each case.
+3. Verify they match in all four rows.
+4. Interpret the result: the only case where an implication fails is when P is true and Q is false.
+        `,
+        solution: `
+In all four combinations of truth values for P and Q, the columns for P → Q and ¬P ∨ Q agree.
+Thus they are logically equivalent. In words, "If P then Q" is true whenever P is false
+(or Q is true); it only fails when P is true and Q is false.
+        `,
+        modelProof: `
+Constructing the truth table:
+
+P | Q | P → Q | ¬P | ¬P ∨ Q
+T | T |   T   |  F |   T
+T | F |   F   |  F |   F
+F | T |   T   |  T |   T
+F | F |   T   |  T |   T
+
+The columns for P → Q and ¬P ∨ Q are identical (T, F, T, T), so the formulas
+are logically equivalent.
+
+This shows that saying "if P then Q" is the same as saying "either P is false
+or Q is true."
+        `,
+      },
+      {
+        id: "log-2",
+        title: "Negating a Universal Statement",
+        difficulty: "warmup",
+        topic: "Negation & quantifiers",
+        prompt: `
+Negate the statement:
+
+  "For all real numbers x, x^2 ≥ 1."
+
+Write the negation in formal symbols with quantifiers, then translate it into
+clear English.
+        `,
+        hint: `
+Use the rule: ¬(∀x P(x)) is equivalent to ∃x such that ¬P(x).
+        `,
+        outline: `
+1. Let P(x) be the statement "x^2 ≥ 1".
+2. The original statement is ∀x ∈ ℝ, P(x).
+3. Negate using the quantifier rule: ∃x ∈ ℝ such that ¬P(x).
+4. Simplify ¬(x^2 ≥ 1) into x^2 < 1 and translate into English.
+        `,
+        solution: `
+The negation of "For all real numbers x, x^2 ≥ 1" is:
+
+"There exists a real number x such that x^2 < 1."
+
+This says: "At least one real number has square less than 1."
+        `,
+        modelProof: `
+Let P(x) be the statement "x^2 ≥ 1". The original sentence is ∀x ∈ ℝ, P(x).
+The negation is
+
+  ∃x ∈ ℝ such that ¬P(x),
+
+which means ∃x ∈ ℝ with x^2 < 1. So in English: "There exists a real number
+whose square is less than 1."
+        `,
+      },
+      {
+        id: "log-3",
+        title: "Order of Quantifiers",
+        difficulty: "core",
+        topic: "Quantifier order",
+        prompt: `
+Consider the two statements:
+
+(A) For every real number x, there exists a real number y such that y > x.
+(B) There exists a real number y such that for every real number x, y > x.
+
+1. Decide whether (A) is true or false and justify your answer.
+2. Decide whether (B) is true or false and justify your answer.
+3. Explain how the order of quantifiers changes the meaning.
+        `,
+        hint: `
+For (A), can you always choose a y once you know x? For (B), you're asked to find a single y
+that is larger than *every* real number.
+        `,
+        outline: `
+1. Analyze (A): Given an arbitrary x, propose a formula for y in terms of x.
+2. Analyze (B): Ask whether there is a largest real number.
+3. Use these conclusions to discuss the difference between ∀x ∃y and ∃y ∀x.
+        `,
+        solution: `
+(A) is true: for any real x, we can take y = x + 1 (or x + 0.001, etc.), which is bigger than x.
+(B) is false: there is no largest real number because given any candidate y, y + 1 is larger.
+
+The order of quantifiers matters: ∀x ∃y ... allows y to depend on x, while ∃y ∀x ...
+demands a single y that works for all x at once.
+        `,
+        modelProof: `
+For (A), let x be any real number. Define y = x + 1. Then y is real and y > x.
+Because x was arbitrary, this shows that for every real x there exists a real y
+with y > x. So (A) is true.
+
+For (B), suppose there were a real number y such that y > x for all real x.
+Then y - 1 would also be real, and we would have y > y - 1, contradicting the
+claim that y is greater than *every* real number. More directly, given any
+candidate y, consider y + 1, which is larger, so no such y can exist. Thus (B)
+is false.
+
+This illustrates that ∀x ∃y ... is very different from ∃y ∀x ....
+        `,
+      },
+      {
+        id: "log-4",
+        title: "Contrapositive vs. Converse",
+        difficulty: "challenge",
+        topic: "Implications",
+        prompt: `
+Let P(x) be "x is divisible by 4" and Q(x) be "x is even".
+
+1. Write "If x is divisible by 4, then x is even" in symbolic form using P and Q.
+2. Write the **converse** of this implication in symbols and in English.
+3. Write the **contrapositive** in symbols and in English.
+4. Decide which of the three statements are true, and justify briefly.
+        `,
+        hint: `
+Converse: Q → P. Contrapositive: ¬Q → ¬P.
+Think carefully about which directions hold.
+        `,
+        outline: `
+1. Original: P(x) → Q(x).
+2. Converse: Q(x) → P(x).
+3. Contrapositive: ¬Q(x) → ¬P(x).
+4. Check truth:
+   - Is every multiple of 4 even?
+   - Is every even integer a multiple of 4?
+   - If x is not even, can it be divisible by 4?
+        `,
+        solution: `
+Original statement (P → Q): "If x is divisible by 4, then x is even" — true.
+Converse (Q → P): "If x is even, then x is divisible by 4" — false (e.g. x = 2).
+Contrapositive (¬Q → ¬P): "If x is not even, then x is not divisible by 4" — true.
+
+The implication and its contrapositive are logically equivalent; the converse is different.
+        `,
+        modelProof: `
+For P(x) = "x is divisible by 4" and Q(x) = "x is even":
+
+Original: P(x) → Q(x): If x is divisible by 4, then x is even. This is true:
+if x = 4k, then x = 2(2k), so x is even.
+
+Converse: Q(x) → P(x): If x is even, then x is divisible by 4. This is false:
+for instance, x = 2 is even but not divisible by 4.
+
+Contrapositive: ¬Q(x) → ¬P(x): If x is not even (i.e., x is odd), then x is not
+divisible by 4. This is true because any multiple of 4 is even, so an odd integer
+cannot be divisible by 4.
+
+Implications are equivalent to their contrapositives, but generally not to their converses.
+        `,
+      },
+    ],
   },
+
+  // ------------------------------------
+  // MODULE 3 — Direct Proofs
+  // ------------------------------------
   {
-    id: "CE-3",
-    module: "counterexamples",
-    title: "Composite but Not Divisible by 2, 3, or 5",
-    statement:
-      "Consider the incorrect statement: \"Every composite integer is divisible by 2, 3, or 5.\"\n\n" +
-      "Find a counterexample and explain clearly why it shows the statement is false.",
-  },
-  {
-    id: "CE-4",
-    module: "counterexamples",
-    title: "Square Root Misconception",
-    statement:
-      "A student claims: \"For all real numbers a and b with a, b ≥ 0, we have √(a + b) = √a + √b.\"\n\n" +
-      "Find a counterexample to this statement and explain the flaw in the original claim.",
-  },
-  {
-    id: "CE-5",
-    module: "counterexamples",
-    title: "Set Identity That Fails",
-    statement:
-      "Consider the incorrect set identity: (A ∩ B)^c = A^c ∩ B^c.\n\n" +
-      "Find specific sets A and B for which this identity fails, and clearly justify why your example is a counterexample.",
-  },
+    id: "direct-proofs",
+    title: "Module 3 — Direct Proofs",
+    description:
+      "Foundational exercises with even/odd numbers, divisibility, and inequalities.",
+    problems: [
+      {
+        id: "dp-1",
+        title: "Sum of Two Even Integers",
+        difficulty: "warmup",
+        topic: "Parity",
+        prompt: `
+Prove directly that the sum of two even integers is even.
+        `,
+        hint: `
+Use the definition of even: an integer n is even if n = 2k for some integer k.
+Let your two even integers be a and b.
+        `,
+        outline: `
+1. Let a and b be even integers.
+2. Write a = 2k and b = 2ℓ for some integers k, ℓ.
+3. Compute a + b and factor out a 2.
+4. Conclude that a + b is even.
+        `,
+        solution: `
+Let a and b be even. Then there exist integers k, ℓ such that a = 2k and b = 2ℓ.
+Then
 
-  // ─────────────────────────────
-  // MODULE: INDIRECT PROOFS
-  // slug: "indirect-proofs"
-  // ─────────────────────────────
-{
-  id: "IP-1",
-  module: "indirect-proofs",
-  title: "n^2 Even ⇒ n Even",
-  statement:
-    "Prove: If n^2 is even, then n is even. You may use either a contrapositive proof or a proof by contradiction.",
-  solution: `
-We prove the contrapositive: "If n is odd, then n² is odd."
+  a + b = 2k + 2ℓ = 2(k + ℓ),
 
-Assume n is odd. Then there exists an integer k such that n = 2k + 1.
+and since k + ℓ is an integer, a + b is even.
+        `,
+        modelProof: `
+Claim: The sum of two even integers is even.
 
-Compute n²:
-n² = (2k + 1)²
-    = 4k² + 4k + 1
-    = 2(2k² + 2k) + 1.
+Proof. Let a and b be even integers. Then a = 2k and b = 2ℓ for some integers
+k and ℓ. Hence
 
-Since k is an integer, 2k² + 2k is an integer, so n² is of the form 2(⋯) + 1, which is odd.
+  a + b = 2k + 2ℓ = 2(k + ℓ).
 
-Thus if n is odd, then n² is odd. This is the contrapositive of "If n² is even, then n is even," so the original statement is true.
-`,
-},
+Because k + ℓ is an integer, a + b is 2 times an integer, so a + b is even. ∎
+        `,
+      },
+      {
+        id: "dp-2",
+        title: "Sum of Two Odd Integers",
+        difficulty: "core",
+        topic: "Parity",
+        prompt: `
+Prove directly that the sum of two odd integers is even.
+        `,
+        hint: `
+Write an odd integer as 2k + 1. Let the two odd integers be a = 2k + 1 and b = 2ℓ + 1.
+        `,
+        outline: `
+1. Let a and b be odd integers.
+2. Write a = 2k + 1 and b = 2ℓ + 1 for some integers k, ℓ.
+3. Compute a + b and simplify.
+4. Show the result is 2 times an integer.
+        `,
+        solution: `
+Let a and b be odd. Then a = 2k + 1 and b = 2ℓ + 1 for some integers k, ℓ.
+Then
 
-  {
-    id: "IP-2",
-    module: "indirect-proofs",
-    title: "Irrationality of √2",
-    statement:
-      "Prove that √2 is irrational using a proof by contradiction. Clearly identify the assumption you make and the contradiction you derive.",
-  },
-  {
-    id: "IP-3",
-    module: "indirect-proofs",
-    title: "Infinitely Many Primes",
-    statement:
-      "Prove by contradiction that there are infinitely many prime numbers. (Hint: Assume there are only finitely many and build a new number.)",
-  },
-  {
-    id: "IP-4",
-    module: "indirect-proofs",
-    title: "Contrapositive on Parity",
-    statement:
-      "Prove the statement: \"If 3n + 2 is even, then n is even\" by proving its contrapositive instead.",
-  },
+  a + b = (2k + 1) + (2ℓ + 1) = 2k + 2ℓ + 2 = 2(k + ℓ + 1),
 
-  // ─────────────────────────────
-  // MODULE: INDUCTION
-  // slug: "induction"
-  // ─────────────────────────────
-{
-  id: "IND-1",
-  module: "induction",
-  title: "Sum of First n Integers",
-  statement:
-    "Use mathematical induction to prove that 1 + 2 + 3 + ... + n = n(n + 1)/2 for all integers n ≥ 1.",
-  solution: `
-We prove by induction on n.
+so a + b is even.
+        `,
+        modelProof: `
+Claim: The sum of two odd integers is even.
 
-Base case (n = 1):
-Left-hand side (LHS) = 1.
-Right-hand side (RHS) = 1(1 + 1)/2 = 1.
-So the formula holds for n = 1.
+Proof. Let a and b be odd integers. Then there exist integers k and ℓ such that
+a = 2k + 1 and b = 2ℓ + 1. Then
 
-Induction step:
-Assume the formula holds for some k ≥ 1, i.e.
-1 + 2 + 3 + ... + k = k(k + 1)/2.   (induction hypothesis)
+  a + b = (2k + 1) + (2ℓ + 1) = 2k + 2ℓ + 2
+        = 2(k + ℓ + 1).
 
-We must show it holds for k + 1:
-1 + 2 + ... + k + (k + 1).
+Since k + ℓ + 1 is an integer, a + b is even. ∎
+        `,
+      },
+      {
+        id: "dp-3",
+        title: "Transitivity of Divisibility",
+        difficulty: "core",
+        topic: "Divisibility",
+        prompt: `
+Prove: If a divides b and b divides c (for integers a, b, c), then a divides c.
+        `,
+        hint: `
+Translate "a divides b" into an equation: b = ak for some integer k.
+Do the same for b | c, then substitute.
+        `,
+        outline: `
+1. Assume a | b and b | c.
+2. From a | b, write b = ak for some integer k.
+3. From b | c, write c = bℓ for some integer ℓ.
+4. Substitute b = ak into c = bℓ to express c in terms of a.
+5. Factor out a and conclude a | c.
+        `,
+        solution: `
+Assume a | b and b | c. Then b = ak for some k ∈ ℤ, and c = bℓ for some ℓ ∈ ℤ.
+Substituting gives
 
-Using the hypothesis:
-1 + 2 + ... + k + (k + 1)
-= [k(k + 1)/2] + (k + 1)
-= (k(k + 1) + 2(k + 1))/2
-= (k + 1)(k + 2)/2.
+  c = bℓ = (ak)ℓ = a(kℓ),
 
-But (k + 1)(k + 2)/2 is the same as plugging n = k + 1 into n(n + 1)/2. Therefore the formula also holds for k + 1.
+so c is a times an integer, hence a | c.
+        `,
+        modelProof: `
+Claim: If a, b, c are integers with a | b and b | c, then a | c.
 
-By induction, the statement is true for all integers n ≥ 1.
-`,
-},
+Proof. We are given that a | b and b | c. By definition of divisibility,
+there exists an integer k such that b = ak, and an integer ℓ such that c = bℓ.
+Substituting b = ak into c = bℓ gives
 
-  {
-    id: "IND-2",
-    module: "induction",
-    title: "Sum of First n Odd Integers",
-    statement:
-      "Prove by induction that 1 + 3 + 5 + ... + (2n − 1) = n^2 for all integers n ≥ 1.",
-  },
-  {
-    id: "IND-3",
-    module: "induction",
-    title: "Inequality with Powers of 2",
-    statement:
-      "Use induction to prove that 2^n ≥ n + 1 for all integers n ≥ 0.",
-  },
-  {
-    id: "IND-4",
-    module: "induction",
-    title: "Factorial Inequality",
-    statement:
-      "Prove by induction that n! ≥ 2^n for all integers n ≥ 4.",
-  },
-  {
-    id: "IND-5",
-    module: "induction",
-    title: "A Simple Recurrence",
-    statement:
-      "Let a_1 = 2 and a_{n+1} = 3a_n for n ≥ 1. Prove by induction that a_n = 2·3^{n−1} for all n ≥ 1.",
-  },
+  c = bℓ = (ak)ℓ = a(kℓ).
 
-  // ─────────────────────────────
-  // MODULE: SETS & FUNCTIONS
-  // slug: "sets-functions"
-  // ─────────────────────────────
-{
-  id: "SF-1",
-  module: "sets-functions",
-  title: "Union Distributes over Intersection",
-  statement:
-    "Prove that for any sets A, B, and C, we have:\n\nA ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C).\n\nUse element-chasing: show mutual inclusion of both sides.",
-  solution: `
-We prove set equality by showing mutual inclusion.
+Since kℓ is an integer, c is a times an integer, so a | c. ∎
+        `,
+      },
+      {
+        id: "dp-4",
+        title: "Inequality with Squares",
+        difficulty: "challenge",
+        topic: "Inequalities",
+        prompt: `
+Prove directly that for every real number x,
 
-(⊆) Let x ∈ A ∪ (B ∩ C). Then either x ∈ A, or x ∈ B ∩ C.
+  x^2 + 1 ≥ 2x.
 
-• If x ∈ A, then x ∈ A ∪ B and x ∈ A ∪ C, so x ∈ (A ∪ B) ∩ (A ∪ C).
-• If x ∈ B ∩ C, then x ∈ B and x ∈ C. Thus x ∈ A ∪ B (because x ∈ B) and x ∈ A ∪ C (because x ∈ C). So again x ∈ (A ∪ B) ∩ (A ∪ C).
+(Hint: rewrite the inequality so that something squared appears on one side.)
+        `,
+        hint: `
+Bring all terms to one side and try to complete the square:
 
-In both cases, x ∈ (A ∪ B) ∩ (A ∪ C). Hence
-A ∪ (B ∩ C) ⊆ (A ∪ B) ∩ (A ∪ C).
+x^2 + 1 - 2x = x^2 - 2x + 1.
+        `,
+        outline: `
+1. Start from x^2 + 1 ≥ 2x and rearrange to x^2 - 2x + 1 ≥ 0.
+2. Notice x^2 - 2x + 1 = (x - 1)^2.
+3. Use that (x - 1)^2 ≥ 0 for all real x.
+4. Conclude x^2 + 1 ≥ 2x for all real x.
+        `,
+        solution: `
+We have
 
-(⊇) Now let x ∈ (A ∪ B) ∩ (A ∪ C). Then:
-x ∈ A ∪ B and x ∈ A ∪ C.
+  x^2 + 1 ≥ 2x
+⇔ x^2 - 2x + 1 ≥ 0
+⇔ (x - 1)^2 ≥ 0.
 
-So either:
-• Case 1: x ∈ A. Then immediately x ∈ A ∪ (B ∩ C).
-• Case 2: x ∉ A. Then from x ∈ A ∪ B we get x ∈ B, and from x ∈ A ∪ C we get x ∈ C. Thus x ∈ B ∩ C, so x ∈ A ∪ (B ∩ C).
+But (x - 1)^2 is a square of a real number, so it is always ≥ 0. Therefore
+x^2 + 1 ≥ 2x for all real x.
+        `,
+        modelProof: `
+For any real x,
 
-Therefore (A ∪ B) ∩ (A ∪ C) ⊆ A ∪ (B ∩ C).
+  x^2 + 1 - 2x = x^2 - 2x + 1 = (x - 1)^2.
 
-Since we have both inclusions, the sets are equal:
-A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C).
-`,
-},
+Since the square of a real number is always nonnegative, we have (x - 1)^2 ≥ 0
+for all x. Therefore
 
-  {
-    id: "SF-2",
-    module: "sets-functions",
-    title: "Intersection Distributes over Union",
-    statement:
-      "Prove that for any sets A, B, and C, we have:\n\n" +
-      "A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C).",
-  },
-  {
-    id: "SF-3",
-    module: "sets-functions",
-    title: "Subset via Element Argument",
-    statement:
-      "Let A, B, and C be sets. Prove that A ∩ B ⊆ A and A ∩ B ⊆ B using element-wise arguments.",
-  },
-  {
-    id: "SF-4",
-    module: "sets-functions",
-    title: "Injectivity of a Linear Function",
-    statement:
-      "Consider the function f: ℝ → ℝ defined by f(x) = 5x − 2.\n\n" +
-      "a) Prove that f is injective.\n" +
-      "b) Find an explicit formula for f^{-1}(y) and verify that it is indeed the inverse.",
-  },
-  {
-    id: "SF-5",
-    module: "sets-functions",
-    title: "Surjectivity Onto a Restricted Codomain",
-    statement:
-      "Define f: ℤ → 2ℤ by f(n) = 2n, where 2ℤ is the set of even integers.\n\n" +
-      "a) Prove that f is surjective onto 2ℤ.\n" +
-      "b) Decide whether f is injective and justify your answer.",
+  x^2 + 1 - 2x ≥ 0,
+
+which is equivalent to x^2 + 1 ≥ 2x. Hence the inequality holds for all
+real x. ∎
+        `,
+      },
+    ],
   },
 ];
