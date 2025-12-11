@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";  // ⭐ ADD THIS
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "mathbase",
-  description: "Learn mathematical proofs through interactive lessons and practice.",
+  description: "Proof-first math learning & practice",
 };
 
 export default function RootLayout({
@@ -28,11 +28,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
       >
-        <Navbar />   {/* ⭐ NAVBAR APPEARS ON EVERY PAGE */}
-
-        <div className="pt-16">   {/* ⭐ Prevents pages from hiding behind navbar */}
-          {children}
-        </div>
+        <Navbar />
+        {children}
       </body>
     </html>
   );
