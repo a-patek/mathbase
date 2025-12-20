@@ -9,7 +9,9 @@ const navItems = [
   { href: "/learn", label: "Learn" },
   { href: "/practice", label: "Practice" },
   { href: "/submit", label: "Submit" },
+  { href: "/tutoring", label: "Tutoring" },
 ];
+
 
 export default function Navbar() {
   const pathname = usePathname();
