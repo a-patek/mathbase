@@ -212,7 +212,7 @@ export default function CompetitionPage() {
 
               <div className="flex flex-wrap items-baseline gap-4">
                 <div className="text-4xl md:text-5xl font-extrabold text-emerald-300 leading-none">
-                  $300
+                  $700
                 </div>
                 <div className="text-[0.8rem] text-emerald-100 space-y-1">
                   <p className="font-semibold">1st place</p>
@@ -227,12 +227,12 @@ export default function CompetitionPage() {
                   2nd place: <span className="font-semibold">$200</span>
                 </p>
                 <p>
-                  3rd place: <span className="font-semibold">$50</span>
+                  3rd place: <span className="font-semibold">$100</span>
                 </p>
               </div>
 
               <p className="text-[0.7rem] text-emerald-300">
-                Cash rewards for the January MBI (1st: $300, 2nd: $200, 3rd: $50) will
+                Cash rewards for the January MBI (1st: $700, 2nd: $200, 3rd: $100) will
                 be forwarded in the week following the competition.
               </p>
             </div>
