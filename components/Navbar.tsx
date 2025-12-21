@@ -9,8 +9,10 @@ const navItems = [
   { href: "/learn", label: "Learn" },
   { href: "/practice", label: "Practice" },
   { href: "/submit", label: "Submit" },
+  { href: "/competition", label: "Competition" },
   { href: "/tutoring", label: "Tutoring" },
 ];
+
 
 
 export default function Navbar() {
