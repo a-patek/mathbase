@@ -84,7 +84,7 @@ export default function TutoringPage() {
               <li>1. Fill out the short form below.</li>
               <li>2. You’ll get an email to schedule a free intro call.</li>
               <li>3. We’ll build a plan around your goals (grades, contests, proofs, etc.).</li>
-              <li>4. Meet weekly or as needed over Zoom / online.</li>
+              <li>4. Meet weekly or as needed over Zoom / online, or in person if you are within 5 miles of Robbinsville NJ</li>
             </ul>
           </div>
         </div>
