@@ -91,7 +91,7 @@ export default function CompetitionPage() {
               <p className="mt-2 text-[0.8rem]">
                 The January MBO/MBI will be held on{" "}
                 <span className="font-semibold text-sky-100">
-                  1/04/2026 (January 4, 2026)
+                  1/10/2026 (January 10, 2026)
                 </span>
                 .
               </p>
