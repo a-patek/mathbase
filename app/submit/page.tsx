@@ -185,6 +185,7 @@ export default function SubmitPage() {
               <li>• Use full sentences, not just chains of symbols.</li>
               <li>• Clearly mark where each lemma or claim begins.</li>
               <li>• If you’re unsure, add a short note explaining what you want feedback on.</li>
+              <li>• Review your proof for clarity before submitting.</li>
             </ul>
           </div>
         </div>

@@ -18,7 +18,7 @@ export default function CompetitionPage() {
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               mathbase{" "}
-              <span className="bg-gradient-to-r from-sky-400 via-emerald-400 to-violet-400 bg-clip-text text-transparent">
+              <span className="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl gradient-text">
                 Open & Invitational
               </span>
             </h1>
@@ -211,7 +211,7 @@ export default function CompetitionPage() {
               </p>
 
               <div className="flex flex-wrap items-baseline gap-4">
-                <div className="text-4xl md:text-5xl font-extrabold text-emerald-300 leading-none">
+                <div className="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl gradient-text">
                   $750
                 </div>
                 <div className="text-[0.8rem] text-emerald-100 space-y-1">
