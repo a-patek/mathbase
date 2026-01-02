@@ -175,7 +175,7 @@ export default function TutoringPage() {
           <p className="mt-1 text-[0.75rem] text-zinc-400">
             Fill this out and it will open an email to{" "}
             <span className="font-mono text-zinc-200">
-              
+              ...
             </span>{" "}
             with your info pre-filled. You can edit the email before sending.
           </p>
@@ -287,13 +287,7 @@ export default function TutoringPage() {
             </p>
           )}
 
-          <p className="mt-2 text-[0.7rem] text-zinc-500">
-            If the email doesn’t open for some reason, you can manually email{" "}
-            <span className="font-mono text-zinc-200">
-              ayaan.s.saini@gmail.com
-            </span>{" "}
-            with the info above.
-          </p>
+          
         </form>
       </section>
     </main>
