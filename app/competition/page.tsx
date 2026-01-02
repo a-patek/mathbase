@@ -91,7 +91,7 @@ export default function CompetitionPage() {
               <p className="mt-2 text-[0.8rem]">
                 The January MBO/MBI will be held on{" "}
                 <span className="font-semibold text-sky-100">
-                  1/10/2026 (January 10, 2026)
+                  1/10/2026 (January 10, 2026) (Eastern Time Zone)
                 </span>
                 .
               </p>
@@ -215,7 +215,7 @@ export default function CompetitionPage() {
                   $750
                 </div>
                 <div className="text-[0.8rem] text-emerald-100 space-y-1">
-                  <p className="font-semibold">1st place</p>
+                  <p className="font-semibold">prize pool</p>
                   <p className="text-emerald-200">
                     January MathBase Invitational champion
                   </p>
@@ -223,6 +223,9 @@ export default function CompetitionPage() {
               </div>
 
               <div className="grid gap-2 text-[0.8rem] md:grid-cols-2">
+                <p>
+                  1st place: <span className="font-semibold">$500</span>
+                </p>
                 <p>
                   2nd place: <span className="font-semibold">$200</span>
                 </p>
