@@ -20,7 +20,7 @@ const founders = [
   },
   {
     name: "Anirudh Dusi",
-    role: "Co-Founder",
+    role: "Founder",
     focus: "Review • Rigor",
     note: "AMC 12B: 124",
     description:
@@ -30,9 +30,9 @@ const founders = [
   },
   {
     name: "Ayaan Saini",
-    role: "Co-Founder",
+    role: "Founder",
     focus: "Clarity • Learning Design",
-    note: "AMC 12A: 143 • AMC 12B: 141",
+    note: "AMC 12A: 145.5 • AMC 12B: 141",
     description:
       "Helps refine explanations and learning progression, aiming for content that is accessible without losing rigor or proof structure.",
     accent: "from-emerald-500/20 to-transparent",

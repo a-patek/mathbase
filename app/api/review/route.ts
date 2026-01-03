@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 // Use GPT-4.1-mini (cheapest & fastest high-quality model)
 const MODEL = "gpt-4.1-mini";
 
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
