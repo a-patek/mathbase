@@ -277,7 +277,7 @@ export default function TutoringPage() {
             type="submit"
             className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-emerald-500 px-4 py-2.5 text-sm font-semibold text-black shadow-lg shadow-emerald-500/30 hover:from-sky-400 hover:to-emerald-400"
           >
-            Open email to request tutoring
+            Open email the to request tutoring
           </button>
 
           {submitted && (
