@@ -42,7 +42,7 @@ const founders = [
 
 export default function TeamPage() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-white">
+    <main className="min-h-screen bg-zinc-950 text-white bg-black">
       {/* Subtle, serious background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(56,189,248,0.10),transparent_40%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.10),transparent_45%),radial-gradient(circle_at_30%_90%,rgba(16,185,129,0.10),transparent_45%)]" />
