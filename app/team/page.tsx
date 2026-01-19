@@ -38,6 +38,16 @@ const founders = [
     accent: "from-emerald-500/20 to-transparent",
     glow: "hover:shadow-emerald-500/10 hover:ring-emerald-500/20",
   },
+  {
+  name: "Rohit Vadi",
+  role: "Developer",
+  focus: "Systems • Engineering",
+  note: "",
+  description:
+    "Builds and maintains the technical foundation of the platform, translating learning design into reliable, scalable systems. Focuses on clean architecture, performance, and implementation that supports rigor without adding unnecessary complexity.",
+  accent: "from-amber-500/20 to-transparent",
+  glow: "hover:shadow-amber-500/10 hover:ring-amber-500/20",
+},
 ];
 
 export default function TeamPage() {
