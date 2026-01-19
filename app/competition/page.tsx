@@ -13,7 +13,7 @@ export default function CompetitionPage() {
           <div className="max-w-xl space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950/80 px-3 py-1 text-[0.7rem] font-medium text-zinc-300">
               <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-              Open · Monthly contest
+              Math Base Open · Monthly contest
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
