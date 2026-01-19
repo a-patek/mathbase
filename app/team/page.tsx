@@ -42,7 +42,7 @@ const founders = [
   name: "Rohit Vadi",
   role: "Developer",
   focus: "Systems • Engineering",
-  note: "",
+  note: "AMC 12B: 133.5",
   description:
     "Builds and maintains the technical foundation of the platform, translating learning design into reliable, scalable systems. Focuses on clean architecture, performance, and implementation that supports rigor without adding unnecessary complexity.",
   accent: "from-amber-500/20 to-transparent",
