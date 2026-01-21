@@ -53,6 +53,12 @@ export default function CompetitionPage() {
                 Please fill this out if you intend on competing in the MathBase Open.
               </p>
             </div>
+            <div><Link
+  href="/competition/highlights"
+  className="inline-flex items-center justify-center rounded-full border border-zinc-700 bg-zinc-950 px-5 py-2.5 text-sm font-semibold text-zinc-200 hover:bg-zinc-900"
+>
+  January MBO / MBI highlights →
+</Link></div>
           </div>
 
           {/* Format + date/schedule overview */}
@@ -86,12 +92,12 @@ export default function CompetitionPage() {
 
             <div className="rounded-2xl border border-sky-500/40 bg-sky-500/5 p-5 text-xs text-sky-100">
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-sky-300">
-                January 2026 schedule
+                February 2026 schedule
               </p>
               <p className="mt-2 text-[0.8rem]">
-                The January MBO/MBI will be held on{" "}
+                The February MBO/MBI will be held on{" "}
                 <span className="font-semibold text-sky-100">
-                  1/10/2026 (January 10, 2026) (Eastern Time Zone)
+                  2/24/2026 (February 24) (Eastern Time Zone)
                 </span>
                 .
               </p>
@@ -207,7 +213,7 @@ export default function CompetitionPage() {
             {/* January prize pool section */}
             <div className="mt-5 rounded-xl border border-emerald-500/40 bg-black/50 p-4 text-xs text-emerald-100 space-y-3">
               <p className="text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                January 2026 MBI prize pool
+                February 2026 MBI prize pool
               </p>
 
               <div className="flex flex-wrap items-baseline gap-4">
@@ -217,7 +223,7 @@ export default function CompetitionPage() {
                 <div className="text-[0.8rem] text-emerald-100 space-y-1">
                   <p className="font-semibold">prize pool</p>
                   <p className="text-emerald-200">
-                    January MathBase Invitational champion
+                    February MathBase Invitational champion
                   </p>
                 </div>
               </div>
@@ -235,7 +241,7 @@ export default function CompetitionPage() {
               </div>
 
               <p className="text-[0.7rem] text-emerald-300">
-                Cash rewards for the January MBI (1st: $500, 2nd: $200, 3rd: $50) will
+                Cash rewards for the February MBI (1st: $500, 2nd: $200, 3rd: $50) will
                 be forwarded in the week following the competition.
               </p>
             </div>
@@ -267,6 +273,12 @@ export default function CompetitionPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-black shadow-lg shadow-emerald-500/30 hover:from-sky-400 hover:to-emerald-400"
             >
+              <Link
+  href="/competition/highlights"
+  className="inline-flex items-center justify-center rounded-full border border-zinc-700 bg-zinc-950 px-5 py-2.5 text-sm font-semibold text-zinc-200 hover:bg-zinc-900"
+>
+  January MBO / MBI highlights →
+</Link>
               Open sign-up form
             </Link>
           </div>
