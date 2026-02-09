@@ -40,7 +40,7 @@ const founders = [
   },
   {
   name: "Rohit Vadi",
-  role: "Developer",
+  role: "Developer/Founder",
   focus: "Systems • Engineering",
   note: "AMC 12B: 133.5",
   description:
