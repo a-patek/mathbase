@@ -25,6 +25,7 @@ type UseCourseProgressResult = {
   certificateIssuedAt: string | null;
   setCertificateIssuedAt: Dispatch<SetStateAction<string | null>>;
   authReady: boolean;
+  isSupabaseConfigured: boolean;
   isSignedIn: boolean;
   userEmail: string | null;
   isSyncing: boolean;
@@ -318,6 +319,7 @@ export function useCourseProgress(): UseCourseProgressResult {
     certificateIssuedAt,
     setCertificateIssuedAt,
     authReady,
+    isSupabaseConfigured,
     isSignedIn,
     userEmail,
     isSyncing,

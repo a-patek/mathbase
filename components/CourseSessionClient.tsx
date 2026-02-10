@@ -24,6 +24,7 @@ export default function CourseSessionClient({
     responses,
     setResponses,
     authReady,
+    isSupabaseConfigured,
     isSignedIn,
     userEmail,
     isSyncing,
@@ -127,7 +128,15 @@ export default function CourseSessionClient({
           )}
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
-          {!authReady ? (
+          {!isSupabaseConfigured ? (
+            <div className="rounded-xl border border-zinc-800 bg-black/40 p-4 text-sm text-zinc-300">
+              <p className="font-semibold text-zinc-100">Account sync disabled</p>
+              <p className="mt-2 text-xs text-zinc-400">
+                Add Supabase environment variables to enable account sync. Progress
+                is saved locally in this browser for now.
+              </p>
+            </div>
+          ) : !authReady ? (
             <div className="rounded-xl border border-zinc-800 bg-black/40 p-4 text-sm text-zinc-400">
               Checking account status...
             </div>
@@ -179,7 +188,7 @@ export default function CourseSessionClient({
               <p className="mt-3 text-emerald-300">{authNotice}</p>
             )}
             {authError && <p className="mt-3 text-rose-300">{authError}</p>}
-            {syncError && (
+            {syncError && isSupabaseConfigured && (
               <p className="mt-3 text-rose-300">
                 Account sync is unavailable: {syncError}
               </p>
