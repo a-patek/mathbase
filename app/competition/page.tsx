@@ -273,12 +273,7 @@ export default function CompetitionPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-emerald-500 px-5 py-2.5 text-sm font-semibold text-black shadow-lg shadow-emerald-500/30 hover:from-sky-400 hover:to-emerald-400"
             >
-              <Link
-  href="/competition/highlights"
-  className="inline-flex items-center justify-center rounded-full border border-zinc-700 bg-zinc-950 px-5 py-2.5 text-sm font-semibold text-zinc-200 hover:bg-zinc-900"
->
-  January MBO / MBI highlights →
-</Link>
+              
               Open sign-up form
             </Link>
           </div>
