@@ -1,288 +1,427 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { practiceProblems } from "@/data/practiceProblems";
 
-// I'm keeping types loose for now so TS doesn't complain
-type PracticeProblem = any;
-type PracticeSection = any;
+type Difficulty = "beginner" | "moderate" | "advanced";
 
-const sections: PracticeSection[] = practiceProblems as any[];
-
-const difficultyColors: Record<string, string> = {
-  warmup: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
-  core: "bg-sky-500/15 text-sky-300 border-sky-500/40",
-  challenge: "bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/40",
+type PracticeProblem = {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: Difficulty;
+  topic: string;
+  prompt: string;
+  hint?: string;
+  outline?: string;
+  solution?: string;
+  modelProof?: string;
 };
 
-const difficultyLabels: Record<string, string> = {
-  all: "All difficulties",
-  warmup: "Warm-up",
-  core: "Core",
-  challenge: "Challenge",
+type GradingFeedback = {
+  verdict?: string;
+  score?: number;
+  feedback?: string;
+  missing_steps?: string[];
+  next_steps?: string[];
+  error?: string;
 };
 
-const difficultyOrder = ["warmup", "core", "challenge"];
+const difficultyLabels: Record<Difficulty, string> = {
+  beginner: "Beginner",
+  moderate: "Moderate",
+  advanced: "Advanced",
+};
 
-type DifficultyFilter = "all" | "warmup" | "core" | "challenge";
+const difficultyAccent: Record<Difficulty, string> = {
+  beginner:
+    "from-emerald-400/30 to-emerald-500/10 border-emerald-500/30 text-emerald-300",
+  moderate:
+    "from-sky-400/30 to-sky-500/10 border-sky-500/30 text-sky-300",
+  advanced:
+    "from-fuchsia-400/30 to-fuchsia-500/10 border-fuchsia-500/30 text-fuchsia-300",
+};
 
 export default function PracticePage() {
-  const [activeSectionId, setActiveSectionId] = useState<string>(
-    sections[0]?.id ?? ""
-  );
-  const [difficultyFilter, setDifficultyFilter] =
-    useState<DifficultyFilter>("all");
+  const [difficulty, setDifficulty] = useState<Difficulty>("beginner");
+  const [selectedProblemId, setSelectedProblemId] = useState<string>("");
+  const [latexSolution, setLatexSolution] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<GradingFeedback | null>(null);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const activeSection = sections.find((s) => s.id === activeSectionId);
-
-  const filteredProblems: PracticeProblem[] = useMemo(() => {
-    if (!activeSection) return [];
-    if (difficultyFilter === "all") return activeSection.problems ?? [];
-    return (activeSection.problems ?? []).filter(
-      (p: PracticeProblem) => p.difficulty === difficultyFilter
+  const filteredProblems = useMemo<PracticeProblem[]>(() => {
+    return practiceProblems.filter(
+      (p): p is PracticeProblem => p.difficulty === difficulty
     );
-  }, [activeSection, difficultyFilter]);
+  }, [difficulty]);
+
+  const selectedProblem = useMemo<PracticeProblem | null>(() => {
+    return filteredProblems.find((p) => p.id === selectedProblemId) ?? null;
+  }, [filteredProblems, selectedProblemId]);
+
+  useEffect(() => {
+    if (filteredProblems.length > 0) {
+      setSelectedProblemId((currentId) => {
+        const stillExists = filteredProblems.some((p) => p.id === currentId);
+        return stillExists ? currentId : filteredProblems[0].id;
+      });
+    } else {
+      setSelectedProblemId("");
+    }
+
+    setLatexSolution("");
+    setFeedback(null);
+    setErrorMsg("");
+  }, [difficulty, filteredProblems]);
+
+  function pickRandomProblem() {
+    if (filteredProblems.length === 0) return;
+
+    const randomProblem =
+      filteredProblems[Math.floor(Math.random() * filteredProblems.length)];
+
+    setSelectedProblemId(randomProblem.id);
+    setLatexSolution("");
+    setFeedback(null);
+    setErrorMsg("");
+  }
+
+  async function submitForGrading() {
+    if (!selectedProblem) {
+      setErrorMsg("Please choose a problem first.");
+      return;
+    }
+
+    if (!latexSolution.trim()) {
+      setErrorMsg("Please paste your LaTeX solution before submitting.");
+      return;
+    }
+
+    try {
+      setErrorMsg("");
+      setIsSubmitting(true);
+      setFeedback(null);
+
+      const res = await fetch("/api/practice-grade", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          problemTitle: selectedProblem.title,
+          problemTopic: selectedProblem.topic,
+          prompt: selectedProblem.prompt,
+          hint: selectedProblem.hint ?? "",
+          outline: selectedProblem.outline ?? "",
+          modelProof: selectedProblem.modelProof ?? "",
+          userSolution: latexSolution,
+        }),
+      });
+
+      const contentType = res.headers.get("content-type") || "";
+
+      if (!contentType.includes("application/json")) {
+        if (res.status === 404) {
+          throw new Error(
+            "The grading API route was not found. Make sure app/api/practice-grade/route.ts exists."
+          );
+        }
+
+        throw new Error(
+          "The grading route did not return JSON. It may be crashing on the server."
+        );
+      }
+
+      const data: GradingFeedback = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Grading failed.");
+      }
+
+      setFeedback({
+        verdict: data.verdict ?? "No verdict provided",
+        score: typeof data.score === "number" ? data.score : 0,
+        feedback: data.feedback ?? "No feedback returned.",
+        missing_steps: Array.isArray(data.missing_steps)
+          ? data.missing_steps
+          : [],
+        next_steps: Array.isArray(data.next_steps) ? data.next_steps : [],
+      });
+    } catch (err) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Something went wrong while grading.";
+      setErrorMsg(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-10 md:px-12 lg:px-20">
-      {/* Header */}
-      <header className="max-w-5xl mx-auto mb-10">
-        <p className="text-xs font-semibold tracking-[0.2em] text-emerald-400 uppercase mb-2">
-          Practice
-        </p>
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-3">
-          Proof training studio
-        </h1>
-        <p className="text-sm md:text-base text-zinc-400 max-w-3xl">
-          Choose a topic, pick your difficulty, then try writing the proof on
-          your own (LaTeX, notebook, or tablet). Use hints, outlines, and model
-          proofs only after you’ve genuinely struggled.
-        </p>
-      </header>
+    <main className="min-h-screen bg-black text-white">
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute left-1/2 top-[-120px] h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-sky-500/10 blur-3xl" />
+        <div className="absolute right-[-120px] top-[180px] h-[360px] w-[520px] rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute bottom-[-120px] left-[8%] h-[360px] w-[520px] rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:48px_48px]" />
+      </div>
 
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
-        {/* Left column – section list */}
-        <aside className="lg:w-64 space-y-5">
-          <div className="bg-zinc-950/70 border border-zinc-800/80 rounded-2xl p-4">
-            <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-[0.16em] mb-3">
-              Sections
-            </h2>
-            <div className="space-y-1">
-              {sections.map((section) => {
-                const isActive = section.id === activeSectionId;
-                return (
-                  <button
-                    key={section.id}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-sm transition border ${
-                      isActive
-                        ? "bg-zinc-900 border-zinc-500 text-zinc-50 shadow-sm"
-                        : "bg-zinc-950 border-zinc-800 text-zinc-400 hover:bg-zinc-900/60 hover:border-zinc-700 hover:text-zinc-100"
-                    }`}
-                    onClick={() => setActiveSectionId(section.id)}
-                  >
-                    <div className="flex items-center justify-between mb-0.5">
-                      <span className="font-medium">{section.title}</span>
-                    </div>
-                    <p className="text-[11px] text-zinc-500 line-clamp-1">
-                      {section.description}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
+      <div className="mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
+        <header className="mb-10">
+          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-300">
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            Practice Studio
           </div>
 
-          <div className="bg-zinc-950/70 border border-zinc-800/80 rounded-2xl p-4 text-xs text-zinc-400 space-y-2">
-            <h3 className="text-[11px] font-semibold text-zinc-300 uppercase tracking-[0.16em] mb-1">
-              How to use this page
-            </h3>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Pick a module and difficulty.</li>
-              <li>Try to solve on paper before opening hints.</li>
-              <li>Compare your reasoning with the model proof.</li>
-            </ul>
-          </div>
-        </aside>
+          <h1 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            Proof problem bank
+          </h1>
 
-        {/* Right column – problems */}
-        <section className="flex-1 space-y-5">
-          {/* Filters */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <p className="text-xs text-zinc-400 uppercase tracking-[0.18em] mb-1">
-                Problem set
-              </p>
-              <p className="text-sm text-zinc-200">
-                {activeSection?.title ?? "Choose a module"}
-              </p>
-            </div>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-zinc-400 md:text-base">
+            Choose a difficulty, select a problem, or get a random one. Then
+            write your proof in LaTeX and submit it for AI feedback on
+            correctness, rigor, and missing steps.
+          </p>
+        </header>
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-zinc-500">Difficulty:</span>
-              <div className="inline-flex rounded-full bg-zinc-900/80 border border-zinc-800 p-1">
-                {(["all", ...difficultyOrder] as DifficultyFilter[]).map(
+        <div className="grid gap-6 xl:grid-cols-[320px_1fr]">
+          <aside className="space-y-5">
+            <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-5 shadow-[0_0_40px_rgba(0,0,0,0.35)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                Difficulty
+              </p>
+
+              <div className="mt-4 grid gap-2">
+                {(["beginner", "moderate", "advanced"] as Difficulty[]).map(
                   (level) => {
-                    const active = level === difficultyFilter;
+                    const active = difficulty === level;
+                    const count = practiceProblems.filter(
+                      (p) => p.difficulty === level
+                    ).length;
+
                     return (
                       <button
                         key={level}
-                        onClick={() => setDifficultyFilter(level)}
-                        className={`px-3 py-1 text-[11px] rounded-full transition font-medium ${
+                        type="button"
+                        onClick={() => setDifficulty(level)}
+                        className={`rounded-2xl border px-4 py-3 text-left transition ${
                           active
-                            ? "bg-zinc-100 text-black shadow-sm"
-                            : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/70"
+                            ? `bg-gradient-to-r ${difficultyAccent[level]}`
+                            : "border-zinc-800 bg-black/30 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50"
                         }`}
                       >
-                        {difficultyLabels[level]}
+                        <div className="text-sm font-medium">
+                          {difficultyLabels[level]}
+                        </div>
+                        <div className="mt-1 text-xs text-zinc-500">
+                          {count} problems
+                        </div>
                       </button>
                     );
                   }
                 )}
               </div>
-            </div>
-          </div>
 
-          {/* Problems */}
-          {!activeSection && (
-            <div className="mt-6 text-sm text-zinc-500">
-              Choose a module on the left to see problems.
-            </div>
-          )}
-
-          {activeSection && (
-            <div className="mt-3">
-              {filteredProblems.length === 0 ? (
-                <p className="mt-6 text-sm text-zinc-500">
-                  No problems at this difficulty yet — try switching the filter
-                  or pick another module.
+              <div className="mt-5 rounded-2xl border border-zinc-800 bg-black/30 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                  Pick a problem
                 </p>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {filteredProblems.map((problem: PracticeProblem) => (
-                    <ProblemCard
-                      key={problem.id}
-                      problem={problem}
-                      section={activeSection}
-                    />
+
+                <select
+                  value={selectedProblemId}
+                  onChange={(e) => {
+                    setSelectedProblemId(e.target.value);
+                    setLatexSolution("");
+                    setFeedback(null);
+                    setErrorMsg("");
+                  }}
+                  className="mt-3 w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-3 text-sm text-zinc-100 outline-none focus:border-zinc-600"
+                >
+                  {filteredProblems.map((problem) => (
+                    <option key={problem.id} value={problem.id}>
+                      {problem.title}
+                    </option>
                   ))}
-                </div>
-              )}
+                </select>
+
+                <button
+                  type="button"
+                  onClick={pickRandomProblem}
+                  className="mt-3 w-full rounded-full bg-zinc-100 px-4 py-2.5 text-sm font-medium text-black hover:bg-white"
+                >
+                  Give me a random problem
+                </button>
+              </div>
             </div>
-          )}
-        </section>
+
+            <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                How to use this
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• Try the problem fully on your own first.</li>
+                <li>• Use hints only if you’re genuinely stuck.</li>
+                <li>• Submit LaTeX for AI feedback on rigor and logic.</li>
+                <li>• Treat AI grading as feedback, not final truth.</li>
+              </ul>
+            </div>
+          </aside>
+
+          <section className="space-y-6">
+            {selectedProblem ? (
+              <>
+                <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span
+                      className={`inline-flex rounded-full border px-3 py-1 text-xs font-medium bg-gradient-to-r ${difficultyAccent[selectedProblem.difficulty]}`}
+                    >
+                      {difficultyLabels[selectedProblem.difficulty]}
+                    </span>
+                    <span className="text-xs text-zinc-500">
+                      {selectedProblem.topic}
+                    </span>
+                  </div>
+
+                  <h2 className="mt-4 text-2xl font-semibold text-zinc-50">
+                    {selectedProblem.title}
+                  </h2>
+
+                  <p className="mt-2 text-sm text-zinc-400">
+                    {selectedProblem.description}
+                  </p>
+
+                  <div className="mt-6 rounded-2xl border border-zinc-800 bg-black/40 p-5">
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
+                      {selectedProblem.prompt}
+                    </p>
+                  </div>
+
+                  {(selectedProblem.hint || selectedProblem.outline) && (
+                    <details className="mt-5 rounded-2xl border border-zinc-800 bg-black/30 p-5">
+                      <summary className="cursor-pointer text-sm font-medium text-emerald-400">
+                        Show hint / outline
+                      </summary>
+
+                      {selectedProblem.hint && (
+                        <p className="mt-4 text-sm text-zinc-300">
+                          <span className="font-semibold text-zinc-100">
+                            Hint.{" "}
+                          </span>
+                          {selectedProblem.hint}
+                        </p>
+                      )}
+
+                      {selectedProblem.outline && (
+                        <p className="mt-3 text-sm text-zinc-300">
+                          <span className="font-semibold text-zinc-100">
+                            Outline.{" "}
+                          </span>
+                          {selectedProblem.outline}
+                        </p>
+                      )}
+                    </details>
+                  )}
+                </div>
+
+                <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                        Submit your proof
+                      </p>
+                      <h3 className="mt-2 text-lg font-semibold text-zinc-100">
+                        LaTeX answer box
+                      </h3>
+                    </div>
+
+                    <div className="rounded-full border border-zinc-800 bg-black/30 px-3 py-1 text-xs text-zinc-500">
+                      AI grading
+                    </div>
+                  </div>
+
+                  <textarea
+                    value={latexSolution}
+                    onChange={(e) => setLatexSolution(e.target.value)}
+                    placeholder="Paste your LaTeX proof here..."
+                    className="mt-5 min-h-[260px] w-full rounded-2xl border border-zinc-800 bg-black/50 px-4 py-4 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-zinc-600"
+                  />
+
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={submitForGrading}
+                      disabled={isSubmitting}
+                      className="rounded-full bg-zinc-100 px-5 py-2.5 text-sm font-medium text-black hover:bg-white disabled:opacity-60"
+                    >
+                      {isSubmitting ? "Grading..." : "Grade my solution"}
+                    </button>
+
+                    <span className="text-xs text-zinc-500">
+                      Checks correctness, rigor, and missing steps.
+                    </span>
+                  </div>
+
+                  {errorMsg && (
+                    <div className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                      {errorMsg}
+                    </div>
+                  )}
+
+                  {feedback && (
+                    <div className="mt-5 space-y-4 rounded-2xl border border-zinc-800 bg-black/40 p-5">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="rounded-full border border-zinc-700 bg-zinc-950 px-3 py-1 text-sm font-semibold text-zinc-100">
+                          Verdict: {feedback.verdict}
+                        </span>
+
+                        <span className="text-xs text-zinc-400">
+                          Score: {feedback.score}/10
+                        </span>
+                      </div>
+
+                      <div className="whitespace-pre-wrap rounded-xl border border-zinc-800 bg-zinc-950/70 p-4 text-sm text-zinc-300">
+                        {feedback.feedback}
+                      </div>
+
+                      {feedback.missing_steps && feedback.missing_steps.length > 0 && (
+                        <div>
+                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                            Missing / weak steps
+                          </p>
+                          <ul className="list-inside list-disc space-y-1 text-sm text-zinc-300">
+                            {feedback.missing_steps.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {feedback.next_steps && feedback.next_steps.length > 0 && (
+                        <div>
+                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                            How to improve
+                          </p>
+                          <ul className="list-inside list-disc space-y-1 text-sm text-zinc-300">
+                            {feedback.next_steps.map((item, idx) => (
+                              <li key={idx}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-zinc-400">
+                No problem available for this difficulty yet.
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </main>
-  );
-}
-
-/* ---------- ProblemCard component ---------- */
-
-type ProblemCardProps = {
-  problem: PracticeProblem;
-  section: PracticeSection;
-};
-
-function ProblemCard({ problem, section }: ProblemCardProps) {
-  const [showPrompt, setShowPrompt] = useState(false);
-  const [showHint, setShowHint] = useState(false);
-  const [showOutline, setShowOutline] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
-  const [showModelProof, setShowModelProof] = useState(false);
-
-  const badgeClass =
-    difficultyColors[problem.difficulty] ??
-    "bg-zinc-700/40 text-zinc-200 border-zinc-500/60";
-
-  return (
-    <div className="group flex flex-col bg-zinc-900/70 border border-zinc-800/80 rounded-2xl p-5 hover:border-zinc-500/80 hover:bg-zinc-900 transition-colors duration-200 shadow-sm hover:shadow-md">
-      {/* Difficulty + section */}
-      <div className="flex items-center justify-between mb-3">
-        <span
-          className={`inline-flex items-center gap-2 px-2.5 py-1 text-xs font-medium rounded-full border ${badgeClass}`}
-        >
-          {problem.difficulty.toUpperCase()}
-        </span>
-        <span className="text-xs text-zinc-500">
-          {section.title}
-        </span>
-      </div>
-
-      {/* Title & topic */}
-      <h3 className="text-sm font-semibold text-zinc-50 mb-1">
-        {problem.title}
-      </h3>
-      {problem.topic && (
-        <p className="text-[11px] text-zinc-500 mb-2">{problem.topic}</p>
-      )}
-
-      {/* Prompt toggle */}
-      <button
-        onClick={() => setShowPrompt((v) => !v)}
-        className="text-xs text-emerald-400 hover:text-emerald-300 mb-2 flex items-center gap-1"
-      >
-        {showPrompt ? "Hide prompt" : "Show prompt"}
-      </button>
-      {showPrompt && (
-        <p className="text-sm text-zinc-200 bg-zinc-900/80 border border-zinc-800 rounded-lg p-3 mb-2">
-          {problem.prompt}
-        </p>
-      )}
-
-      {/* Controls */}
-      <div className="flex flex-wrap gap-2 mt-1 mb-2">
-        <button
-          onClick={() => setShowHint((v) => !v)}
-          className="text-[11px] px-2 py-1 rounded-full border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-zinc-50 transition"
-        >
-          {showHint ? "Hide hint" : "Show hint"}
-        </button>
-        <button
-          onClick={() => setShowOutline((v) => !v)}
-          className="text-[11px] px-2 py-1 rounded-full border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-zinc-50 transition"
-        >
-          {showOutline ? "Hide outline" : "Show outline"}
-        </button>
-        <button
-          onClick={() => setShowSolution((v) => !v)}
-          className="text-[11px] px-2 py-1 rounded-full border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-zinc-50 transition"
-        >
-          {showSolution ? "Hide sketch" : "Show sketch"}
-        </button>
-        <button
-          onClick={() => setShowModelProof((v) => !v)}
-          className="text-[11px] px-2 py-1 rounded-full border border-indigo-500/60 text-indigo-200 hover:border-indigo-400 hover:text-indigo-100 transition"
-        >
-          {showModelProof ? "Hide model proof" : "Show model proof"}
-        </button>
-      </div>
-
-      {/* Content blocks */}
-      {showHint && problem.hint && (
-        <div className="mt-1 text-xs text-zinc-300 bg-zinc-900/80 border border-dashed border-zinc-700 rounded-lg p-3">
-          <span className="font-semibold text-zinc-100">Hint. </span>
-          {problem.hint}
-        </div>
-      )}
-
-      {showOutline && problem.outline && (
-        <div className="mt-2 text-xs text-zinc-300 bg-zinc-900/80 border border-zinc-700 rounded-lg p-3">
-          <span className="font-semibold text-zinc-100">Outline. </span>
-          {problem.outline}
-        </div>
-      )}
-
-      {showSolution && problem.solution && (
-        <div className="mt-2 text-xs text-zinc-300 bg-zinc-950/80 border border-zinc-800 rounded-lg p-3">
-          <span className="font-semibold text-zinc-100">Solution sketch. </span>
-          {problem.solution}
-        </div>
-      )}
-
-      {showModelProof && problem.modelProof && (
-        <div className="mt-2 text-xs text-zinc-200 bg-zinc-950 border border-indigo-700/70 rounded-lg p-3 font-mono whitespace-pre-wrap">
-          {problem.modelProof}
-        </div>
-      )}
-    </div>
   );
 }

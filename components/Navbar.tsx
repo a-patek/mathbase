@@ -11,7 +11,6 @@ const navItems = [
   { href: "/learn", label: "Learn" },
   { href: "/course", label: "Course" },
   { href: "/practice", label: "Practice" },
-  { href: "/submit", label: "Submit" },
   { href: "/team", label: "Team" },
   
   
