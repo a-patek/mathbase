@@ -1,5 +1,6 @@
 // app/team/page.tsx
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Team | MathBase",
@@ -15,6 +16,7 @@ type Person = {
   description: string;
   accent: string;
   glow: string;
+  image?: string;
 };
 
 const founders: Person[] = [
@@ -27,6 +29,7 @@ const founders: Person[] = [
       "Founded MathBase to provide free, proof-first resources for students pursuing deeper mathematical problem solving and clear reasoning.",
     accent: "from-sky-500/30 via-sky-400/10 to-transparent",
     glow: "hover:shadow-sky-500/10 hover:ring-sky-500/20",
+    image: "/team/ahaan.jpeg",
   },
   {
     name: "Ayaan Saini",
@@ -110,11 +113,27 @@ function TeamCard({ person }: { person: Person }) {
 
       <div className="relative">
         <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-semibold tracking-tight text-white">
-              {person.name}
-            </h3>
-            <p className="mt-1 text-sm text-white/50">{person.focus}</p>
+          <div className="flex min-w-0 items-start gap-4">
+            {person.image && (
+              <div className="shrink-0 rounded-full bg-gradient-to-r from-sky-400 via-violet-400 to-emerald-400 p-[2px]">
+                <div className="rounded-full bg-black p-[2px]">
+                  <Image
+                    src={person.image}
+                    alt={person.name}
+                    width={64}
+                    height={64}
+                    className="h-16 w-16 rounded-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="min-w-0">
+              <h3 className="text-lg font-semibold tracking-tight text-white">
+                {person.name}
+              </h3>
+              <p className="mt-1 text-sm text-white/50">{person.focus}</p>
+            </div>
           </div>
 
           <span className="shrink-0 rounded-full border border-white/10 bg-black/30 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-white/70">
