@@ -182,22 +182,22 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
 
   return (
     <div className="space-y-10">
-      <section className="rounded-2xl border border-zinc-900 bg-zinc-950/80 p-6">
+      <section className="rounded-2xl border border-white/10 bg-slate-950/80 p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
               Course account sync
             </p>
-            <h2 className="text-xl font-semibold text-zinc-100">
+            <h2 className="text-xl font-semibold text-slate-100">
               Save progress to your account
             </h2>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-slate-400">
               Sign in to store your course progress and certificate on your MathBase
               account. If you stay signed out, progress will live only in this browser.
             </p>
           </div>
           {isSyncing && (
-            <span className="rounded-full border border-sky-500/50 bg-sky-500/10 px-3 py-1 text-xs text-sky-200">
+            <span className="rounded-full border border-teal-300/50 bg-teal-300/10 px-3 py-1 text-xs text-teal-100">
               Syncing...
             </span>
           )}
@@ -205,34 +205,34 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
 
         <div className="mt-5 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {!isSupabaseConfigured ? (
-            <div className="rounded-xl border border-zinc-800 bg-black/40 p-4 text-sm text-zinc-300">
-              <p className="font-semibold text-zinc-100">Account sync disabled</p>
-              <p className="mt-2 text-xs text-zinc-400">
+            <div className="rounded-xl border border-white/10 bg-[#060815]/40 p-4 text-sm text-slate-300">
+              <p className="font-semibold text-slate-100">Account sync disabled</p>
+              <p className="mt-2 text-xs text-slate-400">
                 Add your Supabase environment variables to enable account sync and
                 certificates. For now, progress is saved locally in this browser.
               </p>
             </div>
           ) : !authReady ? (
-            <div className="rounded-xl border border-zinc-800 bg-black/40 p-4 text-sm text-zinc-400">
+            <div className="rounded-xl border border-white/10 bg-[#060815]/40 p-4 text-sm text-slate-400">
               Checking account status...
             </div>
           ) : isSignedIn ? (
-            <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm text-emerald-100">
+            <div className="rounded-xl border border-teal-300/40 bg-teal-300/10 p-4 text-sm text-teal-100">
               <p className="font-semibold">Signed in</p>
-              <p className="mt-1 text-xs text-emerald-200/80">
+              <p className="mt-1 text-xs text-teal-100/80">
                 {userEmail ?? "Account linked"}
               </p>
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="mt-3 rounded-lg border border-emerald-400/40 px-3 py-1.5 text-xs text-emerald-100 hover:bg-emerald-500/10"
+                className="mt-3 rounded-lg border border-teal-300/40 px-3 py-1.5 text-xs text-teal-100 hover:bg-teal-200/10"
               >
                 Sign out
               </button>
             </div>
           ) : (
-            <div className="rounded-xl border border-zinc-800 bg-black/40 p-4 text-sm text-zinc-200">
-              <label className="block text-xs text-zinc-500" htmlFor="course-email">
+            <div className="rounded-xl border border-white/10 bg-[#060815]/40 p-4 text-sm text-slate-200">
+              <label className="block text-xs text-slate-500" htmlFor="course-email">
                 Email address
               </label>
               <input
@@ -241,27 +241,27 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="you@example.com"
-                className="mt-2 w-full rounded-lg border border-zinc-800 bg-black/60 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600"
+                className="mt-2 w-full rounded-lg border border-white/10 bg-[#060815]/60 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600"
               />
               <button
                 type="button"
                 onClick={handleSignIn}
-                className="mt-3 rounded-lg bg-sky-500 px-3 py-2 text-xs font-semibold text-black hover:bg-sky-400"
+                className="mt-3 rounded-lg bg-teal-300 px-3 py-2 text-xs font-semibold text-slate-950 hover:bg-teal-200"
               >
                 Send magic link
               </button>
             </div>
           )}
 
-          <div className="rounded-xl border border-zinc-800 bg-black/40 p-4 text-xs text-zinc-400">
-            <p className="font-semibold text-zinc-200">Why sign in?</p>
+          <div className="rounded-xl border border-white/10 bg-[#060815]/40 p-4 text-xs text-slate-400">
+            <p className="font-semibold text-slate-200">Why sign in?</p>
             <ul className="mt-2 space-y-2">
               <li>Store progress across devices and browsers.</li>
               <li>Unlock certificates tied to your account.</li>
               <li>Keep MCQ answers and completion data synced.</li>
             </ul>
             {authNotice && (
-              <p className="mt-3 text-emerald-300">{authNotice}</p>
+              <p className="mt-3 text-teal-200">{authNotice}</p>
             )}
             {authError && <p className="mt-3 text-rose-300">{authError}</p>}
             {syncError && isSupabaseConfigured && (
@@ -274,30 +274,30 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-zinc-900 bg-zinc-950/80 p-5">
-          <p className="text-xs text-zinc-500">Total sessions</p>
-          <p className="mt-2 text-2xl font-semibold text-zinc-100">
+        <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-5">
+          <p className="text-xs text-slate-500">Total sessions</p>
+          <p className="mt-2 text-2xl font-semibold text-slate-100">
             {totalSessions}
           </p>
-          <p className="mt-1 text-xs text-zinc-500">8 weeks - 4 sessions each</p>
+          <p className="mt-1 text-xs text-slate-500">8 weeks - 4 sessions each</p>
         </div>
-        <div className="rounded-2xl border border-zinc-900 bg-zinc-950/80 p-5">
-          <p className="text-xs text-zinc-500">Session length</p>
-          <p className="mt-2 text-2xl font-semibold text-zinc-100">45-75 min</p>
-          <p className="mt-1 text-xs text-zinc-500">Default learning flow</p>
+        <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-5">
+          <p className="text-xs text-slate-500">Session length</p>
+          <p className="mt-2 text-2xl font-semibold text-slate-100">45-75 min</p>
+          <p className="mt-1 text-xs text-slate-500">Default learning flow</p>
         </div>
-        <div className="rounded-2xl border border-zinc-900 bg-zinc-950/80 p-5">
-          <p className="text-xs text-zinc-500">Course progress</p>
-          <p className="mt-2 text-2xl font-semibold text-zinc-100">
+        <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-5">
+          <p className="text-xs text-slate-500">Course progress</p>
+          <p className="mt-2 text-2xl font-semibold text-slate-100">
             {completedCount} / {totalSessions}
           </p>
-          <div className="mt-3 h-2 w-full rounded-full bg-zinc-900">
+          <div className="mt-3 h-2 w-full rounded-full bg-slate-900">
             <div
-              className="h-2 rounded-full bg-gradient-to-r from-sky-500 to-emerald-400"
+              className="h-2 rounded-full bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-200"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="mt-2 text-xs text-zinc-500">{progress}% complete</p>
+          <p className="mt-2 text-xs text-slate-500">{progress}% complete</p>
         </div>
       </section>
 
@@ -305,14 +305,14 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
         <section key={`week-${weekNumber}`} className="space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-[0.65rem] uppercase tracking-[0.25em] text-zinc-500">
+              <p className="text-[0.65rem] uppercase tracking-[0.25em] text-slate-500">
                 Week {weekNumber}
               </p>
-              <h2 className="text-xl font-semibold text-zinc-100">
+              <h2 className="text-xl font-semibold text-slate-100">
                 Sessions {weekNumber}A to {weekNumber}D
               </h2>
             </div>
-            <span className="rounded-full border border-zinc-800 px-3 py-1 text-[0.7rem] text-zinc-400">
+            <span className="rounded-full border border-white/10 px-3 py-1 text-[0.7rem] text-slate-400">
               {weekSessions.length} sessions
             </span>
           </div>
@@ -321,29 +321,29 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
             {weekSessions.map((session) => (
               <details
                 key={session.id}
-                className="group rounded-2xl border border-zinc-900 bg-zinc-950/70 p-5"
+                className="group rounded-2xl border border-white/10 bg-slate-950/70 p-5"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                   <div>
-                    <p className="text-[0.65rem] uppercase tracking-[0.2em] text-emerald-400">
+                    <p className="text-[0.65rem] uppercase tracking-[0.2em] text-teal-300">
                       Session {session.session}
                     </p>
-                    <h3 className="mt-1 text-sm font-semibold text-zinc-100">
+                    <h3 className="mt-1 text-sm font-semibold text-slate-100">
                       {session.title}
                     </h3>
-                    <p className="mt-1 text-xs text-zinc-500">{session.duration}</p>
+                    <p className="mt-1 text-xs text-slate-500">{session.duration}</p>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-zinc-400">
+                  <div className="flex items-center gap-3 text-xs text-slate-400">
                     {completed[session.id] ? (
-                      <span className="rounded-full border border-emerald-500/60 bg-emerald-500/10 px-3 py-1 text-emerald-200">
+                      <span className="rounded-full border border-teal-300/60 bg-teal-300/10 px-3 py-1 text-teal-100">
                         Completed
                       </span>
                     ) : (
-                      <span className="rounded-full border border-zinc-700 px-3 py-1">
+                      <span className="rounded-full border border-white/15 px-3 py-1">
                         In progress
                       </span>
                     )}
-                    <span className="text-lg text-zinc-500 group-open:rotate-180">
+                    <span className="text-lg text-slate-500 group-open:rotate-180">
                       v
                     </span>
                   </div>
@@ -364,8 +364,8 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
                       <SectionCard title="Practice" items={session.practice} />
                     )}
                     {session.answers && session.answers.length > 0 && (
-                      <details className="rounded-xl border border-zinc-900 bg-zinc-950/70 p-4">
-                        <summary className="cursor-pointer text-sm font-semibold text-zinc-200">
+                      <details className="rounded-xl border border-white/10 bg-slate-950/70 p-4">
+                        <summary className="cursor-pointer text-sm font-semibold text-slate-200">
                           Show answers / outlines
                         </summary>
                         <div className="mt-3">
@@ -377,8 +377,8 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
                       <SectionCard title="Week quiz" items={session.quiz} />
                     )}
                     {session.quizAnswers && session.quizAnswers.length > 0 && (
-                      <details className="rounded-xl border border-zinc-900 bg-zinc-950/70 p-4">
-                        <summary className="cursor-pointer text-sm font-semibold text-zinc-200">
+                      <details className="rounded-xl border border-white/10 bg-slate-950/70 p-4">
+                        <summary className="cursor-pointer text-sm font-semibold text-slate-200">
                           Show quiz answers
                         </summary>
                         <div className="mt-3">
@@ -408,8 +408,8 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
                       className={[
                         "w-full rounded-lg px-4 py-2 text-sm font-semibold transition",
                         completed[session.id]
-                          ? "bg-emerald-500/20 text-emerald-100 border border-emerald-500/60"
-                          : "bg-sky-500/20 text-sky-100 border border-sky-500/60",
+                          ? "bg-teal-300/20 text-teal-100 border border-teal-300/60"
+                          : "bg-teal-300/20 text-teal-100 border border-teal-300/60",
                       ].join(" ")}
                     >
                       {completed[session.id]
@@ -418,7 +418,7 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
                     </button>
                     <Link
                       href={sessionHref(session)}
-                      className="inline-flex w-full items-center justify-center rounded-lg border border-zinc-800 px-4 py-2 text-sm text-zinc-200 hover:bg-zinc-900"
+                      className="inline-flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-200 hover:bg-slate-900"
                     >
                       Open session page
                     </Link>
@@ -430,28 +430,28 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
         </section>
       ))}
 
-      <section className="rounded-2xl border border-zinc-900 bg-zinc-950/80 p-6">
+      <section className="rounded-2xl border border-white/10 bg-slate-950/80 p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
               Certificate
             </p>
-            <h2 className="text-xl font-semibold text-zinc-100">
+            <h2 className="text-xl font-semibold text-slate-100">
               Proof-Based Math Certificate
             </h2>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-slate-400">
               Complete all sessions and sign in to unlock your certificate. Your
               progress syncs to your account when signed in.
             </p>
           </div>
-          <div className="rounded-full border border-zinc-800 px-3 py-1 text-xs text-zinc-400">
+          <div className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-400">
             {completedCount} / {totalSessions} sessions complete
           </div>
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
           <div className="space-y-4">
-            <label className="block text-xs text-zinc-500" htmlFor="learner-name">
+            <label className="block text-xs text-slate-500" htmlFor="learner-name">
               Name for certificate
             </label>
             <input
@@ -460,7 +460,7 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
               value={learnerName}
               onChange={(event) => setLearnerName(event.target.value)}
               placeholder="Your name"
-              className="w-full rounded-lg border border-zinc-800 bg-black/50 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600"
+              className="w-full rounded-lg border border-white/10 bg-[#060815]/50 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600"
             />
 
             <div className="flex flex-wrap gap-3">
@@ -471,8 +471,8 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
                 className={[
                   "rounded-lg px-4 py-2 text-sm font-semibold transition",
                   isComplete && isSignedIn
-                    ? "bg-emerald-400 text-black hover:bg-emerald-300"
-                    : "cursor-not-allowed bg-zinc-800 text-zinc-500",
+                    ? "bg-teal-300 text-slate-950 hover:bg-teal-200"
+                    : "cursor-not-allowed bg-slate-800 text-slate-500",
                 ].join(" ")}
               >
                 Download certificate
@@ -480,7 +480,7 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
               <button
                 type="button"
                 onClick={resetProgress}
-                className="rounded-lg border border-zinc-800 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900"
+                className="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-300 hover:bg-slate-900"
               >
                 Reset progress
               </button>
@@ -489,27 +489,27 @@ export default function ProofCourseClient({ sessions }: ProofCourseClientProps) 
               <p className="text-xs text-rose-300">{certificateNotice}</p>
             )}
             {certificateIssuedAt && (
-              <p className="text-xs text-emerald-300">
+              <p className="text-xs text-teal-200">
                 Certificate issued on {formatDate(certificateIssuedAt)}.
               </p>
             )}
           </div>
 
-          <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">
+          <div className="rounded-2xl border border-teal-300/40 bg-teal-300/5 p-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-teal-200">
               Preview
             </p>
-            <div className="mt-4 rounded-xl border border-emerald-500/30 bg-black/60 p-4 text-center">
-              <p className="text-sm font-semibold text-emerald-100">
+            <div className="mt-4 rounded-xl border border-teal-300/30 bg-[#060815]/60 p-4 text-center">
+              <p className="text-sm font-semibold text-teal-100">
                 Certificate of Completion
               </p>
-              <p className="mt-2 text-lg font-semibold text-emerald-200">
+              <p className="mt-2 text-lg font-semibold text-teal-100">
                 {learnerName.trim() || "MathBase Learner"}
               </p>
-              <p className="mt-2 text-xs text-emerald-200/80">
+              <p className="mt-2 text-xs text-teal-100/80">
                 Proof-Based Math for Beginners
               </p>
-              <p className="mt-1 text-[0.7rem] text-emerald-200/70">
+              <p className="mt-1 text-[0.7rem] text-teal-100/70">
                 {isSignedIn
                   ? "Unlocks when all sessions are complete"
                   : "Sign in to unlock the certificate"}

@@ -27,8 +27,8 @@ const founders: Person[] = [
     note: "AMC 12A: 120",
     description:
       "Founded MathBase to provide free, proof-first resources for students pursuing deeper mathematical problem solving and clear reasoning.",
-    accent: "from-sky-500/30 via-sky-400/10 to-transparent",
-    glow: "hover:shadow-sky-500/10 hover:ring-sky-500/20",
+    accent: "from-teal-300/30 via-cyan-200/10 to-transparent",
+    glow: "hover:shadow-teal-300/10 hover:ring-teal-300/20",
     image: "/team/ahaan.jpeg",
   },
   {
@@ -38,8 +38,9 @@ const founders: Person[] = [
     note: "AMC 12A: 145.5 • AMC 12B: 141",
     description:
       "Helps refine explanations and learning progression, aiming for content that is accessible without losing rigor or proof structure.",
-    accent: "from-emerald-500/30 via-emerald-400/10 to-transparent",
-    glow: "hover:shadow-emerald-500/10 hover:ring-emerald-500/20",
+    accent: "from-teal-300/30 via-teal-300/10 to-transparent",
+    glow: "hover:shadow-teal-300/10 hover:ring-teal-300/20",
+    image: "/team/ayaan.png",
   },
 ];
 
@@ -51,8 +52,8 @@ const staff: Person[] = [
     note: "AMC 12B: 124",
     description:
       "Supports problem review and mathematical precision, focusing on correctness, clarity, and consistent standards across published content.",
-    accent: "from-violet-500/30 via-violet-400/10 to-transparent",
-    glow: "hover:shadow-violet-500/10 hover:ring-violet-500/20",
+    accent: "from-indigo-300/30 via-indigo-300/10 to-transparent",
+    glow: "hover:shadow-indigo-300/10 hover:ring-indigo-300/20",
   },
   {
     name: "Rohit Vadi",
@@ -61,8 +62,8 @@ const staff: Person[] = [
     note: "AMC 12B: 133.5",
     description:
       "Builds and maintains the technical foundation of the platform, translating learning design into reliable and scalable systems.",
-    accent: "from-amber-500/30 via-amber-400/10 to-transparent",
-    glow: "hover:shadow-amber-500/10 hover:ring-amber-500/20",
+    accent: "from-amber-200/30 via-amber-200/10 to-transparent",
+    glow: "hover:shadow-amber-200/10 hover:ring-amber-200/20",
   },
 ];
 
@@ -115,8 +116,8 @@ function TeamCard({ person }: { person: Person }) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-start gap-4">
             {person.image && (
-              <div className="shrink-0 rounded-full bg-gradient-to-r from-sky-400 via-violet-400 to-emerald-400 p-[2px]">
-                <div className="rounded-full bg-black p-[2px]">
+              <div className="shrink-0 rounded-full bg-gradient-to-r from-teal-200 via-indigo-300 to-teal-300 p-[2px]">
+                <div className="rounded-full bg-[#060815] p-[2px]">
                   <Image
                     src={person.image}
                     alt={person.name}
@@ -136,7 +137,7 @@ function TeamCard({ person }: { person: Person }) {
             </div>
           </div>
 
-          <span className="shrink-0 rounded-full border border-white/10 bg-black/30 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-white/70">
+          <span className="shrink-0 rounded-full border border-white/10 bg-[#060815]/30 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-white/70">
             {person.role}
           </span>
         </div>
@@ -149,7 +150,7 @@ function TeamCard({ person }: { person: Person }) {
           <span className="text-[11px] uppercase tracking-[0.16em] text-white/35">
             Background
           </span>
-          <span className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-xs text-white/65">
+          <span className="rounded-full border border-white/10 bg-[#060815]/25 px-3 py-1 text-xs text-white/65">
             {person.note}
           </span>
         </div>
@@ -170,11 +171,11 @@ function TeamGrid({ people }: { people: Person[] }) {
 
 export default function TeamPage() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-black text-white">
+    <main className="min-h-screen overflow-x-hidden bg-[#060815] text-white">
       <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-140px] h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-sky-500/10 blur-3xl" />
-        <div className="absolute right-[-80px] top-[120px] h-[320px] w-[420px] rounded-full bg-violet-500/10 blur-3xl" />
-        <div className="absolute bottom-[-120px] left-[5%] h-[300px] w-[420px] rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute left-1/2 top-[-140px] h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-teal-300/10 blur-3xl" />
+        <div className="absolute right-[-80px] top-[120px] h-[320px] w-[420px] rounded-full bg-indigo-300/10 blur-3xl" />
+        <div className="absolute bottom-[-120px] left-[5%] h-[300px] w-[420px] rounded-full bg-teal-300/10 blur-3xl" />
         <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:56px_56px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),transparent_40%)]" />
       </div>
@@ -182,13 +183,13 @@ export default function TeamPage() {
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 lg:px-10">
         <header className="mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="h-2 w-2 rounded-full bg-teal-300" />
             Student-led initiative
           </div>
 
           <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
             Meet the team behind{" "}
-            <span className="bg-gradient-to-r from-sky-300 via-violet-300 to-emerald-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-200 via-indigo-200 to-teal-200 bg-clip-text text-transparent">
               MathBase
             </span>
           </h1>

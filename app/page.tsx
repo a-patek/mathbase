@@ -1,4 +1,5 @@
 // app/page.tsx
+import type { CSSProperties } from "react";
 import Link from "next/link";
 
 const coreModules = [
@@ -13,7 +14,7 @@ const coreModules = [
     label: "Module 2",
     title: "Logic & Quantifiers",
     description:
-      "Learn propositions, connectives, truth tables, and quantifiers — the language of proofs.",
+      "Learn propositions, connectives, truth tables, and quantifiers, the language of proofs.",
   },
   {
     slug: "direct-proofs",
@@ -29,210 +30,249 @@ const branches = [
     key: "number-theory",
     title: "Number Theory",
     description:
-      "Divisibility, modular arithmetic, primes, and Diophantine equations — the heart of contest math.",
+      "Divisibility, modular arithmetic, primes, and Diophantine equations.",
     tag: "Branch A",
   },
   {
     key: "combinatorics",
     title: "Combinatorics",
     description:
-      "Counting principles, permutations, invariants, and classic olympiad-style problems.",
+      "Counting principles, permutations, invariants, and olympiad-style structure.",
     tag: "Branch B",
   },
   {
     key: "graph-theory",
     title: "Graph Theory",
     description:
-      "Vertices, edges, trees, cycles, and colorings — the discrete language of modern math.",
+      "Vertices, edges, trees, cycles, and colorings for discrete problem solving.",
     tag: "Branch C",
+  },
+];
+
+const proofLines = [
+  "Assume n is even.",
+  "Then n = 2k for some integer k.",
+  "Squaring gives n² = 4k².",
+  "So n² = 2(2k²), which is even.",
+  "Therefore n² is even.",
+];
+
+const journey = [
+  {
+    step: "01",
+    title: "Learn the move",
+    body: "Short lessons make each proof technique feel concrete before it gets formal.",
+  },
+  {
+    step: "02",
+    title: "Try the argument",
+    body: "Practice problems push you to build the proof, not just recognize the answer.",
+  },
+  {
+    step: "03",
+    title: "Sharpen the write-up",
+    body: "Feedback helps you turn a rough sketch into a clean mathematical explanation.",
   },
 ];
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-zinc-800">
-        {/* subtle glow */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.20),_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(236,72,153,0.15),_transparent_55%)]" />
+    <main className="home-cinematic min-h-screen overflow-x-hidden bg-[#05060d] text-white">
+      <section className="home-hero relative min-h-screen overflow-hidden">
+        <div className="home-aurora pointer-events-none absolute inset-0" />
+        <div className="home-grid pointer-events-none absolute inset-0" />
 
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-10 px-6 py-20 lg:flex-row lg:items-center lg:py-24">
-          {/* Left side: text */}
-          <div className="flex-1 space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700/70 bg-zinc-900/70 px-3 py-1 text-xs font-medium text-zinc-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        <div className="relative mx-auto grid min-h-screen max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="home-hero-copy space-y-7">
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-200/15 bg-white/[0.04] px-3 py-1 text-xs font-medium text-teal-100/80 backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-300 shadow-[0_0_16px_rgba(94,234,212,0.7)]" />
               Proof-focused learning for serious students
             </div>
 
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Master mathematical proofs{" "}
-              <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">
-                step by step
-              </span>
+            <h1 className="max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
+              Master proofs with a page that moves at your pace.
             </h1>
 
-            <p className="max-w-xl text-lg text-zinc-300">
-              mathbase takes you from “I kind of get it” to writing clean, rigorous proofs —
-              through short lessons, structured practice, and AI-assisted feedback.
+            <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              MathBase takes you from intuition to rigorous write-ups through
+              short lessons, structured practice, and feedback that helps the
+              proof finally click.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="/learn"
-                className="rounded-lg bg-sky-500 px-5 py-2.5 text-sm font-semibold text-black shadow-sm shadow-sky-500/40 transition hover:bg-sky-400"
+                className="rounded-full bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-200 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_18px_42px_rgba(45,212,191,0.22)] transition hover:brightness-110"
               >
                 Start learning proofs
               </Link>
               <Link
                 href="/practice"
-                className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-100 transition hover:border-zinc-500 hover:bg-zinc-900"
+                className="rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/[0.08]"
               >
-                Explore practice problems
+                Explore practice
               </Link>
-            </div>
-
-            <div className="flex flex-wrap gap-4 text-xs text-zinc-400">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                Designed for AMC / AIME / olympiad-track & proof-based courses
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                Built for LaTeX, Google Docs, or handwritten PDFs
-              </div>
+              <Link
+                href="/auth"
+                className="rounded-full border border-teal-200/20 px-5 py-3 text-sm font-semibold text-teal-100 transition hover:bg-teal-200/10"
+              >
+                Sign up or log in
+              </Link>
             </div>
           </div>
 
-          {/* Right side: “code-ish” proof card */}
-          <div className="flex-1">
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-950/80 p-6 shadow-[0_0_40px_rgba(59,130,246,0.25)]">
-              <div className="mb-4 flex items-center justify-between text-xs text-zinc-400">
-                <span className="font-medium text-zinc-200">Sample proof snippet</span>
-                <span className="rounded-full bg-zinc-900 px-2 py-0.5 text-[0.65rem]">
-                  Direct proof · Number theory
+          <div className="home-hero-visual relative min-h-[430px]">
+            <div className="home-orbit home-orbit-one" />
+            <div className="home-orbit home-orbit-two" />
+            <div className="home-glass-panel absolute inset-x-0 top-10 mx-auto max-w-xl rounded-[2rem] border border-white/10 bg-slate-900/65 p-5 shadow-[0_30px_120px_rgba(15,23,42,0.75)] backdrop-blur-xl">
+              <div className="mb-5 flex items-center justify-between text-xs text-slate-400">
+                <span className="font-medium text-slate-100">Proof engine</span>
+                <span className="rounded-full border border-teal-200/15 bg-teal-300/10 px-3 py-1 text-teal-100">
+                  Direct proof
                 </span>
               </div>
 
-              <div className="rounded-xl bg-black/60 p-4 text-sm font-mono text-zinc-200">
-                <p className="text-zinc-400">Statement.</p>
-                <p className="mb-3">
-                  If <span className="text-sky-300">n</span> is even, then{" "}
-                  <span className="text-sky-300">n²</span> is even.
-                </p>
-
-                <p className="text-zinc-400">Proof sketch.</p>
-                <p className="mb-1">
-                  Assume <span className="text-sky-300">n</span> is even. Then{" "}
-                  <span className="text-sky-300">n = 2k</span> for some integer{" "}
-                  <span className="text-sky-300">k</span>.
-                </p>
-                <p className="mb-1">
-                  Squaring gives <span className="text-sky-300">n² = 4k² = 2(2k²)</span>, which
-                  is divisible by <span className="text-sky-300">2</span>.
-                </p>
-                <p className="text-emerald-300">Therefore n² is even. ▢</p>
+              <div className="space-y-3 rounded-2xl border border-white/8 bg-slate-950/60 p-4 font-mono text-sm">
+                {proofLines.map((line, index) => (
+                  <p
+                    key={line}
+                    className="home-proof-line rounded-lg border border-white/5 bg-white/[0.025] px-3 py-2 text-slate-300"
+                    style={{ "--line": index } as CSSProperties}
+                  >
+                    {line}
+                  </p>
+                ))}
               </div>
 
-              <p className="mt-4 text-xs text-zinc-400">
-                On mathbase you’ll turn sketches like this into fully rigorous proofs —
-                with guided structure and feedback at each step.
+              <div className="mt-5 grid grid-cols-3 gap-3 text-center text-xs">
+                <div className="rounded-2xl border border-white/8 bg-white/[0.035] px-3 py-4">
+                  <p className="text-xl font-semibold text-teal-200">3</p>
+                  <p className="mt-1 text-slate-500">core modules</p>
+                </div>
+                <div className="rounded-2xl border border-white/8 bg-white/[0.035] px-3 py-4">
+                  <p className="text-xl font-semibold text-indigo-200">AI</p>
+                  <p className="mt-1 text-slate-500">feedback</p>
+                </div>
+                <div className="rounded-2xl border border-white/8 bg-white/[0.035] px-3 py-4">
+                  <p className="text-xl font-semibold text-amber-200">AMC</p>
+                  <p className="mt-1 text-slate-500">ready</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 text-center text-xs uppercase tracking-[0.22em] text-slate-500 sm:block">
+          Scroll to unfold
+        </div>
+      </section>
+
+      <section className="home-scroll-scene home-scene-teal">
+        <div className="home-sticky-scene">
+          <div className="home-scene-inner">
+            <div className="home-scene-copy">
+              <p className="home-kicker">From fuzzy idea to precise proof</p>
+              <h2>Every scroll step reveals the next piece of the argument.</h2>
+              <p>
+                The homepage now behaves more like a guided product story:
+                large sections hold still, visual pieces animate in, and the
+                page moves from concept to structure.
               </p>
+            </div>
+
+            <div className="home-proof-stage">
+              {proofLines.map((line, index) => (
+                <div
+                  key={line}
+                  className="home-stage-line"
+                  style={{ "--line": index } as CSSProperties}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{line}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="border-b border-zinc-800 bg-zinc-950/60">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 md:flex-row">
-          {[
-            {
-              title: "1 · Learn",
-              body: "Short, focused modules introduce each proof idea with examples and TL;DR summaries.",
-            },
-            {
-              title: "2 · Practice",
-              body: "Solve carefully chosen proof problems and compare with model solutions when you’re ready.",
-            },
-            {
-              title: "3 · Publish",
-              body: "Upload LaTeX, Google Docs, or handwritten PDFs and later route them into peer review.",
-            },
-          ].map((step) => (
-            <div key={step.title} className="flex-1 space-y-2">
-              <h3 className="text-sm font-semibold text-zinc-100">{step.title}</h3>
-              <p className="text-sm text-zinc-400">{step.body}</p>
+      <section className="home-scroll-scene home-scene-indigo">
+        <div className="home-sticky-scene">
+          <div className="home-scene-inner home-scene-inner-reverse">
+            <div className="home-scene-copy">
+              <p className="home-kicker">A path that locks into place</p>
+              <h2>Learn, practice, then polish the write-up.</h2>
+              <p>
+                Each stage has its own visual weight, so scrolling feels like
+                moving through a sequence instead of passing a stack of boxes.
+              </p>
             </div>
-          ))}
+
+            <div className="home-journey-stack">
+              {journey.map((item) => (
+                <div key={item.step} className="home-journey-card">
+                  <span>{item.step}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Core proof track */}
-      <section className="border-b border-zinc-800 bg-black">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-semibold">Core proof track</h2>
-              <p className="mt-1 text-sm text-zinc-400">
-                Work through these in order to build a rock-solid proof foundation.
+      <section className="home-scroll-scene home-scene-amber">
+        <div className="home-sticky-scene">
+          <div className="home-scene-inner">
+            <div className="home-scene-copy">
+              <p className="home-kicker">Core track</p>
+              <h2>Start with the foundations, then branch outward.</h2>
+              <p>
+                The modules appear as a connected track, giving the page a
+                stronger sense of progression while keeping the same lesson
+                links.
               </p>
+              <Link href="/learn" className="home-text-link">
+                View all modules
+              </Link>
             </div>
-            <Link
-              href="/learn"
-              className="text-sm font-medium text-sky-400 hover:text-sky-300"
-            >
-              View all modules →
-            </Link>
+
+            <div className="home-module-track">
+              {coreModules.map((module, index) => (
+                <Link
+                  key={module.slug}
+                  href={`/learn/${module.slug}`}
+                  className="home-module-card"
+                  style={{ "--line": index } as CSSProperties}
+                >
+                  <span>{module.label}</span>
+                  <h3>{module.title}</h3>
+                  <p>{module.description}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-final relative overflow-hidden px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 max-w-2xl">
+            <p className="home-kicker">Choose your branch</p>
+            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+              Specialize once the proof foundation feels solid.
+            </h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {coreModules.map((m) => (
-              <Link
-                key={m.slug}
-                href={`/learn/${m.slug}`}
-                className="group flex flex-col rounded-xl border border-zinc-800 bg-zinc-950/70 p-5 transition hover:border-sky-500/70 hover:bg-zinc-900"
-              >
-                <span className="text-xs font-semibold text-sky-400">{m.label}</span>
-                <h3 className="mt-1 text-sm font-semibold text-zinc-50 group-hover:text-sky-50">
-                  {m.title}
-                </h3>
-                <p className="mt-2 flex-1 text-xs text-zinc-400">{m.description}</p>
-                <span className="mt-3 text-[0.7rem] font-medium text-zinc-400 group-hover:text-sky-300">
-                  Start module →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Branches */}
-      <section className="bg-zinc-950/80">
-        <div className="mx-auto max-w-6xl px-6 py-14">
-          <h2 className="text-2xl font-semibold">Choose your branch</h2>
-          <p className="mt-1 text-sm text-zinc-400">
-            After the core track, specialize in the areas that match your contests or courses.
-          </p>
-
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
             {branches.map((branch) => (
-              <div
-                key={branch.key}
-                className="flex flex-col rounded-xl border border-zinc-800 bg-black/80 p-5"
-              >
-                <div className="mb-2 flex items-center justify-between gap-2">
-                  <span className="rounded-full border border-zinc-700 px-2 py-0.5 text-[0.65rem] font-medium text-zinc-300">
-                    {branch.tag}
-                  </span>
-                  <span className="text-[0.65rem] text-zinc-500">
-                    Coming online module by module
-                  </span>
-                </div>
-                <h3 className="text-sm font-semibold text-zinc-50">{branch.title}</h3>
-                <p className="mt-2 flex-1 text-xs text-zinc-400">{branch.description}</p>
-                <p className="mt-3 text-[0.7rem] text-zinc-500">
-                  You’ll be able to solve problems here and submit full write-ups for review.
-                </p>
+              <div key={branch.key} className="home-branch-card">
+                <span>{branch.tag}</span>
+                <h3>{branch.title}</h3>
+                <p>{branch.description}</p>
+                <small>Coming online module by module</small>
               </div>
             ))}
           </div>

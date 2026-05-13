@@ -35,11 +35,11 @@ const difficultyLabels: Record<Difficulty, string> = {
 
 const difficultyAccent: Record<Difficulty, string> = {
   beginner:
-    "from-emerald-400/30 to-emerald-500/10 border-emerald-500/30 text-emerald-300",
+    "from-teal-300/30 to-teal-300/10 border-teal-300/30 text-teal-200",
   moderate:
-    "from-sky-400/30 to-sky-500/10 border-sky-500/30 text-sky-300",
+    "from-teal-200/30 to-teal-300/10 border-teal-300/30 text-teal-200",
   advanced:
-    "from-fuchsia-400/30 to-fuchsia-500/10 border-fuchsia-500/30 text-fuchsia-300",
+    "from-rose-300/25 to-indigo-300/10 border-rose-300/30 text-rose-200",
 };
 
 export default function PracticePage() {
@@ -160,18 +160,18 @@ export default function PracticePage() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-[#060815] text-white">
       <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-120px] h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-sky-500/10 blur-3xl" />
-        <div className="absolute right-[-120px] top-[180px] h-[360px] w-[520px] rounded-full bg-fuchsia-500/10 blur-3xl" />
-        <div className="absolute bottom-[-120px] left-[8%] h-[360px] w-[520px] rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute left-1/2 top-[-120px] h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-teal-300/10 blur-3xl" />
+        <div className="absolute right-[-120px] top-[180px] h-[360px] w-[520px] rounded-full bg-rose-300/10 blur-3xl" />
+        <div className="absolute bottom-[-120px] left-[8%] h-[360px] w-[520px] rounded-full bg-teal-300/10 blur-3xl" />
         <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:48px_48px]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
         <header className="mb-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-300">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-300">
+            <span className="h-2 w-2 rounded-full bg-teal-300" />
             Practice Studio
           </div>
 
@@ -179,7 +179,7 @@ export default function PracticePage() {
             Proof problem bank
           </h1>
 
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-zinc-400 md:text-base">
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-400 md:text-base">
             Choose a difficulty, select a problem, or get a random one. Then
             write your proof in LaTeX and submit it for AI feedback on
             correctness, rigor, and missing steps.
@@ -188,8 +188,8 @@ export default function PracticePage() {
 
         <div className="grid gap-6 xl:grid-cols-[320px_1fr]">
           <aside className="space-y-5">
-            <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-5 shadow-[0_0_40px_rgba(0,0,0,0.35)]">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+            <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-[0_0_40px_rgba(0,0,0,0.35)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                 Difficulty
               </p>
 
@@ -209,13 +209,13 @@ export default function PracticePage() {
                         className={`rounded-2xl border px-4 py-3 text-left transition ${
                           active
                             ? `bg-gradient-to-r ${difficultyAccent[level]}`
-                            : "border-zinc-800 bg-black/30 text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50"
+                            : "border-white/10 bg-[#060815]/30 text-slate-300 hover:border-white/15 hover:bg-slate-900/50"
                         }`}
                       >
                         <div className="text-sm font-medium">
                           {difficultyLabels[level]}
                         </div>
-                        <div className="mt-1 text-xs text-zinc-500">
+                        <div className="mt-1 text-xs text-slate-500">
                           {count} problems
                         </div>
                       </button>
@@ -224,8 +224,8 @@ export default function PracticePage() {
                 )}
               </div>
 
-              <div className="mt-5 rounded-2xl border border-zinc-800 bg-black/30 p-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+              <div className="mt-5 rounded-2xl border border-white/10 bg-[#060815]/30 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                   Pick a problem
                 </p>
 
@@ -237,7 +237,7 @@ export default function PracticePage() {
                     setFeedback(null);
                     setErrorMsg("");
                   }}
-                  className="mt-3 w-full rounded-xl border border-zinc-800 bg-zinc-950 px-3 py-3 text-sm text-zinc-100 outline-none focus:border-zinc-600"
+                  className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 text-sm text-slate-100 outline-none focus:border-white/20"
                 >
                   {filteredProblems.map((problem) => (
                     <option key={problem.id} value={problem.id}>
@@ -249,18 +249,18 @@ export default function PracticePage() {
                 <button
                   type="button"
                   onClick={pickRandomProblem}
-                  className="mt-3 w-full rounded-full bg-zinc-100 px-4 py-2.5 text-sm font-medium text-black hover:bg-white"
+                  className="mt-3 w-full rounded-full bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-200 px-4 py-2.5 text-sm font-medium text-slate-950 hover:brightness-110"
                 >
                   Give me a random problem
                 </button>
               </div>
             </div>
 
-            <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+            <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                 How to use this
               </p>
-              <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+              <ul className="mt-3 space-y-2 text-sm text-slate-400">
                 <li>• Try the problem fully on your own first.</li>
                 <li>• Use hints only if you’re genuinely stuck.</li>
                 <li>• Submit LaTeX for AI feedback on rigor and logic.</li>
@@ -272,41 +272,41 @@ export default function PracticePage() {
           <section className="space-y-6">
             {selectedProblem ? (
               <>
-                <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
+                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
                   <div className="flex flex-wrap items-center gap-3">
                     <span
                       className={`inline-flex rounded-full border px-3 py-1 text-xs font-medium bg-gradient-to-r ${difficultyAccent[selectedProblem.difficulty]}`}
                     >
                       {difficultyLabels[selectedProblem.difficulty]}
                     </span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-slate-500">
                       {selectedProblem.topic}
                     </span>
                   </div>
 
-                  <h2 className="mt-4 text-2xl font-semibold text-zinc-50">
+                  <h2 className="mt-4 text-2xl font-semibold text-slate-50">
                     {selectedProblem.title}
                   </h2>
 
-                  <p className="mt-2 text-sm text-zinc-400">
+                  <p className="mt-2 text-sm text-slate-400">
                     {selectedProblem.description}
                   </p>
 
-                  <div className="mt-6 rounded-2xl border border-zinc-800 bg-black/40 p-5">
-                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
+                  <div className="mt-6 rounded-2xl border border-white/10 bg-[#060815]/40 p-5">
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-200">
                       {selectedProblem.prompt}
                     </p>
                   </div>
 
                   {(selectedProblem.hint || selectedProblem.outline) && (
-                    <details className="mt-5 rounded-2xl border border-zinc-800 bg-black/30 p-5">
-                      <summary className="cursor-pointer text-sm font-medium text-emerald-400">
+                    <details className="mt-5 rounded-2xl border border-white/10 bg-[#060815]/30 p-5">
+                      <summary className="cursor-pointer text-sm font-medium text-teal-300">
                         Show hint / outline
                       </summary>
 
                       {selectedProblem.hint && (
-                        <p className="mt-4 text-sm text-zinc-300">
-                          <span className="font-semibold text-zinc-100">
+                        <p className="mt-4 text-sm text-slate-300">
+                          <span className="font-semibold text-slate-100">
                             Hint.{" "}
                           </span>
                           {selectedProblem.hint}
@@ -314,8 +314,8 @@ export default function PracticePage() {
                       )}
 
                       {selectedProblem.outline && (
-                        <p className="mt-3 text-sm text-zinc-300">
-                          <span className="font-semibold text-zinc-100">
+                        <p className="mt-3 text-sm text-slate-300">
+                          <span className="font-semibold text-slate-100">
                             Outline.{" "}
                           </span>
                           {selectedProblem.outline}
@@ -325,18 +325,18 @@ export default function PracticePage() {
                   )}
                 </div>
 
-                <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
+                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                         Submit your proof
                       </p>
-                      <h3 className="mt-2 text-lg font-semibold text-zinc-100">
+                      <h3 className="mt-2 text-lg font-semibold text-slate-100">
                         LaTeX answer box
                       </h3>
                     </div>
 
-                    <div className="rounded-full border border-zinc-800 bg-black/30 px-3 py-1 text-xs text-zinc-500">
+                    <div className="rounded-full border border-white/10 bg-[#060815]/30 px-3 py-1 text-xs text-slate-500">
                       AI grading
                     </div>
                   </div>
@@ -345,7 +345,7 @@ export default function PracticePage() {
                     value={latexSolution}
                     onChange={(e) => setLatexSolution(e.target.value)}
                     placeholder="Paste your LaTeX proof here..."
-                    className="mt-5 min-h-[260px] w-full rounded-2xl border border-zinc-800 bg-black/50 px-4 py-4 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-zinc-600"
+                    className="mt-5 min-h-[260px] w-full rounded-2xl border border-white/10 bg-[#060815]/50 px-4 py-4 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-white/20"
                   />
 
                   <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -353,12 +353,12 @@ export default function PracticePage() {
                       type="button"
                       onClick={submitForGrading}
                       disabled={isSubmitting}
-                      className="rounded-full bg-zinc-100 px-5 py-2.5 text-sm font-medium text-black hover:bg-white disabled:opacity-60"
+                      className="rounded-full bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-200 px-5 py-2.5 text-sm font-medium text-slate-950 hover:brightness-110 disabled:opacity-60"
                     >
                       {isSubmitting ? "Grading..." : "Grade my solution"}
                     </button>
 
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-slate-500">
                       Checks correctness, rigor, and missing steps.
                     </span>
                   </div>
@@ -370,27 +370,27 @@ export default function PracticePage() {
                   )}
 
                   {feedback && (
-                    <div className="mt-5 space-y-4 rounded-2xl border border-zinc-800 bg-black/40 p-5">
+                    <div className="mt-5 space-y-4 rounded-2xl border border-white/10 bg-[#060815]/40 p-5">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="rounded-full border border-zinc-700 bg-zinc-950 px-3 py-1 text-sm font-semibold text-zinc-100">
+                        <span className="rounded-full border border-white/15 bg-slate-950 px-3 py-1 text-sm font-semibold text-slate-100">
                           Verdict: {feedback.verdict}
                         </span>
 
-                        <span className="text-xs text-zinc-400">
+                        <span className="text-xs text-slate-400">
                           Score: {feedback.score}/10
                         </span>
                       </div>
 
-                      <div className="whitespace-pre-wrap rounded-xl border border-zinc-800 bg-zinc-950/70 p-4 text-sm text-zinc-300">
+                      <div className="whitespace-pre-wrap rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-300">
                         {feedback.feedback}
                       </div>
 
                       {feedback.missing_steps && feedback.missing_steps.length > 0 && (
                         <div>
-                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                             Missing / weak steps
                           </p>
-                          <ul className="list-inside list-disc space-y-1 text-sm text-zinc-300">
+                          <ul className="list-inside list-disc space-y-1 text-sm text-slate-300">
                             {feedback.missing_steps.map((item, idx) => (
                               <li key={idx}>{item}</li>
                             ))}
@@ -400,10 +400,10 @@ export default function PracticePage() {
 
                       {feedback.next_steps && feedback.next_steps.length > 0 && (
                         <div>
-                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                             How to improve
                           </p>
-                          <ul className="list-inside list-disc space-y-1 text-sm text-zinc-300">
+                          <ul className="list-inside list-disc space-y-1 text-sm text-slate-300">
                             {feedback.next_steps.map((item, idx) => (
                               <li key={idx}>{item}</li>
                             ))}
@@ -415,7 +415,7 @@ export default function PracticePage() {
                 </div>
               </>
             ) : (
-              <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8 text-zinc-400">
+              <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 text-slate-400">
                 No problem available for this difficulty yet.
               </div>
             )}

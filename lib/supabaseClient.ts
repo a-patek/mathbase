@@ -14,7 +14,10 @@ const createStubClient = (): SupabaseClient => {
     onAuthStateChange: () => ({
       data: { subscription: { unsubscribe: () => undefined } },
     }),
+    signUp: async () => ({ data: { user: null, session: null }, error }),
+    signInWithPassword: async () => ({ data: { user: null, session: null }, error }),
     signInWithOtp: async () => ({ data: null, error }),
+    setSession: async () => ({ data: { user: null, session: null }, error }),
     signOut: async () => ({ error }),
   };
 

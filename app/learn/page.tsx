@@ -73,24 +73,24 @@ const moduleMeta: Record<
 
 export default function LearnPage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-[#060815] text-white">
       {/* Hero */}
-      <section className="border-b border-zinc-800 bg-gradient-to-b from-zinc-950 via-black to-black">
+      <section className="border-b border-white/10 bg-gradient-to-b from-slate-950 via-[#060815] to-[#060815]">
         <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700/70 bg-zinc-900/80 px-3 py-1 text-xs font-medium text-zinc-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-900/80 px-3 py-1 text-xs font-medium text-slate-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
               Learn · Structured proof curriculum
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
               Work through a{" "}
-              <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-200 to-indigo-300 bg-clip-text text-transparent">
                 proof-first math track
               </span>
             </h1>
 
-            <p className="text-sm md:text-base text-zinc-300">
+            <p className="text-sm md:text-base text-slate-300">
               Start with the core proof modules — what proofs are, logic, direct proof,
               contradiction, induction, and sets/functions — then branch into number
               theory, combinatorics, and graph theory. Every module is built to feed
@@ -98,13 +98,13 @@ export default function LearnPage() {
               courses.
             </p>
 
-            <div className="flex flex-wrap gap-3 text-[0.75rem] text-zinc-400">
+            <div className="flex flex-wrap gap-3 text-[0.75rem] text-slate-400">
               <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
                 Best for students aiming at AMC/AIME, olympiads, and proof courses
               </div>
               <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
                 Each module has reading, practice, TL;DR, and proof-writing prompts
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function LearnPage() {
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="text-2xl font-semibold">Core proof track</h2>
-              <p className="mt-1 text-sm text-zinc-400 max-w-xl">
+              <p className="mt-1 text-sm text-slate-400 max-w-xl">
                 Go through these in order. They build the mental toolkit you’ll reuse in
                 every branch of math.
               </p>
@@ -140,28 +140,28 @@ export default function LearnPage() {
                 <Link
                   key={slug}
                   href={`/learn/${slug}`}
-                  className="group flex flex-col rounded-2xl border border-zinc-800 bg-zinc-950/80 p-5 transition hover:border-sky-500/70 hover:bg-zinc-900"
+                  className="group flex flex-col rounded-2xl border border-white/10 bg-slate-950/80 p-5 transition hover:border-teal-300/70 hover:bg-slate-900"
                 >
                   <div className="mb-2 flex items-center justify-between gap-2">
-                    <span className="text-[0.7rem] font-semibold uppercase tracking-wide text-sky-400">
+                    <span className="text-[0.7rem] font-semibold uppercase tracking-wide text-teal-300">
                       {label}
                     </span>
                     {tag && (
-                      <span className="rounded-full border border-emerald-500/60 bg-emerald-500/10 px-2 py-0.5 text-[0.65rem] font-medium text-emerald-200">
+                      <span className="rounded-full border border-teal-300/60 bg-teal-300/10 px-2 py-0.5 text-[0.65rem] font-medium text-teal-100">
                         {tag}
                       </span>
                     )}
                   </div>
-                  <h3 className="text-sm font-semibold text-zinc-50 group-hover:text-sky-50">
+                  <h3 className="text-sm font-semibold text-slate-50 group-hover:text-teal-50">
                     {data.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-xs text-zinc-400">{blurb}</p>
-                  <div className="mt-3 flex items-center justify-between text-[0.7rem] text-zinc-500">
+                  <p className="mt-2 flex-1 text-xs text-slate-400">{blurb}</p>
+                  <div className="mt-3 flex items-center justify-between text-[0.7rem] text-slate-500">
                     <span>
                       {data.subsections?.length ?? 0} lesson
                       {(data.subsections?.length ?? 0) === 1 ? "" : "s"}
                     </span>
-                    <span className="font-medium text-sky-300 group-hover:text-sky-200">
+                    <span className="font-medium text-teal-200 group-hover:text-teal-100">
                       Open module →
                     </span>
                   </div>
@@ -173,10 +173,10 @@ export default function LearnPage() {
 
         {/* Branches */}
         {branchModules.length > 0 && (
-          <div className="border-t border-zinc-800 pt-10">
+          <div className="border-t border-white/10 pt-10">
             <div className="mb-6">
               <h2 className="text-2xl font-semibold">Branches of math</h2>
-              <p className="mt-1 text-sm text-zinc-400 max-w-xl">
+              <p className="mt-1 text-sm text-slate-400 max-w-xl">
                 Once you’re comfortable with the core modules, dive into one or more
                 branches. Each branch leans heavily on proof-style thinking, not just
                 computational drills.
@@ -195,21 +195,21 @@ export default function LearnPage() {
                   <Link
                     key={slug}
                     href={`/learn/${slug}`}
-                    className="group flex flex-col rounded-2xl border border-zinc-800 bg-black/80 p-5 transition hover:border-violet-500/70 hover:bg-zinc-950"
+                    className="group flex flex-col rounded-2xl border border-white/10 bg-[#060815]/80 p-5 transition hover:border-indigo-300/70 hover:bg-slate-950"
                   >
                     <div className="mb-2 flex items-center justify-between gap-2">
-                      <span className="rounded-full border border-zinc-700 px-2 py-0.5 text-[0.65rem] font-medium text-zinc-300">
+                      <span className="rounded-full border border-white/15 px-2 py-0.5 text-[0.65rem] font-medium text-slate-300">
                         {tag}
                       </span>
-                      <span className="text-[0.65rem] text-zinc-500">
+                      <span className="text-[0.65rem] text-slate-500">
                         {data.subsections?.length ?? 0} lessons
                       </span>
                     </div>
-                    <h3 className="text-sm font-semibold text-zinc-50 group-hover:text-violet-50">
+                    <h3 className="text-sm font-semibold text-slate-50 group-hover:text-indigo-50">
                       {data.title}
                     </h3>
-                    <p className="mt-2 flex-1 text-xs text-zinc-400">{blurb}</p>
-                    <p className="mt-3 text-[0.7rem] font-medium text-violet-300 group-hover:text-violet-200">
+                    <p className="mt-2 flex-1 text-xs text-slate-400">{blurb}</p>
+                    <p className="mt-3 text-[0.7rem] font-medium text-indigo-200 group-hover:text-indigo-100">
                       Explore this branch →
                     </p>
                   </Link>

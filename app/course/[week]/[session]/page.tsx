@@ -33,16 +33,16 @@ export default async function CourseSessionPage({
 
   if (!session) {
     return (
-      <main className="min-h-screen bg-black text-white flex items-center justify-center">
+      <main className="min-h-screen bg-[#060815] text-white flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">404</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">404</p>
           <h1 className="text-2xl font-semibold">Session not found</h1>
-          <p className="text-sm text-zinc-400">
+          <p className="text-sm text-slate-400">
             The session you tried to open does not exist yet.
           </p>
           <Link
             href="/course"
-            className="inline-flex items-center rounded-full bg-zinc-900 px-4 py-2 text-sm text-zinc-100 hover:bg-zinc-800"
+            className="inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-sm text-slate-100 hover:bg-slate-800"
           >
             Back to course
           </Link>
@@ -59,17 +59,17 @@ export default async function CourseSessionPage({
       : null;
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <section className="border-b border-zinc-900 bg-gradient-to-b from-zinc-950 via-black to-black">
+    <main className="min-h-screen bg-[#060815] text-white">
+      <section className="border-b border-white/10 bg-gradient-to-b from-slate-950 via-[#060815] to-[#060815]">
         <div className="mx-auto max-w-6xl px-6 py-8">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-            <Link href="/course" className="hover:text-zinc-100">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <Link href="/course" className="hover:text-slate-100">
               Course
             </Link>
-            <span className="text-zinc-600">/</span>
-            <span className="text-zinc-100">Week {session.week}</span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-zinc-100">Session {session.session}</span>
+            <span className="text-slate-600">/</span>
+            <span className="text-slate-100">Week {session.week}</span>
+            <span className="text-slate-600">/</span>
+            <span className="text-slate-100">Session {session.session}</span>
           </div>
         </div>
       </section>

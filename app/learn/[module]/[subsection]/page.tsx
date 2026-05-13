@@ -14,7 +14,7 @@ export default async function SubsectionPage({
   const moduleData = (lessons as any)[module];
   if (!moduleData) {
     return (
-      <main className="min-h-screen bg-black text-white p-8">
+      <main className="min-h-screen bg-[#060815] text-white p-8">
         <h1 className="text-3xl font-bold mb-4">Module not found</h1>
       </main>
     );
@@ -26,7 +26,7 @@ export default async function SubsectionPage({
 
   if (!subsection) {
     return (
-      <main className="min-h-screen bg-black text-white p-8">
+      <main className="min-h-screen bg-[#060815] text-white p-8">
         <h1 className="text-3xl font-bold mb-4">Subsection not found</h1>
       </main>
     );

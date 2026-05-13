@@ -22,20 +22,20 @@ export function SectionCard({ title, items }: SectionProps) {
   const listItems = hasNote ? items.slice(1) : items;
 
   return (
-    <div className="rounded-xl border border-zinc-900 bg-zinc-950/70 p-4">
+    <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4">
       <div className="flex items-center justify-between gap-2">
-        <h4 className="text-sm font-semibold text-zinc-100">{title}</h4>
+        <h4 className="text-sm font-semibold text-slate-100">{title}</h4>
       </div>
-      {note && <p className="mt-2 text-xs text-zinc-500">{note}</p>}
+      {note && <p className="mt-2 text-xs text-slate-500">{note}</p>}
       <ul className="mt-3 space-y-2">
         {listItems.map((item, idx) => (
-          <li key={`${title}-${idx}`} className="flex gap-2 text-sm text-zinc-200">
+          <li key={`${title}-${idx}`} className="flex gap-2 text-sm text-slate-200">
             {isNumbered ? (
-              <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-900 text-[0.7rem] text-zinc-400">
+              <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-slate-900 text-[0.7rem] text-slate-400">
                 {idx + 1}
               </span>
             ) : (
-              <span className="mt-2 inline-flex h-1.5 w-1.5 flex-none rounded-full bg-emerald-400" />
+              <span className="mt-2 inline-flex h-1.5 w-1.5 flex-none rounded-full bg-teal-300" />
             )}
             <span>{item.replace(/^\d+\.\s*/, "")}</span>
           </li>
@@ -72,11 +72,11 @@ export function McqCard({
   const isCorrect = hasAnswer && selected === answerIndex;
 
   return (
-    <div className="rounded-xl border border-zinc-900 bg-zinc-950/70 p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">
+    <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">
         MCQ
       </p>
-      <p className="mt-2 text-sm font-semibold text-zinc-100">{question}</p>
+      <p className="mt-2 text-sm font-semibold text-slate-100">{question}</p>
       <div className="mt-3 space-y-2">
         {options.map((option, optionIndex) => {
           const isSelected = selected === optionIndex;
@@ -86,9 +86,9 @@ export function McqCard({
 
           const className = [
             "w-full rounded-lg border px-3 py-2 text-left text-xs md:text-sm transition",
-            "border-zinc-800 bg-black/40 text-zinc-200 hover:border-zinc-600",
-            isSelected && "border-sky-500/70 bg-sky-500/10 text-sky-100",
-            showCorrect && "border-emerald-500/70 bg-emerald-500/10 text-emerald-100",
+            "border-white/10 bg-[#060815]/40 text-slate-200 hover:border-white/20",
+            isSelected && "border-teal-300/70 bg-teal-300/10 text-teal-100",
+            showCorrect && "border-teal-300/70 bg-teal-300/10 text-teal-100",
             showWrong && "border-rose-500/70 bg-rose-500/10 text-rose-100",
           ]
             .filter(Boolean)
@@ -110,12 +110,12 @@ export function McqCard({
         <div
           className={`mt-3 rounded-lg border px-3 py-2 text-xs ${
             isCorrect
-              ? "border-emerald-500/60 bg-emerald-500/10 text-emerald-100"
+              ? "border-teal-300/60 bg-teal-300/10 text-teal-100"
               : "border-rose-500/60 bg-rose-500/10 text-rose-100"
           }`}
         >
           <p className="font-semibold">{isCorrect ? "Correct" : "Not quite"}</p>
-          <p className="mt-1 text-[0.7rem] text-zinc-200">{explanation}</p>
+          <p className="mt-1 text-[0.7rem] text-slate-200">{explanation}</p>
         </div>
       )}
     </div>

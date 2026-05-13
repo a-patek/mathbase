@@ -76,48 +76,48 @@ export default function SubsectionClient({
   const readableModule = moduleSlug.replace(/-/g, " ");
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#060815] text-white">
       {/* Top bar / hero */}
-      <div className="border-b border-zinc-900 bg-gradient-to-b from-zinc-900/70 to-black">
+      <div className="border-b border-white/10 bg-gradient-to-b from-slate-900/70 to-[#060815]">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-6 lg:py-8">
           {/* Breadcrumbs */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-            <Link href="/learn" className="hover:text-zinc-100">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <Link href="/learn" className="hover:text-slate-100">
               Learn
             </Link>
-            <span className="text-zinc-600">/</span>
-            <span className="capitalize text-zinc-300">
+            <span className="text-slate-600">/</span>
+            <span className="capitalize text-slate-300">
               {readableModule}
             </span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-zinc-100">{subsection.title}</span>
+            <span className="text-slate-600">/</span>
+            <span className="text-slate-100">{subsection.title}</span>
           </div>
 
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-xl">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-300">
                 Lesson subsection
               </p>
               <h1 className="mt-2 text-2xl font-semibold md:text-3xl">
                 {subsection.title}
               </h1>
-              <p className="mt-3 text-sm text-zinc-400">
+              <p className="mt-3 text-sm text-slate-400">
                 Read the explanation, try the on-paper prompts, then
                 explain the idea in your own words. Use AI feedback as a
                 mentor, not a shortcut.
               </p>
             </div>
 
-            <div className="flex flex-col items-start gap-2 text-xs text-zinc-400 sm:items-end">
+            <div className="flex flex-col items-start gap-2 text-xs text-slate-400 sm:items-end">
               <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-zinc-700 px-3 py-1">
+                <span className="rounded-full border border-white/15 px-3 py-1">
                   10–20 min focus
                 </span>
-                <span className="rounded-full border border-emerald-500/60 bg-emerald-500/10 px-3 py-1 text-emerald-300">
+                <span className="rounded-full border border-teal-300/60 bg-teal-300/10 px-3 py-1 text-teal-200">
                   Proof-first mindset
                 </span>
               </div>
-              <p className="max-w-xs text-right text-[0.7rem] text-zinc-500">
+              <p className="max-w-xs text-right text-[0.7rem] text-slate-500">
                 Best flow: read → think on paper → write a short
                 explanation → refine with feedback.
               </p>
@@ -131,26 +131,26 @@ export default function SubsectionClient({
         {/* LEFT: Reading + TL;DR + prompts */}
         <section className="space-y-6 lg:space-y-8">
           {/* Reading card */}
-          <div className="rounded-2xl border border-zinc-900 bg-zinc-950/80 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+          <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
             <div className="mb-4 flex items-center justify-between gap-2">
               <h2 className="text-lg font-semibold">Reading</h2>
-              <span className="rounded-full bg-zinc-900 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-zinc-400">
+              <span className="rounded-full bg-slate-900 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-slate-400">
                 Core explanation
               </span>
             </div>
 
-            <div className="prose prose-invert max-w-none prose-headings:text-zinc-100 prose-strong:text-zinc-100 prose-code:text-emerald-300 prose-a:text-emerald-300">
+            <div className="prose prose-invert max-w-none prose-headings:text-slate-100 prose-strong:text-slate-100 prose-code:text-teal-200 prose-a:text-teal-200">
               <ReactMarkdown>{subsection.reading}</ReactMarkdown>
             </div>
           </div>
 
           {/* TL;DR */}
           {subsection.tldr && (
-            <div className="rounded-2xl border border-emerald-500/60 bg-emerald-500/8 p-5">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+            <div className="rounded-2xl border border-teal-300/60 bg-teal-300/8 p-5">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-teal-200">
                 TL;DR — key idea
               </p>
-              <p className="mt-2 text-sm text-emerald-50">
+              <p className="mt-2 text-sm text-teal-50">
                 {subsection.tldr}
               </p>
             </div>
@@ -158,22 +158,22 @@ export default function SubsectionClient({
 
           {/* On-paper prompts */}
           {(practiceItems && practiceItems.length > 0) && (
-            <div className="rounded-2xl border border-zinc-900 bg-zinc-950/90 p-5">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/90 p-5">
               <h2 className="text-sm font-semibold">
                 Try these in your notebook
               </h2>
-              <p className="mt-2 text-xs text-zinc-500">
+              <p className="mt-2 text-xs text-slate-500">
                 Don’t skip this – writing proofs or explanations on
                 paper is where most of the learning actually happens.
               </p>
 
-              <ul className="mt-4 space-y-3 text-sm text-zinc-200">
+              <ul className="mt-4 space-y-3 text-sm text-slate-200">
                 {practiceItems.map((p: string, i: number) => (
                   <li
                     key={i}
-                    className="flex gap-2 rounded-xl border border-zinc-800 bg-zinc-950/80 p-3"
+                    className="flex gap-2 rounded-xl border border-white/10 bg-slate-950/80 p-3"
                   >
-                    <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-900 text-[0.7rem] text-zinc-400">
+                    <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-slate-900 text-[0.7rem] text-slate-400">
                       {i + 1}
                     </span>
                     <p className="whitespace-pre-line">{p}</p>
@@ -181,7 +181,7 @@ export default function SubsectionClient({
                 ))}
               </ul>
 
-              <p className="mt-3 text-[0.7rem] text-zinc-500">
+              <p className="mt-3 text-[0.7rem] text-slate-500">
                 Once you’ve sketched some ideas, summarize the main
                 insight in the reflection box on the right.
               </p>
@@ -193,11 +193,11 @@ export default function SubsectionClient({
         <section className="space-y-6 lg:space-y-8">
           <div className="sticky top-4 space-y-6">
             {/* Reflection card */}
-            <div className="rounded-2xl border border-zinc-900 bg-zinc-950/95 p-5">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/95 p-5">
               <h2 className="text-sm font-semibold">
                 Check your understanding
               </h2>
-              <p className="mt-2 text-xs text-zinc-500">
+              <p className="mt-2 text-xs text-slate-500">
                 In 3–6 sentences, explain the core idea of this
                 subsection as if you were teaching a friend who hasn’t
                 seen it. Focus on the logic, not just the final
@@ -205,7 +205,7 @@ export default function SubsectionClient({
               </p>
 
               <textarea
-                className="mt-4 h-40 w-full resize-none rounded-xl border border-zinc-800 bg-black/60 px-3 py-2 text-sm text-zinc-100 outline-none ring-0 placeholder:text-zinc-600 focus:border-emerald-500/60"
+                className="mt-4 h-40 w-full resize-none rounded-xl border border-white/10 bg-[#060815]/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 placeholder:text-slate-600 focus:border-teal-200/45"
                 placeholder="Write your own explanation here…"
                 value={reflection}
                 onChange={(e) => setReflection(e.target.value)}
@@ -215,20 +215,20 @@ export default function SubsectionClient({
                 <button
                   onClick={handleSubmit}
                   disabled={!reflection.trim() || isReviewing}
-                  className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-medium text-black shadow-md shadow-emerald-500/30 transition hover:bg-emerald-400 disabled:bg-zinc-800 disabled:text-zinc-500 disabled:shadow-none"
+                  className="inline-flex items-center justify-center rounded-full bg-teal-300 px-4 py-2 text-sm font-medium text-slate-950 shadow-md shadow-teal-300/30 transition hover:bg-teal-200 disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none"
                 >
                   {isReviewing
                     ? "Getting AI critique…"
                     : "Get AI feedback"}
                 </button>
-                <p className="text-[0.7rem] text-zinc-500">
+                <p className="text-[0.7rem] text-slate-500">
                   AI is optional. Use it to spot gaps and sharpen your
                   wording, not to replace your own thinking.
                 </p>
               </div>
 
               {submitted && !isReviewing && !error && (
-                <p className="mt-3 text-xs text-emerald-300">
+                <p className="mt-3 text-xs text-teal-200">
                   ✔️ Feedback generated below. Re-write your explanation
                   if you spot mistakes or fuzzy parts.
                 </p>
@@ -241,14 +241,14 @@ export default function SubsectionClient({
 
             {/* Feedback card */}
             {feedback && (
-              <div className="rounded-2xl border border-emerald-500/50 bg-emerald-500/8 p-5">
-                <h2 className="text-sm font-semibold text-emerald-200">
+              <div className="rounded-2xl border border-teal-300/50 bg-teal-300/8 p-5">
+                <h2 className="text-sm font-semibold text-teal-100">
                   AI feedback
                 </h2>
-                <p className="mt-2 text-xs text-emerald-300">
+                <p className="mt-2 text-xs text-teal-200">
                   Treat this as a mentor’s comments, not a grade.
                 </p>
-                <div className="mt-3 whitespace-pre-line text-sm text-emerald-50">
+                <div className="mt-3 whitespace-pre-line text-sm text-teal-50">
                   {feedback}
                 </div>
               </div>
