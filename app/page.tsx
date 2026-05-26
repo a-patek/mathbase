@@ -90,7 +90,7 @@ export default function Home() {
             </div>
 
             <h1 className="max-w-4xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-              Master proofs with a page that moves at your pace.
+              Master mathematical proofs step by step.
             </h1>
 
             <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
@@ -163,7 +163,7 @@ export default function Home() {
         </div>
 
         <div className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 text-center text-xs uppercase tracking-[0.22em] text-slate-500 sm:block">
-          Scroll to unfold
+          Start with the idea
         </div>
       </section>
 
@@ -172,11 +172,11 @@ export default function Home() {
           <div className="home-scene-inner">
             <div className="home-scene-copy">
               <p className="home-kicker">From fuzzy idea to precise proof</p>
-              <h2>Every scroll step reveals the next piece of the argument.</h2>
+              <h2>Turn rough intuition into a clean argument.</h2>
               <p>
-                The homepage now behaves more like a guided product story:
-                large sections hold still, visual pieces animate in, and the
-                page moves from concept to structure.
+                MathBase helps you see what each line of a proof is doing:
+                assumptions, definitions, algebraic steps, and the final
+                conclusion all fit together.
               </p>
             </div>
 
@@ -200,11 +200,11 @@ export default function Home() {
         <div className="home-sticky-scene">
           <div className="home-scene-inner home-scene-inner-reverse">
             <div className="home-scene-copy">
-              <p className="home-kicker">A path that locks into place</p>
+              <p className="home-kicker">A path that builds confidence</p>
               <h2>Learn, practice, then polish the write-up.</h2>
               <p>
-                Each stage has its own visual weight, so scrolling feels like
-                moving through a sequence instead of passing a stack of boxes.
+                Work through focused lessons, try problems on your own, and
+                use feedback to catch gaps in logic before they become habits.
               </p>
             </div>
 
@@ -230,9 +230,9 @@ export default function Home() {
               <p className="home-kicker">Core track</p>
               <h2>Start with the foundations, then branch outward.</h2>
               <p>
-                The modules appear as a connected track, giving the page a
-                stronger sense of progression while keeping the same lesson
-                links.
+                Begin with proof structure, logic, and direct proof. Then move
+                into number theory, combinatorics, and graph theory when the
+                basics feel steady.
               </p>
               <Link href="/learn" className="home-text-link">
                 View all modules

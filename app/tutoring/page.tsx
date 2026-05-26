@@ -13,33 +13,59 @@ export default function TutoringPage() {
   const [details, setDetails] = useState("");
   const [availability, setAvailability] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(false);
+    setSubmitError("");
 
-    const subject = encodeURIComponent("MathBase Tutoring Inquiry");
-    const bodyLines = [
-      `Name: ${name || "(not provided)"}`,
-      `Email: ${email || "(not provided)"}`,
-      `School: ${school || "(not provided)"}`,
-      `Grade / Year: ${grade || "(not provided)"}`,
-      "",
-      `Focus area / course: ${focusArea || "(not provided)"}`,
-      "",
-      "What I want help with:",
-      details || "(not provided)",
-      "",
-      "Typical availability:",
-      availability || "(not provided)",
-    ];
+    try {
+      setIsSubmitting(true);
 
-    const body = encodeURIComponent(bodyLines.join("\n"));
+      const response = await fetch("/api/tutoring", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          school,
+          grade,
+          focusArea,
+          details,
+          availability,
+        }),
+      });
 
-    // This opens the user's email client with a prefilled email to you
-    window.location.href = `mailto:ayaan.s.saini@gmail.com?subject=${subject}&body=${body}`;
+      const payload = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        message?: string;
+      };
 
-    setSubmitted(true);
+      if (!response.ok) {
+        throw new Error(payload.error ?? "Could not send your tutoring request.");
+      }
+
+      setSubmitted(true);
+      setName("");
+      setEmail("");
+      setSchool("");
+      setGrade("");
+      setFocusArea("");
+      setDetails("");
+      setAvailability("");
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Could not send your tutoring request."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -173,11 +199,8 @@ export default function TutoringPage() {
             Sign up for 1-on-1 tutoring
           </h2>
           <p className="mt-1 text-[0.75rem] text-slate-400">
-            Fill this out and it will open an email to{" "}
-            <span className="font-mono text-slate-200">
-              ...
-            </span>{" "}
-            with your info pre-filled. You can edit the email before sending.
+            Fill this out and MathBase will send the request directly. We’ll
+            reply by email to schedule a free intro call.
           </p>
 
           <div className="grid gap-3 md:grid-cols-2">
@@ -275,16 +298,20 @@ export default function TutoringPage() {
 
           <button
             type="submit"
-            className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-200 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-teal-300/30 hover:brightness-110"
+            disabled={isSubmitting}
+            className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-teal-300 via-cyan-200 to-amber-200 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-teal-300/30 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Open email the to request tutoring
+            {isSubmitting ? "Sending request..." : "Request tutoring"}
           </button>
 
           {submitted && (
             <p className="mt-2 text-[0.7rem] text-teal-200">
-              Your email client should open with everything filled in. Review it,
-              add anything else you’d like, and hit send.
+              Your request was sent. We’ll reply by email with next steps.
             </p>
+          )}
+
+          {submitError && (
+            <p className="mt-2 text-[0.7rem] text-rose-300">{submitError}</p>
           )}
 
           
