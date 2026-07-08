@@ -158,6 +158,7 @@ export default function CompetitionTeamPage() {
                 <li>- Students who want a serious, supportive competition environment.</li>
               </ul>
             </div>
+
           </div>
 
           <form

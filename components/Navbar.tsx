@@ -9,6 +9,7 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/competition", label: "Competition" },
   { href: "/competition-team", label: "Comp Team" },
+  { href: "/collaborations-sponsors", label: "Sponsors" },
   { href: "/learn", label: "Learn" },
   { href: "/practice", label: "Practice" },
   { href: "/team", label: "Team" },
