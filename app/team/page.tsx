@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Team | MathBase",
+  title: "About & Team | MathBase",
   description:
-    "Meet the MathBase team — a student-led educational initiative focused on problem-solving and proof-based mathematics.",
+    "Meet the MathBase team and learn about our New Jersey nonprofit mission to make math learning and competitions more accessible.",
 };
 
 type Person = {
@@ -184,27 +184,81 @@ export default function TeamPage() {
         <header className="mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60">
             <span className="h-2 w-2 rounded-full bg-teal-300" />
-            Student-led initiative
+            Filed New Jersey nonprofit
           </div>
 
           <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-            Meet the team behind{" "}
+            About the people behind{" "}
             <span className="bg-gradient-to-r from-teal-200 via-indigo-200 to-teal-200 bg-clip-text text-transparent">
               MathBase
             </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-white/65 sm:text-lg">
-            MathBase is built by students focused on proof-based learning,
-            mathematical clarity, and thoughtful platform design.
+            MathBase is a student-led, filed nonprofit organization in New
+            Jersey dedicated to helping students access stronger math learning,
+            proof-based resources, and competition opportunities.
           </p>
 
           <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.035] px-5 py-4 text-sm leading-relaxed text-white/50 backdrop-blur-sm">
             MathBase is founded and operated by students from Robbinsville High
-            School in New Jersey and receives informal support and guidance from
-            teachers at the school.
+            School in New Jersey. We build free educational resources, run
+            contests, and create spaces where motivated students can learn,
+            practice, and support one another.
           </div>
         </header>
+
+        <section className="mt-20">
+          <SectionHeader
+            eyebrow="About MathBase"
+            title="A nonprofit built to help students grow"
+            description="Our work is centered on access: making rigorous math, proof-writing, and competition preparation easier to find for students who want to go deeper."
+          />
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-sm">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-300">
+                Mission
+              </p>
+              <h3 className="mt-3 text-lg font-semibold tracking-tight text-white">
+                Helping students access better math
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                We create free lessons, practice materials, and contests for
+                students who want math to feel understandable, challenging, and
+                worth exploring.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-sm">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-300">
+                Nonprofit Status
+              </p>
+              <h3 className="mt-3 text-lg font-semibold tracking-tight text-white">
+                Filed in New Jersey
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                MathBase is a filed nonprofit organization in New Jersey. Our
+                focus is educational service, student opportunity, and community
+                support.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-sm">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
+                Impact
+              </p>
+              <h3 className="mt-3 text-lg font-semibold tracking-tight text-white">
+                Learning, contests, and mentorship
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                We help students build confidence through proof-based learning,
+                competition math, peer support, and opportunities to practice
+                serious problem solving.
+              </p>
+            </div>
+          </div>
+        </section>
 
         <section className="mt-20">
           <SectionHeader
