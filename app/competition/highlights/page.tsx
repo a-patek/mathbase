@@ -22,7 +22,7 @@ export default function CompetitionHighlightsPage() {
                 MathBase Open & Invitational
               </p>
               <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-                January 2026 MBO / MBI Highlights
+                July MBO Results
               </h1>
               <p className="mt-3 text-sm text-slate-400">
                 Final standings + prize distribution.

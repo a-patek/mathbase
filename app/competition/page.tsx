@@ -57,7 +57,7 @@ export default function CompetitionPage() {
   href="/competition/highlights"
   className="inline-flex items-center justify-center rounded-full border border-white/15 bg-slate-950 px-5 py-2.5 text-sm font-semibold text-slate-200 hover:bg-slate-900"
 >
-  January MBO / MBI highlights →
+  July MBO Results →
 </Link></div>
           </div>
 
@@ -92,12 +92,12 @@ export default function CompetitionPage() {
 
             <div className="rounded-2xl border border-teal-300/40 bg-teal-300/5 p-5 text-xs text-teal-100">
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-teal-200">
-                February 2026 schedule
+                August 2026 schedule
               </p>
               <p className="mt-2 text-[0.8rem]">
-                The February MBO/MBI will be held on{" "}
+                The next MBO/MBI will be held on{" "}
                 <span className="font-semibold text-teal-100">
-                  2/24/2026 (February 24) (Eastern Time Zone)
+                  8/15/2026 (August 15) (Eastern Time Zone)
                 </span>
                 .
               </p>
@@ -210,10 +210,10 @@ export default function CompetitionPage() {
               </p>
             </div>
 
-            {/* January prize pool section */}
+            {/* August prize pool section */}
             <div className="mt-5 rounded-xl border border-teal-300/40 bg-[#060815]/50 p-4 text-xs text-teal-100 space-y-3">
               <p className="text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-teal-200">
-                February 2026 MBI prize pool
+                August 2026 MBI prize pool
               </p>
 
               <div className="flex flex-wrap items-baseline gap-4">
@@ -223,7 +223,7 @@ export default function CompetitionPage() {
                 <div className="text-[0.8rem] text-teal-100 space-y-1">
                   <p className="font-semibold">prize pool</p>
                   <p className="text-teal-100">
-                    February MathBase Invitational champion
+                    August MathBase Invitational champion
                   </p>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default function CompetitionPage() {
               </div>
 
               <p className="text-[0.7rem] text-teal-200">
-                Cash rewards for the February MBI (1st: $500, 2nd: $200, 3rd: $50) will
+                Cash rewards for the August MBI (1st: $500, 2nd: $200, 3rd: $50) will
                 be forwarded in the week following the competition.
               </p>
             </div>
