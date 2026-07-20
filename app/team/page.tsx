@@ -12,7 +12,6 @@ type Person = {
   name: string;
   role: string;
   focus: string;
-  note: string;
   description: string;
   accent: string;
   glow: string;
@@ -24,7 +23,6 @@ const founders: Person[] = [
     name: "Ahaan Pathak",
     role: "Founder",
     focus: "Curriculum • Platform",
-    note: "AMC 12A: 120",
     description:
       "Founded MathBase to provide free, proof-first resources for students pursuing deeper mathematical problem solving and clear reasoning.",
     accent: "from-teal-300/30 via-cyan-200/10 to-transparent",
@@ -35,7 +33,6 @@ const founders: Person[] = [
     name: "Ayaan Saini",
     role: "Founder",
     focus: "Clarity • Learning Design",
-    note: "AMC 12A: 145.5 • AMC 12B: 141",
     description:
       "Helps refine explanations and learning progression, aiming for content that is accessible without losing rigor or proof structure.",
     accent: "from-teal-300/30 via-teal-300/10 to-transparent",
@@ -49,7 +46,6 @@ const staff: Person[] = [
     name: "Anirudh Dusi",
     role: "Staff",
     focus: "Review • Rigor",
-    note: "AMC 12B: 124",
     description:
       "Supports problem review and mathematical precision, focusing on correctness, clarity, and consistent standards across published content.",
     accent: "from-indigo-300/30 via-indigo-300/10 to-transparent",
@@ -59,7 +55,6 @@ const staff: Person[] = [
     name: "Rohit Vadi",
     role: "Staff",
     focus: "Systems • Engineering",
-    note: "AMC 12B: 133.5",
     description:
       "Builds and maintains the technical foundation of the platform, translating learning design into reliable and scalable systems.",
     accent: "from-amber-200/30 via-amber-200/10 to-transparent",
@@ -146,14 +141,6 @@ function TeamCard({ person }: { person: Person }) {
           {person.description}
         </p>
 
-        <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-          <span className="text-[11px] uppercase tracking-[0.16em] text-white/35">
-            Background
-          </span>
-          <span className="rounded-full border border-white/10 bg-[#060815]/25 px-3 py-1 text-xs text-white/65">
-            {person.note}
-          </span>
-        </div>
       </div>
     </article>
   );
