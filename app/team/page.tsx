@@ -61,6 +61,14 @@ const staff: Person[] = [
     glow: "hover:shadow-amber-200/10 hover:ring-amber-200/20",
   },
 ];
+const problemWriters = [
+  { name: "Adi Bawiskar", location: "IL" },
+  { name: "Eugene Wang", location: "Dallas, TX" },
+  { name: "Uday Shankar", location: "CA" },
+  { name: "Evan Goldman", location: "NJ" },
+  { name: "Jehyeong Suh", location: "NH" },
+  { name: "Kieran Callahan", location: "CA" },
+];
 
 function SectionHeader({
   eyebrow,
@@ -264,7 +272,40 @@ export default function TeamPage() {
           />
           <TeamGrid people={staff} />
         </section>
+        <section className="mt-20">
+          <SectionHeader
+            eyebrow="Problem Writing & Review"
+            title="Problem Writers"
+            description="Contributors creating and reviewing original problems for MathBase."
+          />
 
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {problemWriters.map((writer) => (
+              <article
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] p-6 backdrop-blur-sm ring-1 ring-transparent transition-all duration-300 hover:-translate-y-1 hover:border-teal-300/20 hover:bg-white/[0.05] hover:shadow-2xl hover:shadow-black/40"
+                key={writer.name}
+              >
+                <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-r from-teal-300/20 via-indigo-300/10 to-transparent opacity-80 blur-2xl" />
+                <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+
+                <div className="relative flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-semibold tracking-tight text-white">
+                      {writer.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-white/50">
+                      {writer.location}
+                    </p>
+                  </div>
+
+                  <span className="shrink-0 rounded-full border border-white/10 bg-[#060815]/30 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-white/70">
+                    Problem Writer
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
         <section className="mt-20 grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-sm">
             <h3 className="text-lg font-semibold tracking-tight text-white">
