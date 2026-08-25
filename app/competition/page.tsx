@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const SIGNUP_URL = "https://forms.gle/rFjV3nfqVt7WwD5U9";
 
@@ -195,10 +196,27 @@ export default function CompetitionPage() {
       </section>
 
       <section className="relative border-y border-white/10 bg-white/[0.025]">
-        <div className="mx-auto max-w-7xl px-5 py-20 text-center sm:px-8 lg:px-10 lg:py-24">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-amber-300">Prizes for top finishers</p>
-          <h2 className="mt-5 bg-gradient-to-r from-amber-100 via-amber-300 to-orange-300 bg-clip-text text-6xl font-semibold tracking-[-0.06em] text-transparent sm:text-7xl">Win merch</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-400">Standout competitors can take home exclusive MathBase merch and show off the work they put into every solution.</p>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:py-24">
+          <div className="text-center lg:text-left">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-amber-300">Prizes for competitors</p>
+            <h2 className="mt-5 bg-gradient-to-r from-amber-100 via-amber-300 to-orange-300 bg-clip-text text-6xl font-semibold tracking-[-0.06em] text-transparent sm:text-7xl">Win merch</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-400 lg:mx-0">Standout competitors can take home exclusive MathBase merch and show off the work they put into every solution.</p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-300 lg:mx-0">Merchandise from our sponsors will also be distributed to competitors.</p>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-2xl">
+            <div className="absolute -inset-5 rounded-[2.5rem] bg-gradient-to-br from-amber-300/15 via-orange-300/10 to-indigo-400/10 blur-2xl" />
+            <figure className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-[#0b1026]/90 p-4 shadow-2xl shadow-black/40 sm:p-6">
+              <Image
+                src="/mbo-shirt.png"
+                alt="Official MathBase Open competition shirt"
+                width={1600}
+                height={1200}
+                className="h-auto w-full rounded-[1.35rem] object-contain"
+              />
+              <figcaption className="px-2 pb-1 pt-4 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Official MBO merch</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
