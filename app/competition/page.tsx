@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const SIGNUP_URL = "https://forms.gle/rFjV3nfqVt7WwD5U9";
+const SIGNUP_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSd79of07mGIVmiX25jPKv6bLWFh5BKN1O5--WCA0ZF34pyoEw/viewform?usp=dialog";
 
 const schedule = [
   { time: "1:00 PM", label: "MBO begins", detail: "60 minutes · strictly timed" },
@@ -41,7 +42,7 @@ export default function CompetitionPage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-300 opacity-50" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-300" />
                 </span>
-                Registration open for August 2026
+                Registration open for September 2026
               </div>
 
               <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-indigo-300">
@@ -93,7 +94,7 @@ export default function CompetitionPage() {
                 <div className="flex items-start justify-between gap-5 border-b border-white/10 pb-6">
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">Next competition</p>
-                    <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Saturday, August 29</h2>
+                    <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">Sunday, September 27</h2>
                     <p className="mt-1 text-sm text-slate-400">All times Eastern · online</p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/[0.05] px-3.5 py-2 text-center">
@@ -226,7 +227,7 @@ export default function CompetitionPage() {
           <div className="relative">
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">The next problem is yours</p>
             <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">Ready to see how far your thinking can take you?</h2>
-            <p className="mx-auto mt-5 max-w-xl leading-7 text-slate-400">Registration is free. Sign up now to receive the August MathBase Open contest details.</p>
+            <p className="mx-auto mt-5 max-w-xl leading-7 text-slate-400">Registration is free. Sign up now to receive the September MathBase Open contest details.</p>
             <Link
               href={SIGNUP_URL}
               target="_blank"
