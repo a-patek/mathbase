@@ -1,5 +1,5 @@
-// app/learn/[module]/page.tsx
 // @ts-nocheck
+import Image from "next/image";
 import Link from "next/link";
 import { lessons } from "@/data/lessons";
 
@@ -7,175 +7,194 @@ type ModuleParams = {
   module: string;
 };
 
+const moduleIcons: Record<string, string> = {
+  "what-is-a-proof": "/learn-icons/foundations.png",
+  logic: "/learn-icons/logic.png",
+  "direct-proofs": "/learn-icons/equations.png",
+  counterexamples: "/learn-icons/relations.png",
+  "contradiction-contrapositive": "/learn-icons/operations.png",
+  induction: "/learn-icons/graph.png",
+  "sets-and-functions": "/learn-icons/sets.png",
+  "number-theory": "/learn-icons/equations.png",
+  combinatorics: "/learn-icons/operations.png",
+  "graph-theory": "/learn-icons/graph.png",
+};
+
+const supportingIcons = [
+  "/learn-icons/foundations.png",
+  "/learn-icons/logic.png",
+  "/learn-icons/equations.png",
+  "/learn-icons/relations.png",
+  "/learn-icons/operations.png",
+  "/learn-icons/geometry.png",
+  "/learn-icons/graph.png",
+  "/learn-icons/sets.png",
+  "/learn-icons/symmetry.png",
+];
+
+const modulePhotos: Record<string, { src: string; alt: string; caption: string }> = {
+  "what-is-a-proof": {
+    src: "/media/study-session.jpg",
+    alt: "Math Base students working together during a study session",
+    caption: "Proofs get clearer when ideas are shared",
+  },
+  "direct-proofs": {
+    src: "/media/mathbase-wall.jpg",
+    alt: "Two students wearing Math Base shirts",
+    caption: "Student-built mathematics, made to be shared",
+  },
+  counterexamples: {
+    src: "/media/mathbase-bench.jpg",
+    alt: "Math Base students with a Math Base shirt",
+    caption: "A toolkit built beyond the classroom",
+  },
+  combinatorics: {
+    src: "/media/pigeonhole-presentation.jpg",
+    alt: "Math Base students presenting the pigeonhole principle",
+    caption: "A Math Base pigeonhole-principle lesson in action",
+  },
+};
+
+const moduleSymbols = ["∑", "∀", "⇒", "≠", "¬", "n+1", "A∪B", "ℤ", "n!", "G"];
+
+function getTrackLabel(topic?: string) {
+  if (topic === "number-theory") return "Number theory branch";
+  if (topic === "combinatorics") return "Combinatorics branch";
+  if (topic === "graph-theory") return "Graph theory branch";
+  return "Core proof track";
+}
+
 export default async function ModulePage({
   params,
 }: {
   params: Promise<ModuleParams>;
 }) {
-  // ✅ unwrap the promise from Next
   const { module } = await params;
-
   const moduleData = (lessons as any)[module];
 
   if (!moduleData) {
     return (
-      <main className="min-h-screen bg-[#060815] text-white flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
-            404
-          </p>
-          <h1 className="text-2xl font-semibold">Module not found</h1>
-          <p className="text-sm text-slate-400">
-            The module you tried to open doesn’t exist (or isn’t wired up yet).
-          </p>
-          <Link
-            href="/learn"
-            className="inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-sm text-slate-100 hover:bg-slate-800"
-          >
-            ← Back to Learn
-          </Link>
-        </div>
+      <main className="mb-module-page mb-module-missing">
+        <span>404</span>
+        <h1>Module not found</h1>
+        <p>The module you tried to open is not available yet.</p>
+        <Link href="/learn">← Back to Learn</Link>
       </main>
     );
   }
 
   const subsections = moduleData.subsections ?? [];
-
-  const readableModuleTitle =
-    moduleData.title || module.replace(/-/g, " ");
-
-  const trackLabel = (() => {
-    switch (moduleData.topic) {
-      case "core":
-        return "Core proof track";
-      case "number-theory":
-        return "Number theory branch";
-      case "combinatorics":
-        return "Combinatorics branch";
-      case "graph-theory":
-        return "Graph theory branch";
-      default:
-        return "Mathbase module";
-    }
-  })();
+  const title = moduleData.title || module.replace(/-/g, " ");
+  const icon = moduleIcons[module] ?? "/learn-icons/foundations.png";
+  const photo = modulePhotos[module];
+  const moduleIndex = Math.max(0, Object.keys(moduleIcons).indexOf(module));
+  const symbol = moduleSymbols[moduleIndex % moduleSymbols.length];
+  const secondaryIcon = supportingIcons[(moduleIndex + 3) % supportingIcons.length];
+  const tertiaryIcon = supportingIcons[(moduleIndex + 6) % supportingIcons.length];
 
   return (
-    <main className="min-h-screen bg-[#060815] text-white">
-      {/* --- header / hero --- */}
-      <div className="border-b border-white/10 bg-gradient-to-b from-slate-900/70 to-[#060815]">
-        <div className="mx-auto max-w-6xl px-6 py-6 lg:py-10 space-y-6">
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <Link href="/learn" className="hover:text-slate-100">
-              Learn
-            </Link>
-            <span className="text-slate-600">/</span>
-            <span className="text-slate-100">{readableModuleTitle}</span>
-          </div>
+    <main className="mb-module-page">
+      <section className="mb-module-hero">
+        <div className="mb-module-hero-copy">
+          <nav aria-label="Breadcrumb">
+            <Link href="/learn">Learn</Link>
+            <span>/</span>
+            <span>{title}</span>
+          </nav>
 
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="max-w-xl space-y-3">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-300">
-                {trackLabel}
-              </p>
-              <h1 className="text-3xl font-semibold md:text-4xl">
-                {readableModuleTitle}
-              </h1>
-              <p className="text-sm text-slate-400">
-                Work through these bite-sized lessons. Each subsection has
-                reading, notebook prompts, and an optional AI critique to refine
-                your understanding.
-              </p>
-            </div>
+          <span>{getTrackLabel(moduleData.topic)}</span>
+          <h1>{title}</h1>
+          <p>Short lessons, notebook work, and one clear idea at a time.</p>
 
-            <div className="space-y-3 text-xs text-slate-400">
-              <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/15 px-3 py-1">
-                  {subsections.length}{" "}
-                  {subsections.length === 1 ? "subsection" : "subsections"}
-                </span>
-                <span className="rounded-full border border-teal-300/60 bg-teal-300/10 px-3 py-1 text-teal-200">
-                  Read → write → refine
-                </span>
-              </div>
-              <p className="max-w-xs text-[0.7rem] text-slate-500">
-                Recommended: move in order, but you can jump around if you’re
-                reviewing specific ideas.
-              </p>
-            </div>
+          <div className="mb-module-meta">
+            <span><strong>{subsections.length}</strong> lessons</span>
+            <span><strong>10–20</strong> min each</span>
+            <span><strong>01</strong> connected path</span>
           </div>
         </div>
-      </div>
 
-      {/* --- subsections grid --- */}
-      <div className="mx-auto max-w-6xl px-6 py-8 lg:py-12 space-y-6">
-        {subsections.length === 0 ? (
-          <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-6 text-sm text-slate-400">
-            This module doesn’t have any subsections wired up yet. Check back
-            soon.
+        <div className={`mb-module-hero-visual visual-${(moduleIndex % 5) + 1}`}>
+          {photo ? (
+            <>
+              <figure>
+                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 900px) 100vw, 42vw" priority />
+                <figcaption>{photo.caption}</figcaption>
+              </figure>
+              <div className="mb-module-icon-tile" aria-hidden="true">
+                <Image src={icon} alt="" width={180} height={180} />
+              </div>
+            </>
+          ) : (
+            <div className="mb-module-concept-art" aria-hidden="true">
+              <span>{symbol}</span>
+              <Image className="is-primary" src={icon} alt="" width={210} height={210} />
+              <Image className="is-secondary" src={secondaryIcon} alt="" width={105} height={105} />
+              <Image className="is-tertiary" src={tertiaryIcon} alt="" width={90} height={90} />
+              <i>{title}</i>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="mb-module-shell">
+        <div className="mb-module-flow" aria-label="How each lesson works">
+          <article><b>01</b><Image src="/learn-icons/foundations.png" alt="" width={72} height={72} /><div><strong>See the idea</strong><span>Start with the visual structure.</span></div></article>
+          <article><b>02</b><Image src="/learn-icons/equations.png" alt="" width={72} height={72} /><div><strong>Try it</strong><span>Work the key step on paper.</span></div></article>
+          <article><b>03</b><Image src="/learn-icons/symmetry.png" alt="" width={72} height={72} /><div><strong>Explain it</strong><span>Make the reasoning your own.</span></div></article>
+        </div>
+
+        <header className="mb-module-list-head">
+          <div>
+            <span>YOUR LESSONS</span>
+            <h2>Build the idea step by step.</h2>
           </div>
+          <p>Move in order or jump to the concept you need.</p>
+        </header>
+
+        {subsections.length === 0 ? (
+          <div className="mb-module-empty">Lessons for this module are coming soon.</div>
         ) : (
-          <>
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-sm font-semibold text-slate-200">
-                Subsections
-              </h2>
-              <p className="text-xs text-slate-500">
-                Click into a subsection to read, practice, and get feedback on
-                your explanation.
-              </p>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {subsections.map((sub: any, index: number) => {
-                const href = `/learn/${module}/${sub.slug}`;
-                const subtitle =
-                  sub.tldr ||
-                  "Reading, prompts, and a reflection checkpoint.";
-
-                return (
-                  <Link
-                    key={sub.slug}
-                    href={href}
-                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 p-5 transition hover:border-teal-300/60 hover:bg-slate-950"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-2">
-                        <div className="inline-flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.18em] text-slate-500">
-                          <span className="rounded-full bg-slate-900 px-2 py-1 text-slate-400">
-                            Lesson {index + 1}
-                          </span>
-                          <span className="hidden sm:inline">Subsection</span>
-                        </div>
-                        <h3 className="text-sm font-semibold text-slate-50">
-                          {sub.title}
-                        </h3>
-                        <p className="text-xs text-slate-400 line-clamp-3">
-                          {subtitle}
-                        </p>
-                      </div>
-
-                      <span className="mt-1 inline-flex h-8 w-8 flex-none items-center justify-center rounded-full border border-white/10 bg-slate-950 text-slate-400 transition group-hover:border-teal-300/60 group-hover:text-teal-200">
-                        →
-                      </span>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap gap-2 text-[0.7rem] text-slate-500">
-                      <span className="rounded-full bg-[#060815]/40 px-2 py-1">
-                        Reading + notebook work
-                      </span>
-                      <span className="rounded-full bg-[#060815]/40 px-2 py-1">
-                        Reflection + AI critique
-                      </span>
-                    </div>
-
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-teal-300/10 via-transparent opacity-0 transition group-hover:opacity-100" />
-                  </Link>
-                );
-              })}
-            </div>
-          </>
+          <div className="mb-module-lesson-grid">
+            {subsections.map((sub: any, index: number) => (
+              <Link
+                key={sub.slug}
+                href={`/learn/${module}/${sub.slug}`}
+                className="mb-module-lesson-card"
+              >
+                <div className={`mb-module-lesson-icon shade-${(index % 4) + 1}`}>
+                  <Image
+                    src={supportingIcons[index % supportingIcons.length]}
+                    alt=""
+                    width={105}
+                    height={105}
+                  />
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <div>
+                  <span>LESSON {index + 1}</span>
+                  <h3>{sub.title}</h3>
+                  <p>{sub.tldr || "Read the idea, sketch the reasoning, and explain the key step."}</p>
+                  <footer><small>Reading · notebook · reflection</small><b>→</b></footer>
+                </div>
+              </Link>
+            ))}
+          </div>
         )}
-      </div>
+
+        <section className="mb-module-community-strip">
+          <div className={`mb-module-community-art visual-${(moduleIndex % 5) + 1}`} aria-hidden="true">
+            <span>{symbol}</span>
+            <Image className="is-primary" src={icon} alt="" width={180} height={180} />
+            <Image className="is-secondary" src={secondaryIcon} alt="" width={105} height={105} />
+          </div>
+          <section>
+            <span>MATH IS SOCIAL</span>
+            <h2>Read alone. Think together.</h2>
+            <p>The best proof is the one you can explain clearly to someone else.</p>
+            <Link href="/practice">Take it into practice <b>→</b></Link>
+          </section>
+        </section>
+      </section>
     </main>
   );
 }

@@ -1,15 +1,42 @@
-// components/SubsectionClient.tsx
 "use client";
 // @ts-nocheck
 
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 type SubsectionClientProps = {
   subsection: any;
   moduleSlug: string;
 };
+
+const lessonIcons: Record<string, string> = {
+  "what-is-a-proof": "/learn-icons/foundations.png",
+  logic: "/learn-icons/logic.png",
+  "direct-proofs": "/learn-icons/equations.png",
+  counterexamples: "/learn-icons/relations.png",
+  "contradiction-contrapositive": "/learn-icons/operations.png",
+  induction: "/learn-icons/graph.png",
+  "sets-and-functions": "/learn-icons/sets.png",
+  "number-theory": "/learn-icons/equations.png",
+  combinatorics: "/learn-icons/operations.png",
+  "graph-theory": "/learn-icons/graph.png",
+};
+
+const visualIcons = [
+  "/learn-icons/foundations.png",
+  "/learn-icons/logic.png",
+  "/learn-icons/equations.png",
+  "/learn-icons/relations.png",
+  "/learn-icons/operations.png",
+  "/learn-icons/geometry.png",
+  "/learn-icons/graph.png",
+  "/learn-icons/sets.png",
+  "/learn-icons/symmetry.png",
+];
+
+const lessonSymbols = ["∑", "∀", "⇒", "≠", "¬", "n+1", "A∪B", "ℤ", "n!", "G"];
 
 export default function SubsectionClient({
   subsection,
@@ -50,20 +77,16 @@ export default function SubsectionClient({
       setFeedback(
         data.feedback ??
           data.message ??
-          "Got a response, but it wasn’t in the expected format."
+          "Got a response, but it wasn’t in the expected format.",
       );
       setSubmitted(true);
     } catch (err: any) {
-      const msg = String(err?.message ?? "Something went wrong.");
-      if (msg.toLowerCase().includes("insufficient_quota")) {
-        setError(
-          "We hit the AI usage limit for now. Your explanation is still in the box — try again later."
-        );
-      } else {
-        setError(
-          "Something went wrong while generating feedback. Your explanation is still in the box."
-        );
-      }
+      const message = String(err?.message ?? "Something went wrong.");
+      setError(
+        message.toLowerCase().includes("insufficient_quota")
+          ? "We hit the AI usage limit for now. Your explanation is still saved here—try again later."
+          : "Feedback could not be generated. Your explanation is still saved here.",
+      );
     } finally {
       setIsReviewing(false);
     }
@@ -72,190 +95,136 @@ export default function SubsectionClient({
   const practiceItems: string[] =
     subsection.practice ??
     (subsection.practicePrompt ? [subsection.practicePrompt] : []);
-
   const readableModule = moduleSlug.replace(/-/g, " ");
+  const icon = lessonIcons[moduleSlug] ?? "/learn-icons/foundations.png";
+  const visualSeed = Array.from(subsection.slug as string).reduce(
+    (total, character) => total + character.charCodeAt(0),
+    0,
+  );
+  const visualIndex = visualSeed % visualIcons.length;
+  const secondaryIcon = visualIcons[visualIndex];
+  const tertiaryIcon = visualIcons[(visualIndex + 4) % visualIcons.length];
+  const symbol = lessonSymbols[visualSeed % lessonSymbols.length];
 
   return (
-    <div className="min-h-screen bg-[#060815] text-white">
-      {/* Top bar / hero */}
-      <div className="border-b border-white/10 bg-gradient-to-b from-slate-900/70 to-[#060815]">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-6 lg:py-8">
-          {/* Breadcrumbs */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-            <Link href="/learn" className="hover:text-slate-100">
-              Learn
-            </Link>
-            <span className="text-slate-600">/</span>
-            <span className="capitalize text-slate-300">
-              {readableModule}
-            </span>
-            <span className="text-slate-600">/</span>
-            <span className="text-slate-100">{subsection.title}</span>
+    <main className="mb-lesson-page">
+      <header className="mb-lesson-hero">
+        <nav aria-label="Breadcrumb">
+          <Link href="/learn">Learn</Link>
+          <span>/</span>
+          <Link href={`/learn/${moduleSlug}`} className="capitalize">{readableModule}</Link>
+          <span>/</span>
+          <span>{subsection.title}</span>
+        </nav>
+
+        <div className="mb-lesson-hero-grid">
+          <div className="mb-lesson-hero-copy">
+            <span>LESSON SUBSECTION</span>
+            <h1>{subsection.title}</h1>
+            <p>See the idea. Try the key step. Explain it back.</p>
+            <div>
+              <span>10–20 min</span>
+              <span>Notebook ready</span>
+              <span>Proof-first</span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="max-w-xl">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-teal-300">
-                Lesson subsection
-              </p>
-              <h1 className="mt-2 text-2xl font-semibold md:text-3xl">
-                {subsection.title}
-              </h1>
-              <p className="mt-3 text-sm text-slate-400">
-                Read the explanation, try the on-paper prompts, then
-                explain the idea in your own words. Use AI feedback as a
-                mentor, not a shortcut.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start gap-2 text-xs text-slate-400 sm:items-end">
-              <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/15 px-3 py-1">
-                  10–20 min focus
-                </span>
-                <span className="rounded-full border border-teal-300/60 bg-teal-300/10 px-3 py-1 text-teal-200">
-                  Proof-first mindset
-                </span>
-              </div>
-              <p className="max-w-xs text-right text-[0.7rem] text-slate-500">
-                Best flow: read → think on paper → write a short
-                explanation → refine with feedback.
-              </p>
+          <div className={`mb-lesson-hero-art visual-${(visualIndex % 5) + 1}`}>
+            <div className="mb-lesson-concept-art" aria-hidden="true">
+              <span>{symbol}</span>
+              <Image className="is-primary" src={icon} alt="" width={175} height={175} priority />
+              <Image className="is-secondary" src={secondaryIcon} alt="" width={90} height={90} />
+              <Image className="is-tertiary" src={tertiaryIcon} alt="" width={78} height={78} />
+              <i>{subsection.title}</i>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main content */}
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:py-12">
-        {/* LEFT: Reading + TL;DR + prompts */}
-        <section className="space-y-6 lg:space-y-8">
-          {/* Reading card */}
-          <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
-            <div className="mb-4 flex items-center justify-between gap-2">
-              <h2 className="text-lg font-semibold">Reading</h2>
-              <span className="rounded-full bg-slate-900 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-slate-400">
-                Core explanation
-              </span>
-            </div>
+      <section className="mb-lesson-content">
+        <section className="mb-lesson-reading-column">
+          <div className="mb-lesson-snapshot">
+            <article><Image src="/learn-icons/foundations.png" alt="" width={58} height={58} /><div><b>Read</b><span>Find the structure.</span></div></article>
+            <article><Image src="/learn-icons/equations.png" alt="" width={58} height={58} /><div><b>Try</b><span>Work it on paper.</span></div></article>
+            <article><Image src="/learn-icons/symmetry.png" alt="" width={58} height={58} /><div><b>Explain</b><span>Say why it works.</span></div></article>
+          </div>
 
-            <div className="prose prose-invert max-w-none prose-headings:text-slate-100 prose-strong:text-slate-100 prose-code:text-teal-200 prose-a:text-teal-200">
+          <article className="mb-lesson-reading-card">
+            <header>
+              <div className="mb-lesson-card-icon"><Image src={icon} alt="" width={88} height={88} /></div>
+              <div><span>CORE IDEA</span><h2>Read the argument</h2></div>
+            </header>
+            <div className="mb-lesson-prose">
               <ReactMarkdown>{subsection.reading}</ReactMarkdown>
             </div>
-          </div>
+          </article>
 
-          {/* TL;DR */}
           {subsection.tldr && (
-            <div className="rounded-2xl border border-teal-300/60 bg-teal-300/8 p-5">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-teal-200">
-                TL;DR — key idea
-              </p>
-              <p className="mt-2 text-sm text-teal-50">
-                {subsection.tldr}
-              </p>
-            </div>
+            <aside className="mb-lesson-key-idea">
+              <Image src="/learn-icons/logic.png" alt="" width={76} height={76} />
+              <div><span>KEEP THIS</span><p>{subsection.tldr}</p></div>
+            </aside>
           )}
 
-          {/* On-paper prompts */}
-          {(practiceItems && practiceItems.length > 0) && (
-            <div className="rounded-2xl border border-white/10 bg-slate-950/90 p-5">
-              <h2 className="text-sm font-semibold">
-                Try these in your notebook
-              </h2>
-              <p className="mt-2 text-xs text-slate-500">
-                Don’t skip this – writing proofs or explanations on
-                paper is where most of the learning actually happens.
-              </p>
-
-              <ul className="mt-4 space-y-3 text-sm text-slate-200">
-                {practiceItems.map((p: string, i: number) => (
-                  <li
-                    key={i}
-                    className="flex gap-2 rounded-xl border border-white/10 bg-slate-950/80 p-3"
-                  >
-                    <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-slate-900 text-[0.7rem] text-slate-400">
-                      {i + 1}
-                    </span>
-                    <p className="whitespace-pre-line">{p}</p>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-3 text-[0.7rem] text-slate-500">
-                Once you’ve sketched some ideas, summarize the main
-                insight in the reflection box on the right.
-              </p>
-            </div>
-          )}
-        </section>
-
-        {/* RIGHT: Reflection + AI feedback */}
-        <section className="space-y-6 lg:space-y-8">
-          <div className="sticky top-4 space-y-6">
-            {/* Reflection card */}
-            <div className="rounded-2xl border border-white/10 bg-slate-950/95 p-5">
-              <h2 className="text-sm font-semibold">
-                Check your understanding
-              </h2>
-              <p className="mt-2 text-xs text-slate-500">
-                In 3–6 sentences, explain the core idea of this
-                subsection as if you were teaching a friend who hasn’t
-                seen it. Focus on the logic, not just the final
-                statements.
-              </p>
-
-              <textarea
-                className="mt-4 h-40 w-full resize-none rounded-xl border border-white/10 bg-[#060815]/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 placeholder:text-slate-600 focus:border-teal-200/45"
-                placeholder="Write your own explanation here…"
-                value={reflection}
-                onChange={(e) => setReflection(e.target.value)}
-              />
-
-              <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                <button
-                  onClick={handleSubmit}
-                  disabled={!reflection.trim() || isReviewing}
-                  className="inline-flex items-center justify-center rounded-full bg-teal-300 px-4 py-2 text-sm font-medium text-slate-950 shadow-md shadow-teal-300/30 transition hover:bg-teal-200 disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none"
-                >
-                  {isReviewing
-                    ? "Getting AI critique…"
-                    : "Get AI feedback"}
-                </button>
-                <p className="text-[0.7rem] text-slate-500">
-                  AI is optional. Use it to spot gaps and sharpen your
-                  wording, not to replace your own thinking.
-                </p>
-              </div>
-
-              {submitted && !isReviewing && !error && (
-                <p className="mt-3 text-xs text-teal-200">
-                  ✔️ Feedback generated below. Re-write your explanation
-                  if you spot mistakes or fuzzy parts.
-                </p>
-              )}
-
-              {error && (
-                <p className="mt-3 text-xs text-red-400">{error}</p>
-              )}
-            </div>
-
-            {/* Feedback card */}
-            {feedback && (
-              <div className="rounded-2xl border border-teal-300/50 bg-teal-300/8 p-5">
-                <h2 className="text-sm font-semibold text-teal-100">
-                  AI feedback
-                </h2>
-                <p className="mt-2 text-xs text-teal-200">
-                  Treat this as a mentor’s comments, not a grade.
-                </p>
-                <div className="mt-3 whitespace-pre-line text-sm text-teal-50">
-                  {feedback}
-                </div>
-              </div>
-            )}
+          <div className={`mb-lesson-visual-break visual-${(visualIndex % 5) + 1}`} aria-hidden="true">
+            <span>{symbol}</span>
+            <Image className="is-primary" src={icon} alt="" width={150} height={150} />
+            <Image className="is-secondary" src={secondaryIcon} alt="" width={100} height={100} />
+            <Image className="is-tertiary" src={tertiaryIcon} alt="" width={90} height={90} />
+            <p>IDEA <b>→</b> ARGUMENT <b>→</b> PROOF</p>
           </div>
+
+          {practiceItems.length > 0 && (
+            <article className="mb-lesson-notebook-card">
+              <header>
+                <Image src="/learn-icons/equations.png" alt="" width={82} height={82} />
+                <div><span>YOUR TURN</span><h2>Try it in your notebook</h2><p>Sketch the reasoning before you type.</p></div>
+              </header>
+              <ol>
+                {practiceItems.map((prompt: string, index: number) => (
+                  <li key={index}><span>{index + 1}</span><p>{prompt}</p></li>
+                ))}
+              </ol>
+            </article>
+          )}
         </section>
-      </div>
-    </div>
+
+        <aside className="mb-lesson-reflection-column">
+          <div className="mb-lesson-reflection-card">
+            <div className="mb-lesson-reflection-icon"><Image src="/learn-icons/relations.png" alt="" width={90} height={90} /></div>
+            <span>CHECK YOUR UNDERSTANDING</span>
+            <h2>Teach the key idea.</h2>
+            <p>Explain it in 3–6 sentences as if a friend asked “why?”</p>
+            <textarea
+              placeholder="Write your explanation here…"
+              value={reflection}
+              onChange={(event) => setReflection(event.target.value)}
+            />
+            <button type="button" onClick={handleSubmit} disabled={!reflection.trim() || isReviewing}>
+              {isReviewing ? "Getting feedback…" : "Get AI feedback"}
+            </button>
+            <small>Optional feedback · your reasoning comes first.</small>
+
+            {submitted && !isReviewing && !error && (
+              <p className="mb-lesson-success">✓ Feedback generated below.</p>
+            )}
+            {error && <p className="mb-lesson-error">{error}</p>}
+          </div>
+
+          {feedback && (
+            <div className="mb-lesson-feedback">
+              <span>AI FEEDBACK</span>
+              <h2>Refine the explanation</h2>
+              <p>{feedback}</p>
+            </div>
+          )}
+
+          <Link className="mb-lesson-next-link" href={`/learn/${moduleSlug}`}>
+            <span>BACK TO THE MODULE</span>
+            <b>See every lesson →</b>
+          </Link>
+        </aside>
+      </section>
+    </main>
   );
 }
