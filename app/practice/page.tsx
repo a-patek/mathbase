@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { practiceProblems } from "@/data/practiceProblems";
+import Image from "next/image";
 
 type Difficulty = "beginner" | "moderate" | "advanced";
 
@@ -160,35 +161,17 @@ export default function PracticePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#060815] text-white">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-120px] h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-teal-300/10 blur-3xl" />
-        <div className="absolute right-[-120px] top-[180px] h-[360px] w-[520px] rounded-full bg-rose-300/10 blur-3xl" />
-        <div className="absolute bottom-[-120px] left-[8%] h-[360px] w-[520px] rounded-full bg-teal-300/10 blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:48px_48px]" />
-      </div>
+    <main className="mb-practice-page">
+      <section className="mb-practice-hero">
+        <div><span>PRACTICE STUDIO</span><h1>Turn an idea into a <em>complete proof.</em></h1><p>Choose a problem, work through the argument, and get focused feedback on correctness, rigor, and missing steps.</p><div className="mb-practice-hero-stats"><span><strong>{practiceProblems.length}</strong> problems</span><span><strong>3</strong> levels</span><span><strong>AI</strong> proof feedback</span></div></div>
+        <div className="mb-practice-hero-art" aria-hidden="true"><span className="practice-paper"><Image src="/learn-icons/equations.png" alt="" width={220} height={220} loading="eager"/></span><span className="practice-float practice-float-one"><Image src="/learn-icons/operations.png" alt="" width={100} height={100} loading="eager"/></span><span className="practice-float practice-float-two"><Image src="/learn-icons/symmetry.png" alt="" width={100} height={100} loading="eager"/></span><i>?</i><b>→</b><i>∴</i></div>
+      </section>
 
-      <div className="mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
-        <header className="mb-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-300">
-            <span className="h-2 w-2 rounded-full bg-teal-300" />
-            Practice Studio
-          </div>
-
-          <h1 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Proof problem bank
-          </h1>
-
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-400 md:text-base">
-            Choose a difficulty, select a problem, or get a random one. Then
-            write your proof in LaTeX and submit it for AI feedback on
-            correctness, rigor, and missing steps.
-          </p>
-        </header>
-
-        <div className="grid gap-6 xl:grid-cols-[320px_1fr]">
-          <aside className="space-y-5">
-            <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-[0_0_40px_rgba(0,0,0,0.35)]">
+      <div className="mb-practice-body">
+        <section className="mb-practice-intro"><div><span>PROBLEM WORKSPACE</span><h2>Choose the right level, then make the reasoning yours.</h2></div><p>Hints are there when you need them. The proof itself should still be yours.</p></section>
+        <div className="mb-practice-layout">
+          <aside className="mb-practice-sidebar">
+            <div className="mb-practice-controls">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                 Difficulty
               </p>
@@ -256,7 +239,7 @@ export default function PracticePage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5">
+            <div className="mb-practice-how">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                 How to use this
               </p>
@@ -269,10 +252,10 @@ export default function PracticePage() {
             </div>
           </aside>
 
-          <section className="space-y-6">
+          <section className="mb-practice-workspace">
             {selectedProblem ? (
               <>
-                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
+                <div className="mb-problem-card">
                   <div className="flex flex-wrap items-center gap-3">
                     <span
                       className={`inline-flex rounded-full border px-3 py-1 text-xs font-medium bg-gradient-to-r ${difficultyAccent[selectedProblem.difficulty]}`}
@@ -325,7 +308,7 @@ export default function PracticePage() {
                   )}
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-[0_0_40px_rgba(0,0,0,0.35)] md:p-7">
+                <div className="mb-proof-editor">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -415,7 +398,7 @@ export default function PracticePage() {
                 </div>
               </>
             ) : (
-              <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-8 text-slate-400">
+              <div className="mb-practice-empty">
                 No problem available for this difficulty yet.
               </div>
             )}

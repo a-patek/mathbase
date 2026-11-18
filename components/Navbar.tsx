@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const primary = [
   { href: "/", label: "Home", icon: "⌂" },
@@ -13,7 +14,7 @@ const primary = [
 const community = [
   { href: "/competition", label: "Competition", icon: "♜" },
   { href: "/competition-team", label: "Competition team", icon: "☆" },
-  { href: "/collaborations-sponsors", label: "Sponsors", icon: "◫" },
+  { href: "/collaborations-sponsors", label: "Collaborations & media", icon: "◎" },
   { href: "/team", label: "Team", icon: "◉" },
 ];
 
@@ -54,6 +55,7 @@ export default function Navbar() {
         </nav>
       </div>
       <div className="mb-sidebar-footer">
+        <a href="https://www.instagram.com/math.base24/" target="_blank" rel="noreferrer" className="mb-instagram-nav"><Image src="/media/instagram.png" alt="" width={22} height={22}/><span>Follow @math.base24</span><b>↗</b></a>
         <Link href="/profile" className={`mb-profile ${active("/profile") ? "is-active" : ""}`}><span>AP</span><p><strong>My profile</strong><small>Progress & settings</small></p><b>→</b></Link>
         <Link href="/auth" className="mb-sign-in">Sign in or create account <span>→</span></Link>
       </div>

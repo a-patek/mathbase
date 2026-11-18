@@ -2,89 +2,25 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Collaborations & Sponsors | MathBase",
-  description:
-    "Collaborations, sponsors, and community spaces connected to MathBase.",
+  title: "Collaborations & Media | MathBase",
+  description: "MathBase collaborations, events, sponsors, and media coverage.",
 };
 
 export default function CollaborationsSponsorsPage() {
-  return (
-    <main className="min-h-screen overflow-x-hidden bg-[#060815] text-white">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-140px] h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-teal-300/10 blur-3xl" />
-        <div className="absolute right-[-80px] top-[120px] h-[320px] w-[420px] rounded-full bg-indigo-300/10 blur-3xl" />
-        <div className="absolute bottom-[-120px] left-[5%] h-[300px] w-[420px] rounded-full bg-amber-200/10 blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:56px_56px]" />
-      </div>
+  return <main className="mb-collab-page">
+    <header className="mb-collab-intro"><div><span>COLLABORATIONS & MEDIA</span><h1>Math grows through <em>community.</em></h1><p>Events, creative partnerships, sponsors, and stories that carry Math Base beyond the screen.</p></div><a className="mb-button-primary" href="https://www.instagram.com/math.base24/" target="_blank" rel="noreferrer">Follow on Instagram <span>↗</span></a></header>
 
-      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 lg:px-10">
-        <header className="mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60">
-            <span className="h-2 w-2 rounded-full bg-teal-300" />
-            Community network
-          </div>
+    <section className="mb-collab-hero">
+      <div><span>YALE MMATHS 2026</span><h2>Showing up for the mathematics—and the people around it.</h2><p>Math Base traveled to Yale MMATHS for a day centered on creative problem solving and mathematical community. The experience reflects what the project is built for: making serious mathematics feel social, welcoming, and worth sharing.</p><dl><div><dt>Yale</dt><dd>New Haven, CT</dd></div><div><dt>MMATHS</dt><dd>2026 competition</dd></div><div><dt>Math Base</dt><dd>In the community</dd></div></dl></div>
+      <figure><Image src="/media/yale-mmaths-portrait.jpeg" alt="Two Math Base team members holding Yale MMATHS 2026 shirts" width={1170} height={1560} priority/><figcaption>Math Base at Yale MMATHS 2026</figcaption></figure>
+    </section>
 
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl">
-            Collaborations{" "}
-            <span className="bg-gradient-to-r from-teal-200 via-indigo-200 to-amber-200 bg-clip-text text-transparent">
-              &amp; Sponsors
-            </span>
-          </h1>
+    <section className="mb-collab-section"><header><span>CREATIVE COLLABORATORS</span><h2>Tools that make mathematics visible.</h2></header><article className="mb-desmos-card"><div><Image src="/media/desmos.png" alt="Desmos" width={779} height={202}/></div><section><span>COLLABORATION</span><h3>Exploring mathematics with Desmos.</h3><p>Desmos brings mathematical ideas to life through dynamic graphs and interactive visual thinking—a natural fit for Math Base’s learning-first approach.</p></section><a href="https://www.desmos.com/" target="_blank" rel="noreferrer">Visit Desmos ↗</a></article></section>
 
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-white/65 sm:text-lg">
-            MathBase grows through local partnerships, sponsors, student
-            projects, and shared spaces where people can build, teach, and solve
-            problems together.
-          </p>
-        </header>
+    <section className="mb-community-collab"><figure><Image src="/img-4155.jpeg" alt="Math Base students outside Code Ninjas" width={1820} height={1180}/><figcaption>Math Base students outside Code Ninjas</figcaption></figure><div><span>COMMUNITY COLLABORATION</span><h2>Code Ninjas</h2><p>Code Ninjas has been one of the community spaces connected to Math Base’s student-led work—bringing together coding, mathematics, mentoring, and competition-focused collaboration.</p><small>LOCAL PARTNERSHIP · STUDENT COMMUNITY</small></div></section>
 
-        <section className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:items-start">
-          <figure className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] backdrop-blur-sm">
-            <Image
-              src="/img-4155.jpeg"
-              alt="MathBase students outside Code Ninjas"
-              width={1820}
-              height={1180}
-              className="aspect-[16/10] w-full object-cover"
-              priority
-            />
-            <figcaption className="border-t border-white/10 px-6 py-5 text-sm leading-relaxed text-white/55">
-              One of the spaces connected to MathBase&apos;s student-led work:
-              building community through coding, math, mentoring, and
-              competition-focused collaboration.
-            </figcaption>
-          </figure>
+    <section className="mb-collab-section"><header><span>PRESS & STORIES</span><h2>Math Base in the media.</h2></header><div className="mb-media-grid"><a href="https://www.tapinto.net/towns/hamilton-and-robbinsville/sections/education/articles/why-robbinsville-high-school-students-created-app-that-now-reaches-thousands" target="_blank" rel="noreferrer" className="mb-media-card mb-tapinto-card"><b>TAP<span>into</span></b><div><span>EDUCATION FEATURE</span><h3>Why Robbinsville High School students created an app that now reaches thousands</h3><p>Read the local story behind Math Base, its student founders, and the need that inspired the platform.</p><strong>Read the article ↗</strong></div></a><a href="https://www.instagram.com/p/De0HmgGAZ4p/" target="_blank" rel="noreferrer" className="mb-media-card mb-instagram-card"><Image src="/media/instagram.png" alt="" width={48} height={48}/><div><span>FEATURED POST</span><h3>Follow the story on Instagram.</h3><p>See the Math Base post and stay close to new events, milestones, and mathematics.</p><strong>View on Instagram ↗</strong></div></a></div></section>
 
-          <div className="space-y-4">
-            <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-6 backdrop-blur-sm">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-300">
-                Collaborations
-              </p>
-              <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">
-                Some of the collaborations we have had
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-white/60">
-                MathBase works with community spaces and student groups that
-                support problem solving, coding, mentoring, and competition
-                math.
-              </p>
-            </div>
-
-            <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-6 backdrop-blur-sm">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
-                Sponsors
-              </p>
-              <h2 className="mt-3 text-xl font-semibold tracking-tight text-white">
-                Supporting free math opportunities
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-white/60">
-                Sponsors help MathBase keep competitions, resources, and
-                student opportunities accessible.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
+    <section className="mb-collab-gallery"><figure><Image src="/media/yale-mmaths-landscape.jpeg" alt="Math Base team at Yale MMATHS 2026" width={1560} height={1170}/><figcaption>01 · Yale MMATHS 2026</figcaption></figure><div><Image src="/media/instagram.png" alt="" width={42} height={42}/><span>FOLLOW ALONG</span><h2>More mathematics, in motion.</h2><p>Events, challenges, behind-the-scenes work, and the people helping Math Base grow.</p><a className="mb-button-light" href="https://www.instagram.com/math.base24/" target="_blank" rel="noreferrer">Open Instagram <span>↗</span></a></div></section>
+  </main>;
 }

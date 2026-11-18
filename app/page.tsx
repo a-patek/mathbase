@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeroScrollDemo } from "@/components/ui/demo";
+import HomeGallery from "@/components/HomeGallery";
 
 const proofLines = [
   ["Assumption", "Assume n is even."],
@@ -42,6 +43,8 @@ export default function Home() {
 
     <HeroScrollDemo />
 
+    <HomeGallery />
+
     <section className="mb-home-section">
       <header className="mb-section-head"><div><span>BUILD YOUR FOUNDATION</span><h2>Three ways to grow.</h2></div><p>Learn the language of proof, apply it deliberately, then test your ideas in competition.</p></header>
       <div className="mb-path-grid">{learningCards.map(card=><Link key={card.title} href={card.href} className="mb-path-card"><div className="mb-card-top"><span>{card.number}</span><i>{card.symbol}</i></div><h3>{card.title}</h3><p>{card.body}</p><div><small>{card.meta}</small><b>→</b></div></Link>)}</div>
@@ -56,5 +59,12 @@ export default function Home() {
       <header className="mb-section-head"><div><span>EXPLORE THE CURRICULUM</span><h2>A foundation that branches into real problem solving.</h2></div><Link href="/learn">Browse all lessons →</Link></header>
       <div className="mb-branch-grid">{branches.map((branch,index)=><Link href="/learn" key={branch}><span>{["ℤ","◫","⌘","∀","∑","△"][index]}</span><strong>{branch}</strong><i>↗</i></Link>)}</div>
     </section>
+
+    <section className="mb-yale-feature">
+      <Image src="/media/yale-mmaths-landscape.jpeg" alt="Math Base team members at Yale MMATHS 2026 holding event shirts" width={1560} height={1170}/>
+      <div><span>OUT IN THE MATH WORLD</span><h2>Math Base goes to Yale MMATHS.</h2><p>Taking the same curiosity we build online into a day of collaborative problem solving, competition, and mathematical community at Yale.</p><div><Link className="mb-button-primary" href="/collaborations-sponsors">See collaborations <span>→</span></Link><a className="mb-instagram-inline" href="https://www.instagram.com/math.base24/" target="_blank" rel="noreferrer"><Image src="/media/instagram.png" alt="" width={22} height={22}/> Follow @math.base24</a></div></div>
+    </section>
+
+    <section className="mb-media-ribbon"><div><span>MATH BASE IN THE MEDIA</span><h2>A student-built idea reaching thousands.</h2><p>Read the story behind Math Base and follow its progress through community coverage and social updates.</p></div><div><a href="https://www.tapinto.net/towns/hamilton-and-robbinsville/sections/education/articles/why-robbinsville-high-school-students-created-app-that-now-reaches-thousands" target="_blank" rel="noreferrer">Read the TAPinto feature ↗</a><a href="https://www.instagram.com/p/De0HmgGAZ4p/" target="_blank" rel="noreferrer">View the featured post ↗</a></div></section>
   </main>;
 }

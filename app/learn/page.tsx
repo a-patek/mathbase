@@ -1,224 +1,55 @@
-// app/learn/page.tsx
+import Image from "next/image";
 import Link from "next/link";
 import { lessons } from "@/data/lessons";
 
-// Loosely typed so TS doesn't scream
 type LessonModule = {
   title: string;
   topic?: string;
   subsections?: { slug: string; title: string }[];
 };
 
-const rawEntries = Object.entries(
-  lessons as unknown as Record<string, LessonModule>
-);
-
-// Detect branches by slug prefix
-const isBranchSlug = (slug: string) =>
-  slug.startsWith("number-theory") ||
-  slug.startsWith("combinatorics") ||
-  slug.startsWith("graph-theory");
-
-// Separate into core vs branches
+const rawEntries = Object.entries(lessons as unknown as Record<string, LessonModule>);
+const isBranchSlug = (slug: string) => slug.startsWith("number-theory") || slug.startsWith("combinatorics") || slug.startsWith("graph-theory");
 const coreModules = rawEntries.filter(([slug]) => !isBranchSlug(slug));
 const branchModules = rawEntries.filter(([slug]) => isBranchSlug(slug));
 
-// Optional metadata for nicer blurbs on known modules
-const moduleMeta: Record<
-  string,
-  { label?: string; blurb?: string; tag?: string }
-> = {
-  "what-is-a-proof": {
-    label: "Module 1",
-    blurb: "What proofs are really doing, and how mathematicians think with them.",
-    tag: "Start here",
-  },
-  logic: {
-    label: "Module 2",
-    blurb: "Propositions, implications, truth tables, and quantifiers.",
-  },
-  "direct-proofs": {
-    label: "Module 3",
-    blurb: "Turn definitions into step-by-step arguments using direct proof.",
-  },
-  counterexamples: {
-    label: "Module 4",
-    blurb: "Disprove false claims and build minimal counterexamples.",
-  },
-  "contradiction-contrapositive": {
-    label: "Module 5",
-    blurb: "Use contrapositive and contradiction to prove tricky statements.",
-  },
-  induction: {
-    label: "Module 6",
-    blurb: "Learn induction as a logical structure, not just a magic trick.",
-  },
-  "sets-and-functions": {
-    label: "Module 7",
-    blurb: "Proof-oriented view of sets, functions, injective/surjective/bijective.",
-  },
-  "number-theory": {
-    tag: "Branch A",
-    blurb: "Divisibility, modular arithmetic, primes, and Diophantine equations.",
-  },
-  combinatorics: {
-    tag: "Branch B",
-    blurb: "Counting principles, invariants, and classic olympiad-style problems.",
-  },
-  "graph-theory": {
-    tag: "Branch C",
-    blurb: "Vertices, edges, paths, cycles, and graph colorings.",
-  },
+const icons = [
+  "/learn-icons/foundations.png", "/learn-icons/logic.png", "/learn-icons/operations.png",
+  "/learn-icons/geometry.png", "/learn-icons/relations.png", "/learn-icons/graph.png",
+  "/learn-icons/sets.png", "/learn-icons/equations.png", "/learn-icons/symmetry.png",
+];
+
+const moduleMeta: Record<string,{label?:string;blurb?:string;tag?:string}> = {
+  "what-is-a-proof": {label:"Module 1",blurb:"What proofs are really doing, and how mathematicians think with them.",tag:"Start here"},
+  logic: {label:"Module 2",blurb:"Propositions, implications, truth tables, and quantifiers."},
+  "direct-proofs": {label:"Module 3",blurb:"Turn definitions into step-by-step arguments using direct proof."},
+  counterexamples: {label:"Module 4",blurb:"Disprove false claims and build minimal counterexamples."},
+  "contradiction-contrapositive": {label:"Module 5",blurb:"Use contrapositive and contradiction to prove tricky statements."},
+  induction: {label:"Module 6",blurb:"Learn induction as a logical structure, not just a magic trick."},
+  "sets-and-functions": {label:"Module 7",blurb:"A proof-oriented view of sets, functions, and mappings."},
+  "number-theory": {tag:"Branch A",blurb:"Divisibility, modular arithmetic, primes, and Diophantine equations."},
+  combinatorics: {tag:"Branch B",blurb:"Counting principles, invariants, and classic olympiad-style problems."},
+  "graph-theory": {tag:"Branch C",blurb:"Vertices, edges, paths, cycles, and graph colorings."},
 };
 
-export default function LearnPage() {
-  return (
-    <main className="min-h-screen bg-[#060815] text-white">
-      {/* Hero */}
-      <section className="border-b border-white/10 bg-gradient-to-b from-slate-950 via-[#060815] to-[#060815]">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-900/80 px-3 py-1 text-xs font-medium text-slate-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
-              Learn · Structured proof curriculum
-            </div>
+export default function LearnPage(){
+  const lessonCount=rawEntries.reduce((sum,[,item])=>sum+(item.subsections?.length??0),0);
+  return <main className="mb-learn-page">
+    <section className="mb-learn-hero">
+      <div className="mb-learn-hero-copy"><span>STRUCTURED PROOF CURRICULUM</span><h1>Learn mathematics by <em>building the argument.</em></h1><p>Move from the language of proof into the ideas that power olympiad problems, contest mathematics, and proof-based courses.</p><div><Link href="#core-track">Start the core track <b>→</b></Link><Link href="/practice">Try a problem <b>↗</b></Link></div></div>
+      <div className="mb-learn-art" aria-hidden="true"><span className="mb-art-orbit"/><div>{icons.slice(2,6).map((src,index)=><span key={src} className={`mb-art-tile tile-${index+1}`}><Image src={src} alt="" width={120} height={120}/></span>)}</div><strong>IDEA</strong><i>→</i><strong>PROOF</strong></div>
+    </section>
 
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-              Work through a{" "}
-              <span className="bg-gradient-to-r from-teal-200 to-indigo-300 bg-clip-text text-transparent">
-                proof-first math track
-              </span>
-            </h1>
+    <section className="mb-learn-body">
+      <div className="mb-learn-roadmap"><div><span>YOUR ROADMAP</span><h2>{branchModules.length?"Core foundations. Three branches. One connected toolkit.":"Seven foundations. One connected proof toolkit."}</h2><p>{branchModules.length?"Move from proof language into number theory, combinatorics, and graph theory as your problem-solving range grows.":"Build the reasoning habits that carry from definitions and logic into contradiction, induction, sets, and functions."}</p></div><div className="mb-roadmap-stats"><span><strong>{rawEntries.length}</strong> modules</span><span><strong>{lessonCount}</strong> lessons</span>{branchModules.length>0&&<span><strong>{branchModules.length}</strong> branches</span>}</div><div className="mb-roadmap-line" aria-hidden="true">{[1,2,3,4,5].map(step=><i className={step<4?"is-reached":""} key={step}>{step}</i>)}</div></div>
 
-            <p className="text-sm md:text-base text-slate-300">
-              Start with the core proof modules — what proofs are, logic, direct proof,
-              contradiction, induction, and sets/functions — then branch into number
-              theory, combinatorics, and graph theory. Every module is built to feed
-              directly into contest math, olympiad-style problems, and proof-based
-              courses.
-            </p>
+      <section id="core-track" className="mb-track-section"><header><div><span>01 · BUILD THE FOUNDATION</span><h2>Core proof track</h2><p>Follow these modules in order. Each one adds a reusable reasoning habit.</p></div><small>{coreModules.length} MODULES</small></header><div className="mb-core-grid">{coreModules.map(([slug,data],index)=>{const meta=moduleMeta[slug]??{};return <Link key={slug} href={`/learn/${slug}`} className="mb-module-card"><div className={`mb-module-visual visual-${(index%4)+1}`}><Image src={icons[index%icons.length]} alt="" width={150} height={150}/><span>{String(index+1).padStart(2,"0")}</span></div><div className="mb-module-copy"><p>{meta.label??`Module ${index+1}`}{meta.tag&&<b>{meta.tag}</b>}</p><h3>{data.title}</h3><span>{meta.blurb??"Explore concepts and proof techniques in this topic."}</span><footer><small>{data.subsections?.length??0} lessons</small><strong>Open module →</strong></footer></div></Link>})}</div></section>
 
-            <div className="flex flex-wrap gap-3 text-[0.75rem] text-slate-400">
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
-                Best for students aiming at AMC/AIME, olympiads, and proof courses
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
-                Each module has reading, practice, TL;DR, and proof-writing prompts
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="mb-method-break"><div><Image src="/learn-icons/equations.png" alt="Illustrated notebook with mathematical equations" width={230} height={230} loading="eager"/></div><section><span>THE MATH BASE METHOD</span><h2>Read it. Try it. Explain it.</h2><p>Each lesson pairs mathematical reading with notebook work and a chance to refine your explanation. The goal is not to recognize a method—it is to make the reasoning yours.</p><ul><li><b>01</b> Understand the idea</li><li><b>02</b> Build the proof</li><li><b>03</b> Explain the key step</li></ul></section></section>
 
-      {/* Core modules + branches */}
-      <section className="mx-auto max-w-6xl px-6 py-10 md:py-14 space-y-12">
-        {/* Core Proof Track */}
-        <div>
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-semibold">Core proof track</h2>
-              <p className="mt-1 text-sm text-slate-400 max-w-xl">
-                Go through these in order. They build the mental toolkit you’ll reuse in
-                every branch of math.
-              </p>
-            </div>
-          </div>
+      {branchModules.length>0&&<section className="mb-track-section mb-branch-section"><header><div><span>02 · CHOOSE A DIRECTION</span><h2>Branches of mathematics</h2><p>Once the core feels familiar, follow the questions that interest you most.</p></div><small>{branchModules.length} BRANCHES</small></header><div className="mb-branch-learning-grid">{branchModules.map(([slug,data],index)=>{const meta=moduleMeta[slug]??{};const icon=icons[6+index];return <Link key={slug} href={`/learn/${slug}`} className={`mb-branch-learning-card branch-${index+1}`}><Image src={icon} alt="" width={130} height={130}/><span>{meta.tag??"Branch"}</span><h3>{data.title}</h3><p>{meta.blurb??"Build proof-based fluency in this branch."}</p><footer><small>{data.subsections?.length??0} lessons</small><strong>Explore →</strong></footer></Link>})}</div></section>}
 
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {coreModules.map(([slug, data], idx) => {
-              const meta = moduleMeta[slug] ?? {};
-              const label =
-                meta.label ?? `Module ${idx + 1}`;
-              const blurb =
-                meta.blurb ??
-                "Explore concepts and proof techniques in this topic.";
-              const tag = meta.tag;
-
-              return (
-                <Link
-                  key={slug}
-                  href={`/learn/${slug}`}
-                  className="group flex flex-col rounded-2xl border border-white/10 bg-slate-950/80 p-5 transition hover:border-teal-300/70 hover:bg-slate-900"
-                >
-                  <div className="mb-2 flex items-center justify-between gap-2">
-                    <span className="text-[0.7rem] font-semibold uppercase tracking-wide text-teal-300">
-                      {label}
-                    </span>
-                    {tag && (
-                      <span className="rounded-full border border-teal-300/60 bg-teal-300/10 px-2 py-0.5 text-[0.65rem] font-medium text-teal-100">
-                        {tag}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-sm font-semibold text-slate-50 group-hover:text-teal-50">
-                    {data.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-xs text-slate-400">{blurb}</p>
-                  <div className="mt-3 flex items-center justify-between text-[0.7rem] text-slate-500">
-                    <span>
-                      {data.subsections?.length ?? 0} lesson
-                      {(data.subsections?.length ?? 0) === 1 ? "" : "s"}
-                    </span>
-                    <span className="font-medium text-teal-200 group-hover:text-teal-100">
-                      Open module →
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Branches */}
-        {branchModules.length > 0 && (
-          <div className="border-t border-white/10 pt-10">
-            <div className="mb-6">
-              <h2 className="text-2xl font-semibold">Branches of math</h2>
-              <p className="mt-1 text-sm text-slate-400 max-w-xl">
-                Once you’re comfortable with the core modules, dive into one or more
-                branches. Each branch leans heavily on proof-style thinking, not just
-                computational drills.
-              </p>
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-3">
-              {branchModules.map(([slug, data]) => {
-                const meta = moduleMeta[slug] ?? {};
-                const tag = meta.tag ?? "Branch";
-                const blurb =
-                  meta.blurb ??
-                  "Intro-level modules in this branch, built around proof-based reasoning.";
-
-                return (
-                  <Link
-                    key={slug}
-                    href={`/learn/${slug}`}
-                    className="group flex flex-col rounded-2xl border border-white/10 bg-[#060815]/80 p-5 transition hover:border-indigo-300/70 hover:bg-slate-950"
-                  >
-                    <div className="mb-2 flex items-center justify-between gap-2">
-                      <span className="rounded-full border border-white/15 px-2 py-0.5 text-[0.65rem] font-medium text-slate-300">
-                        {tag}
-                      </span>
-                      <span className="text-[0.65rem] text-slate-500">
-                        {data.subsections?.length ?? 0} lessons
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-semibold text-slate-50 group-hover:text-indigo-50">
-                      {data.title}
-                    </h3>
-                    <p className="mt-2 flex-1 text-xs text-slate-400">{blurb}</p>
-                    <p className="mt-3 text-[0.7rem] font-medium text-indigo-200 group-hover:text-indigo-100">
-                      Explore this branch →
-                    </p>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </section>
-    </main>
-  );
+      <section className="mb-learn-cta"><Image src="/learn-icons/symmetry.png" alt="Illustration of symmetric curves" width={150} height={150} loading="eager"/><div><span>READY TO APPLY IT?</span><h2>A proof becomes useful when you can build it yourself.</h2><p>Take an idea from the curriculum into a focused practice problem.</p></div><Link href="/practice">Open practice <b>→</b></Link></section>
+    </section>
+  </main>;
 }
